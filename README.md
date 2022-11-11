@@ -5,7 +5,7 @@
 
 ## Documentation
 
-API documentation is available at <{docs_url}>.
+API documentation is available at <https://www.flipt.io/docs/api/flipt-core/v1.14.0>.
 
 ## Usage
 
