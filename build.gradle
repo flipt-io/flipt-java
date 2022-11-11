@@ -1,0 +1,46 @@
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        url 'https://s01.oss.sonatype.org/content/repositories/releases/'
+    }
+}
+
+dependencies {
+    api 'io.github.fern-api:jersey-utils:0.0.82'
+    api 'com.fasterxml.jackson.core:jackson-databind:2.13.0'
+    api 'com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.12.3'
+    api 'io.github.openfeign:feign-jackson:11.8'
+    api 'io.github.openfeign:feign-core:11.8'
+    api 'io.github.openfeign:feign-jaxrs2:11.8'
+}
+
+java {
+    withSourcesJar()
+    withJavadocJar()
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = 'io.github.fern-api'
+            artifactId = 'flipt'
+            version = '0.0.8'
+            from components.java
+        }
+    }
+    repositories {
+        maven {
+            url "$System.env.MAVEN_PUBLISH_REGISTRY_URL"
+            credentials {
+                username "$System.env.MAVEN_USERNAME"
+                password "$System.env.MAVEN_PASSWORD"
+            }
+        }
+    }
+}
+
