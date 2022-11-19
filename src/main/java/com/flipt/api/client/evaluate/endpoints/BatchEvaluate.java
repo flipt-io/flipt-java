@@ -1,6 +1,6 @@
 package com.flipt.api.client.evaluate.endpoints;
 
-import com.flipt.api.client.evaluate.types.FliptBatchEvaluationRequest;
+import com.flipt.api.client.evaluate.types.BatchEvaluationRequest;
 import com.flipt.api.core.BasicAuth;
 import java.lang.Object;
 import java.lang.Override;
@@ -15,11 +15,11 @@ public final class BatchEvaluate {
   public static final class Request {
     private final Optional<BasicAuth> authOverride;
 
-    private final FliptBatchEvaluationRequest body;
+    private final BatchEvaluationRequest body;
 
     private int _cachedHashCode;
 
-    Request(Optional<BasicAuth> authOverride, FliptBatchEvaluationRequest body) {
+    Request(Optional<BasicAuth> authOverride, BatchEvaluationRequest body) {
       this.authOverride = authOverride;
       this.body = body;
     }
@@ -28,7 +28,7 @@ public final class BatchEvaluate {
       return authOverride;
     }
 
-    public FliptBatchEvaluationRequest getBody() {
+    public BatchEvaluationRequest getBody() {
       return body;
     }
 
@@ -60,7 +60,7 @@ public final class BatchEvaluate {
     }
 
     public interface BodyStage {
-      _FinalStage body(FliptBatchEvaluationRequest body);
+      _FinalStage body(BatchEvaluationRequest body);
 
       Builder from(Request other);
     }
@@ -74,7 +74,7 @@ public final class BatchEvaluate {
     }
 
     static final class Builder implements BodyStage, _FinalStage {
-      private FliptBatchEvaluationRequest body;
+      private BatchEvaluationRequest body;
 
       private Optional<BasicAuth> authOverride = Optional.empty();
 
@@ -89,7 +89,7 @@ public final class BatchEvaluate {
       }
 
       @Override
-      public _FinalStage body(FliptBatchEvaluationRequest body) {
+      public _FinalStage body(BatchEvaluationRequest body) {
         this.body = body;
         return this;
       }

@@ -10,8 +10,8 @@ import com.flipt.api.client.segments.exceptions.DeleteException;
 import com.flipt.api.client.segments.exceptions.GetException;
 import com.flipt.api.client.segments.exceptions.ListException;
 import com.flipt.api.client.segments.exceptions.UpdateException;
-import com.flipt.api.client.segments.types.FliptSegment;
-import com.flipt.api.client.segments.types.FliptSegmentList;
+import com.flipt.api.client.segments.types.Segment;
+import com.flipt.api.client.segments.types.SegmentList;
 import com.flipt.api.core.BasicAuth;
 import java.lang.RuntimeException;
 import java.lang.String;
@@ -32,17 +32,17 @@ public final class SegmentsServiceClient {
     this.auth = Optional.of(auth);
   }
 
-  public FliptSegmentList list(List.Request request) throws ListException {
+  public SegmentList list(List.Request request) throws ListException {
     BasicAuth authValue = request.getAuthOverride().orElseGet(() -> this.auth.orElseThrow(() -> new RuntimeException("Auth is required for list")));
     return this.service.list(authValue, request.getLimit(), request.getOffset(), request.getPageToken());
   }
 
-  public FliptSegment create(Create.Request request) throws CreateException {
+  public Segment create(Create.Request request) throws CreateException {
     BasicAuth authValue = request.getAuthOverride().orElseGet(() -> this.auth.orElseThrow(() -> new RuntimeException("Auth is required for create")));
     return this.service.create(authValue, request.getBody());
   }
 
-  public FliptSegment get(Get.Request request) throws GetException {
+  public Segment get(Get.Request request) throws GetException {
     BasicAuth authValue = request.getAuthOverride().orElseGet(() -> this.auth.orElseThrow(() -> new RuntimeException("Auth is required for get")));
     return this.service.get(authValue, request.getKey());
   }
@@ -52,7 +52,7 @@ public final class SegmentsServiceClient {
     this.service.delete(authValue, request.getKey());
   }
 
-  public FliptSegment update(Update.Request request) throws UpdateException {
+  public Segment update(Update.Request request) throws UpdateException {
     BasicAuth authValue = request.getAuthOverride().orElseGet(() -> this.auth.orElseThrow(() -> new RuntimeException("Auth is required for update")));
     return this.service.update(authValue, request.getKey(), request.getBody());
   }

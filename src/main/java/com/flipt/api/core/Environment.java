@@ -3,7 +3,7 @@ package com.flipt.api.core;
 import java.lang.String;
 
 public final class Environment {
-  public static final Environment PRODUCTION = new Environment("https://flipt.io/api/v1");
+  public static final Environment PRODUCTION = new Environment("http://localhost:8080");
 
   private final String url;
 

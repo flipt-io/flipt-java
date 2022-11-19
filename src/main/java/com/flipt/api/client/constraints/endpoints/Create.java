@@ -1,6 +1,6 @@
 package com.flipt.api.client.constraints.endpoints;
 
-import com.flipt.api.client.constraints.types.FliptConstraintCreateRequest;
+import com.flipt.api.client.constraints.types.ConstraintCreateRequest;
 import com.flipt.api.core.BasicAuth;
 import java.lang.Object;
 import java.lang.Override;
@@ -15,11 +15,11 @@ public final class Create {
   public static final class Request {
     private final Optional<BasicAuth> authOverride;
 
-    private final FliptConstraintCreateRequest body;
+    private final ConstraintCreateRequest body;
 
     private int _cachedHashCode;
 
-    Request(Optional<BasicAuth> authOverride, FliptConstraintCreateRequest body) {
+    Request(Optional<BasicAuth> authOverride, ConstraintCreateRequest body) {
       this.authOverride = authOverride;
       this.body = body;
     }
@@ -28,7 +28,7 @@ public final class Create {
       return authOverride;
     }
 
-    public FliptConstraintCreateRequest getBody() {
+    public ConstraintCreateRequest getBody() {
       return body;
     }
 
@@ -60,7 +60,7 @@ public final class Create {
     }
 
     public interface BodyStage {
-      _FinalStage body(FliptConstraintCreateRequest body);
+      _FinalStage body(ConstraintCreateRequest body);
 
       Builder from(Request other);
     }
@@ -74,7 +74,7 @@ public final class Create {
     }
 
     static final class Builder implements BodyStage, _FinalStage {
-      private FliptConstraintCreateRequest body;
+      private ConstraintCreateRequest body;
 
       private Optional<BasicAuth> authOverride = Optional.empty();
 
@@ -89,7 +89,7 @@ public final class Create {
       }
 
       @Override
-      public _FinalStage body(FliptConstraintCreateRequest body) {
+      public _FinalStage body(ConstraintCreateRequest body) {
         this.body = body;
         return this;
       }

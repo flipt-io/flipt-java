@@ -7,11 +7,11 @@ import com.flipt.api.client.rules.exceptions.GetException;
 import com.flipt.api.client.rules.exceptions.ListException;
 import com.flipt.api.client.rules.exceptions.OrderException;
 import com.flipt.api.client.rules.exceptions.UpdateException;
-import com.flipt.api.client.rules.types.FliptRule;
-import com.flipt.api.client.rules.types.FliptRuleCreate;
-import com.flipt.api.client.rules.types.FliptRuleList;
-import com.flipt.api.client.rules.types.FliptRuleOrder;
-import com.flipt.api.client.rules.types.FliptRuleUpdate;
+import com.flipt.api.client.rules.types.Rule;
+import com.flipt.api.client.rules.types.RuleCreateRequest;
+import com.flipt.api.client.rules.types.RuleList;
+import com.flipt.api.client.rules.types.RuleOrder;
+import com.flipt.api.client.rules.types.RuleUpdateRequest;
 import com.flipt.api.core.BasicAuth;
 import com.flipt.api.core.ObjectMappers;
 import feign.Feign;
@@ -35,27 +35,26 @@ import javax.ws.rs.core.MediaType;
 
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-@Path("/flags/{flagKey}/rules")
+@Path("/api/v1/flags/{flagKey}/rules")
 interface RulesService {
   @GET
   @Path("/")
-  FliptRuleList list(@HeaderParam("Authorization") BasicAuth auth,
+  RuleList list(@HeaderParam("Authorization") BasicAuth auth,
       @QueryParam("limit") Optional<Integer> limit, @QueryParam("offset") Optional<Integer> offset,
       @QueryParam("pageToken") Optional<String> pageToken) throws ListException;
 
   @POST
   @Path("/")
-  FliptRule create(@HeaderParam("Authorization") BasicAuth auth, FliptRuleCreate body) throws
+  Rule create(@HeaderParam("Authorization") BasicAuth auth, RuleCreateRequest body) throws
       CreateException;
 
   @PUT
   @Path("/order")
-  void order(@HeaderParam("Authorization") BasicAuth auth, FliptRuleOrder body) throws
-      OrderException;
+  void order(@HeaderParam("Authorization") BasicAuth auth, RuleOrder body) throws OrderException;
 
   @GET
   @Path("/{id}")
-  FliptRule get(@HeaderParam("Authorization") BasicAuth auth, @PathParam("id") String id) throws
+  Rule get(@HeaderParam("Authorization") BasicAuth auth, @PathParam("id") String id) throws
       GetException;
 
   @DELETE
@@ -66,7 +65,7 @@ interface RulesService {
   @PUT
   @Path("/{id}")
   void update(@HeaderParam("Authorization") BasicAuth auth, @PathParam("id") String id,
-      FliptRuleUpdate body) throws UpdateException;
+      RuleUpdateRequest body) throws UpdateException;
 
   static RulesService getClient(String url) {
     return Feign.builder()

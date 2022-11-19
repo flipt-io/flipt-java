@@ -1,6 +1,6 @@
 package com.flipt.api.client.distributions.endpoints;
 
-import com.flipt.api.client.distributions.types.FliptDistributionUpdate;
+import com.flipt.api.client.distributions.types.DistributionUpdateRequest;
 import com.flipt.api.core.BasicAuth;
 import java.lang.Object;
 import java.lang.Override;
@@ -17,11 +17,11 @@ public final class Update {
 
     private final String id;
 
-    private final FliptDistributionUpdate body;
+    private final DistributionUpdateRequest body;
 
     private int _cachedHashCode;
 
-    Request(Optional<BasicAuth> authOverride, String id, FliptDistributionUpdate body) {
+    Request(Optional<BasicAuth> authOverride, String id, DistributionUpdateRequest body) {
       this.authOverride = authOverride;
       this.id = id;
       this.body = body;
@@ -35,7 +35,7 @@ public final class Update {
       return id;
     }
 
-    public FliptDistributionUpdate getBody() {
+    public DistributionUpdateRequest getBody() {
       return body;
     }
 
@@ -73,7 +73,7 @@ public final class Update {
     }
 
     public interface BodyStage {
-      _FinalStage body(FliptDistributionUpdate body);
+      _FinalStage body(DistributionUpdateRequest body);
     }
 
     public interface _FinalStage {
@@ -87,7 +87,7 @@ public final class Update {
     static final class Builder implements IdStage, BodyStage, _FinalStage {
       private String id;
 
-      private FliptDistributionUpdate body;
+      private DistributionUpdateRequest body;
 
       private Optional<BasicAuth> authOverride = Optional.empty();
 
@@ -109,7 +109,7 @@ public final class Update {
       }
 
       @Override
-      public _FinalStage body(FliptDistributionUpdate body) {
+      public _FinalStage body(DistributionUpdateRequest body) {
         this.body = body;
         return this;
       }

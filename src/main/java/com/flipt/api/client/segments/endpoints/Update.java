@@ -1,6 +1,6 @@
 package com.flipt.api.client.segments.endpoints;
 
-import com.flipt.api.client.segments.types.FliptUpdateSegmentRequest;
+import com.flipt.api.client.segments.types.SegmentUpdateRequest;
 import com.flipt.api.core.BasicAuth;
 import java.lang.Object;
 import java.lang.Override;
@@ -17,11 +17,11 @@ public final class Update {
 
     private final String key;
 
-    private final FliptUpdateSegmentRequest body;
+    private final SegmentUpdateRequest body;
 
     private int _cachedHashCode;
 
-    Request(Optional<BasicAuth> authOverride, String key, FliptUpdateSegmentRequest body) {
+    Request(Optional<BasicAuth> authOverride, String key, SegmentUpdateRequest body) {
       this.authOverride = authOverride;
       this.key = key;
       this.body = body;
@@ -35,7 +35,7 @@ public final class Update {
       return key;
     }
 
-    public FliptUpdateSegmentRequest getBody() {
+    public SegmentUpdateRequest getBody() {
       return body;
     }
 
@@ -73,7 +73,7 @@ public final class Update {
     }
 
     public interface BodyStage {
-      _FinalStage body(FliptUpdateSegmentRequest body);
+      _FinalStage body(SegmentUpdateRequest body);
     }
 
     public interface _FinalStage {
@@ -87,7 +87,7 @@ public final class Update {
     static final class Builder implements KeyStage, BodyStage, _FinalStage {
       private String key;
 
-      private FliptUpdateSegmentRequest body;
+      private SegmentUpdateRequest body;
 
       private Optional<BasicAuth> authOverride = Optional.empty();
 
@@ -109,7 +109,7 @@ public final class Update {
       }
 
       @Override
-      public _FinalStage body(FliptUpdateSegmentRequest body) {
+      public _FinalStage body(SegmentUpdateRequest body) {
         this.body = body;
         return this;
       }

@@ -12,8 +12,8 @@ import com.flipt.api.client.rules.exceptions.GetException;
 import com.flipt.api.client.rules.exceptions.ListException;
 import com.flipt.api.client.rules.exceptions.OrderException;
 import com.flipt.api.client.rules.exceptions.UpdateException;
-import com.flipt.api.client.rules.types.FliptRule;
-import com.flipt.api.client.rules.types.FliptRuleList;
+import com.flipt.api.client.rules.types.Rule;
+import com.flipt.api.client.rules.types.RuleList;
 import com.flipt.api.core.BasicAuth;
 import java.lang.RuntimeException;
 import java.lang.String;
@@ -34,12 +34,12 @@ public final class RulesServiceClient {
     this.auth = Optional.of(auth);
   }
 
-  public FliptRuleList list(List.Request request) throws ListException {
+  public RuleList list(List.Request request) throws ListException {
     BasicAuth authValue = request.getAuthOverride().orElseGet(() -> this.auth.orElseThrow(() -> new RuntimeException("Auth is required for list")));
     return this.service.list(authValue, request.getLimit(), request.getOffset(), request.getPageToken());
   }
 
-  public FliptRule create(Create.Request request) throws CreateException {
+  public Rule create(Create.Request request) throws CreateException {
     BasicAuth authValue = request.getAuthOverride().orElseGet(() -> this.auth.orElseThrow(() -> new RuntimeException("Auth is required for create")));
     return this.service.create(authValue, request.getBody());
   }
@@ -49,7 +49,7 @@ public final class RulesServiceClient {
     this.service.order(authValue, request.getBody());
   }
 
-  public FliptRule get(Get.Request request) throws GetException {
+  public Rule get(Get.Request request) throws GetException {
     BasicAuth authValue = request.getAuthOverride().orElseGet(() -> this.auth.orElseThrow(() -> new RuntimeException("Auth is required for get")));
     return this.service.get(authValue, request.getId());
   }

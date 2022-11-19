@@ -1,6 +1,6 @@
 package com.flipt.api.client.segments.endpoints;
 
-import com.flipt.api.client.segments.types.FliptCreateSegmentRequest;
+import com.flipt.api.client.segments.types.SegmentCreateRequest;
 import com.flipt.api.core.BasicAuth;
 import java.lang.Object;
 import java.lang.Override;
@@ -15,11 +15,11 @@ public final class Create {
   public static final class Request {
     private final Optional<BasicAuth> authOverride;
 
-    private final FliptCreateSegmentRequest body;
+    private final SegmentCreateRequest body;
 
     private int _cachedHashCode;
 
-    Request(Optional<BasicAuth> authOverride, FliptCreateSegmentRequest body) {
+    Request(Optional<BasicAuth> authOverride, SegmentCreateRequest body) {
       this.authOverride = authOverride;
       this.body = body;
     }
@@ -28,7 +28,7 @@ public final class Create {
       return authOverride;
     }
 
-    public FliptCreateSegmentRequest getBody() {
+    public SegmentCreateRequest getBody() {
       return body;
     }
 
@@ -60,7 +60,7 @@ public final class Create {
     }
 
     public interface BodyStage {
-      _FinalStage body(FliptCreateSegmentRequest body);
+      _FinalStage body(SegmentCreateRequest body);
 
       Builder from(Request other);
     }
@@ -74,7 +74,7 @@ public final class Create {
     }
 
     static final class Builder implements BodyStage, _FinalStage {
-      private FliptCreateSegmentRequest body;
+      private SegmentCreateRequest body;
 
       private Optional<BasicAuth> authOverride = Optional.empty();
 
@@ -89,7 +89,7 @@ public final class Create {
       }
 
       @Override
-      public _FinalStage body(FliptCreateSegmentRequest body) {
+      public _FinalStage body(SegmentCreateRequest body) {
         this.body = body;
         return this;
       }

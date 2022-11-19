@@ -1,6 +1,6 @@
 package com.flipt.api.client.rules.endpoints;
 
-import com.flipt.api.client.rules.types.FliptRuleUpdate;
+import com.flipt.api.client.rules.types.RuleUpdateRequest;
 import com.flipt.api.core.BasicAuth;
 import java.lang.Object;
 import java.lang.Override;
@@ -17,11 +17,11 @@ public final class Update {
 
     private final String id;
 
-    private final FliptRuleUpdate body;
+    private final RuleUpdateRequest body;
 
     private int _cachedHashCode;
 
-    Request(Optional<BasicAuth> authOverride, String id, FliptRuleUpdate body) {
+    Request(Optional<BasicAuth> authOverride, String id, RuleUpdateRequest body) {
       this.authOverride = authOverride;
       this.id = id;
       this.body = body;
@@ -35,7 +35,7 @@ public final class Update {
       return id;
     }
 
-    public FliptRuleUpdate getBody() {
+    public RuleUpdateRequest getBody() {
       return body;
     }
 
@@ -73,7 +73,7 @@ public final class Update {
     }
 
     public interface BodyStage {
-      _FinalStage body(FliptRuleUpdate body);
+      _FinalStage body(RuleUpdateRequest body);
     }
 
     public interface _FinalStage {
@@ -87,7 +87,7 @@ public final class Update {
     static final class Builder implements IdStage, BodyStage, _FinalStage {
       private String id;
 
-      private FliptRuleUpdate body;
+      private RuleUpdateRequest body;
 
       private Optional<BasicAuth> authOverride = Optional.empty();
 
@@ -109,7 +109,7 @@ public final class Update {
       }
 
       @Override
-      public _FinalStage body(FliptRuleUpdate body) {
+      public _FinalStage body(RuleUpdateRequest body) {
         this.body = body;
         return this;
       }

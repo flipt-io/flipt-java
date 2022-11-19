@@ -6,7 +6,7 @@ import com.flipt.api.client.variants.endpoints.Update;
 import com.flipt.api.client.variants.exceptions.CreateException;
 import com.flipt.api.client.variants.exceptions.DeleteException;
 import com.flipt.api.client.variants.exceptions.UpdateException;
-import com.flipt.api.client.variants.types.FliptVariant;
+import com.flipt.api.client.variants.types.Variant;
 import com.flipt.api.core.BasicAuth;
 import java.lang.RuntimeException;
 import java.lang.String;
@@ -27,7 +27,7 @@ public final class VariantsServiceClient {
     this.auth = Optional.of(auth);
   }
 
-  public FliptVariant create(Create.Request request) throws CreateException {
+  public Variant create(Create.Request request) throws CreateException {
     BasicAuth authValue = request.getAuthOverride().orElseGet(() -> this.auth.orElseThrow(() -> new RuntimeException("Auth is required for create")));
     return this.service.create(authValue, request.getBody());
   }
@@ -37,7 +37,7 @@ public final class VariantsServiceClient {
     this.service.delete(authValue, request.getId());
   }
 
-  public FliptVariant update(Update.Request request) throws UpdateException {
+  public Variant update(Update.Request request) throws UpdateException {
     BasicAuth authValue = request.getAuthOverride().orElseGet(() -> this.auth.orElseThrow(() -> new RuntimeException("Auth is required for update")));
     return this.service.update(authValue, request.getId(), request.getBody());
   }

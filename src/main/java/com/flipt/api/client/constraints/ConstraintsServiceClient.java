@@ -6,7 +6,7 @@ import com.flipt.api.client.constraints.endpoints.Update;
 import com.flipt.api.client.constraints.exceptions.CreateException;
 import com.flipt.api.client.constraints.exceptions.DeleteException;
 import com.flipt.api.client.constraints.exceptions.UpdateException;
-import com.flipt.api.client.constraints.types.FliptConstraint;
+import com.flipt.api.client.constraints.types.Constraint;
 import com.flipt.api.core.BasicAuth;
 import java.lang.RuntimeException;
 import java.lang.String;
@@ -27,7 +27,7 @@ public final class ConstraintsServiceClient {
     this.auth = Optional.of(auth);
   }
 
-  public FliptConstraint create(Create.Request request) throws CreateException {
+  public Constraint create(Create.Request request) throws CreateException {
     BasicAuth authValue = request.getAuthOverride().orElseGet(() -> this.auth.orElseThrow(() -> new RuntimeException("Auth is required for create")));
     return this.service.create(authValue, request.getBody());
   }

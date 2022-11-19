@@ -6,10 +6,10 @@ import com.flipt.api.client.segments.exceptions.DeleteException;
 import com.flipt.api.client.segments.exceptions.GetException;
 import com.flipt.api.client.segments.exceptions.ListException;
 import com.flipt.api.client.segments.exceptions.UpdateException;
-import com.flipt.api.client.segments.types.FliptCreateSegmentRequest;
-import com.flipt.api.client.segments.types.FliptSegment;
-import com.flipt.api.client.segments.types.FliptSegmentList;
-import com.flipt.api.client.segments.types.FliptUpdateSegmentRequest;
+import com.flipt.api.client.segments.types.Segment;
+import com.flipt.api.client.segments.types.SegmentCreateRequest;
+import com.flipt.api.client.segments.types.SegmentList;
+import com.flipt.api.client.segments.types.SegmentUpdateRequest;
 import com.flipt.api.core.BasicAuth;
 import com.flipt.api.core.ObjectMappers;
 import feign.Feign;
@@ -32,23 +32,23 @@ import javax.ws.rs.core.MediaType;
 
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-@Path("/segments")
+@Path("/api/v1/segments")
 interface SegmentsService {
   @GET
   @Path("/")
-  FliptSegmentList list(@HeaderParam("Authorization") BasicAuth auth,
-      @QueryParam("limit") Integer limit, @QueryParam("offset") Integer offset,
-      @QueryParam("pageToken") String pageToken) throws ListException;
+  SegmentList list(@HeaderParam("Authorization") BasicAuth auth, @QueryParam("limit") Integer limit,
+      @QueryParam("offset") Integer offset, @QueryParam("pageToken") String pageToken) throws
+      ListException;
 
   @POST
   @Path("/")
-  FliptSegment create(@HeaderParam("Authorization") BasicAuth auth, FliptCreateSegmentRequest body)
-      throws CreateException;
+  Segment create(@HeaderParam("Authorization") BasicAuth auth, SegmentCreateRequest body) throws
+      CreateException;
 
   @GET
   @Path("/{key}")
-  FliptSegment get(@HeaderParam("Authorization") BasicAuth auth, @PathParam("key") String key)
-      throws GetException;
+  Segment get(@HeaderParam("Authorization") BasicAuth auth, @PathParam("key") String key) throws
+      GetException;
 
   @DELETE
   @Path("/{key}")
@@ -57,8 +57,8 @@ interface SegmentsService {
 
   @PUT
   @Path("/{key}")
-  FliptSegment update(@HeaderParam("Authorization") BasicAuth auth, @PathParam("key") String key,
-      FliptUpdateSegmentRequest body) throws UpdateException;
+  Segment update(@HeaderParam("Authorization") BasicAuth auth, @PathParam("key") String key,
+      SegmentUpdateRequest body) throws UpdateException;
 
   static SegmentsService getClient(String url) {
     return Feign.builder()

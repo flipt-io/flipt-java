@@ -6,10 +6,10 @@ import com.flipt.api.client.flags.exceptions.DeleteException;
 import com.flipt.api.client.flags.exceptions.GetException;
 import com.flipt.api.client.flags.exceptions.ListException;
 import com.flipt.api.client.flags.exceptions.UpdateException;
-import com.flipt.api.client.flags.types.FliptCreateFlagRequest;
-import com.flipt.api.client.flags.types.FliptFlag;
-import com.flipt.api.client.flags.types.FliptFlagList;
-import com.flipt.api.client.flags.types.FliptFlagUpdate;
+import com.flipt.api.client.flags.types.Flag;
+import com.flipt.api.client.flags.types.FlagCreateRequest;
+import com.flipt.api.client.flags.types.FlagList;
+import com.flipt.api.client.flags.types.FlagUpdateRequest;
 import com.flipt.api.core.BasicAuth;
 import com.flipt.api.core.ObjectMappers;
 import feign.Feign;
@@ -33,22 +33,22 @@ import javax.ws.rs.core.MediaType;
 
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-@Path("/flags")
+@Path("/api/v1/flags")
 interface FlagsService {
   @GET
   @Path("/")
-  FliptFlagList list(@HeaderParam("Authorization") BasicAuth auth,
+  FlagList list(@HeaderParam("Authorization") BasicAuth auth,
       @QueryParam("limit") Optional<Integer> limit, @QueryParam("offset") Optional<Integer> offset,
       @QueryParam("pageToken") Optional<String> pageToken) throws ListException;
 
   @POST
   @Path("/")
-  FliptFlag create(@HeaderParam("Authorization") BasicAuth auth, FliptCreateFlagRequest body) throws
+  Flag create(@HeaderParam("Authorization") BasicAuth auth, FlagCreateRequest body) throws
       CreateException;
 
   @GET
   @Path("/{key}")
-  FliptFlag get(@HeaderParam("Authorization") BasicAuth auth, @PathParam("key") String key) throws
+  Flag get(@HeaderParam("Authorization") BasicAuth auth, @PathParam("key") String key) throws
       GetException;
 
   @DELETE
@@ -58,8 +58,8 @@ interface FlagsService {
 
   @PUT
   @Path("/{key}")
-  FliptFlag update(@HeaderParam("Authorization") BasicAuth auth, @PathParam("key") String key,
-      FliptFlagUpdate body) throws UpdateException;
+  Flag update(@HeaderParam("Authorization") BasicAuth auth, @PathParam("key") String key,
+      FlagUpdateRequest body) throws UpdateException;
 
   static FlagsService getClient(String url) {
     return Feign.builder()

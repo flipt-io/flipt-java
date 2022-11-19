@@ -1,6 +1,6 @@
 package com.flipt.api.client.rules.endpoints;
 
-import com.flipt.api.client.rules.types.FliptRuleCreate;
+import com.flipt.api.client.rules.types.RuleCreateRequest;
 import com.flipt.api.core.BasicAuth;
 import java.lang.Object;
 import java.lang.Override;
@@ -15,11 +15,11 @@ public final class Create {
   public static final class Request {
     private final Optional<BasicAuth> authOverride;
 
-    private final FliptRuleCreate body;
+    private final RuleCreateRequest body;
 
     private int _cachedHashCode;
 
-    Request(Optional<BasicAuth> authOverride, FliptRuleCreate body) {
+    Request(Optional<BasicAuth> authOverride, RuleCreateRequest body) {
       this.authOverride = authOverride;
       this.body = body;
     }
@@ -28,7 +28,7 @@ public final class Create {
       return authOverride;
     }
 
-    public FliptRuleCreate getBody() {
+    public RuleCreateRequest getBody() {
       return body;
     }
 
@@ -60,7 +60,7 @@ public final class Create {
     }
 
     public interface BodyStage {
-      _FinalStage body(FliptRuleCreate body);
+      _FinalStage body(RuleCreateRequest body);
 
       Builder from(Request other);
     }
@@ -74,7 +74,7 @@ public final class Create {
     }
 
     static final class Builder implements BodyStage, _FinalStage {
-      private FliptRuleCreate body;
+      private RuleCreateRequest body;
 
       private Optional<BasicAuth> authOverride = Optional.empty();
 
@@ -89,7 +89,7 @@ public final class Create {
       }
 
       @Override
-      public _FinalStage body(FliptRuleCreate body) {
+      public _FinalStage body(RuleCreateRequest body) {
         this.body = body;
         return this;
       }

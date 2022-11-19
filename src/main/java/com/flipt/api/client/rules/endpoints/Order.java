@@ -1,6 +1,6 @@
 package com.flipt.api.client.rules.endpoints;
 
-import com.flipt.api.client.rules.types.FliptRuleOrder;
+import com.flipt.api.client.rules.types.RuleOrder;
 import com.flipt.api.core.BasicAuth;
 import java.lang.Object;
 import java.lang.Override;
@@ -15,11 +15,11 @@ public final class Order {
   public static final class Request {
     private final Optional<BasicAuth> authOverride;
 
-    private final FliptRuleOrder body;
+    private final RuleOrder body;
 
     private int _cachedHashCode;
 
-    Request(Optional<BasicAuth> authOverride, FliptRuleOrder body) {
+    Request(Optional<BasicAuth> authOverride, RuleOrder body) {
       this.authOverride = authOverride;
       this.body = body;
     }
@@ -28,7 +28,7 @@ public final class Order {
       return authOverride;
     }
 
-    public FliptRuleOrder getBody() {
+    public RuleOrder getBody() {
       return body;
     }
 
@@ -60,7 +60,7 @@ public final class Order {
     }
 
     public interface BodyStage {
-      _FinalStage body(FliptRuleOrder body);
+      _FinalStage body(RuleOrder body);
 
       Builder from(Request other);
     }
@@ -74,7 +74,7 @@ public final class Order {
     }
 
     static final class Builder implements BodyStage, _FinalStage {
-      private FliptRuleOrder body;
+      private RuleOrder body;
 
       private Optional<BasicAuth> authOverride = Optional.empty();
 
@@ -89,7 +89,7 @@ public final class Order {
       }
 
       @Override
-      public _FinalStage body(FliptRuleOrder body) {
+      public _FinalStage body(RuleOrder body) {
         this.body = body;
         return this;
       }

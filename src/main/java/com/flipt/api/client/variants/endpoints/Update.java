@@ -1,6 +1,6 @@
 package com.flipt.api.client.variants.endpoints;
 
-import com.flipt.api.client.variants.types.FliptVariantUpdate;
+import com.flipt.api.client.variants.types.VariantUpdateRequest;
 import com.flipt.api.core.BasicAuth;
 import java.lang.Object;
 import java.lang.Override;
@@ -17,11 +17,11 @@ public final class Update {
 
     private final String id;
 
-    private final FliptVariantUpdate body;
+    private final VariantUpdateRequest body;
 
     private int _cachedHashCode;
 
-    Request(Optional<BasicAuth> authOverride, String id, FliptVariantUpdate body) {
+    Request(Optional<BasicAuth> authOverride, String id, VariantUpdateRequest body) {
       this.authOverride = authOverride;
       this.id = id;
       this.body = body;
@@ -35,7 +35,7 @@ public final class Update {
       return id;
     }
 
-    public FliptVariantUpdate getBody() {
+    public VariantUpdateRequest getBody() {
       return body;
     }
 
@@ -73,7 +73,7 @@ public final class Update {
     }
 
     public interface BodyStage {
-      _FinalStage body(FliptVariantUpdate body);
+      _FinalStage body(VariantUpdateRequest body);
     }
 
     public interface _FinalStage {
@@ -87,7 +87,7 @@ public final class Update {
     static final class Builder implements IdStage, BodyStage, _FinalStage {
       private String id;
 
-      private FliptVariantUpdate body;
+      private VariantUpdateRequest body;
 
       private Optional<BasicAuth> authOverride = Optional.empty();
 
@@ -109,7 +109,7 @@ public final class Update {
       }
 
       @Override
-      public _FinalStage body(FliptVariantUpdate body) {
+      public _FinalStage body(VariantUpdateRequest body) {
         this.body = body;
         return this;
       }

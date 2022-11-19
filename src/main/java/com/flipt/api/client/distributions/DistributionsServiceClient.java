@@ -6,7 +6,7 @@ import com.flipt.api.client.distributions.endpoints.Update;
 import com.flipt.api.client.distributions.exceptions.CreateException;
 import com.flipt.api.client.distributions.exceptions.DeleteException;
 import com.flipt.api.client.distributions.exceptions.UpdateException;
-import com.flipt.api.client.distributions.types.FliptDistribution;
+import com.flipt.api.client.distributions.types.Distribution;
 import com.flipt.api.core.BasicAuth;
 import java.lang.RuntimeException;
 import java.lang.String;
@@ -27,7 +27,7 @@ public final class DistributionsServiceClient {
     this.auth = Optional.of(auth);
   }
 
-  public FliptDistribution create(Create.Request request) throws CreateException {
+  public Distribution create(Create.Request request) throws CreateException {
     BasicAuth authValue = request.getAuthOverride().orElseGet(() -> this.auth.orElseThrow(() -> new RuntimeException("Auth is required for create")));
     return this.service.create(authValue, request.getBody());
   }
@@ -37,7 +37,7 @@ public final class DistributionsServiceClient {
     this.service.delete(authValue, request.getId(), request.getVariantId());
   }
 
-  public FliptDistribution update(Update.Request request) throws UpdateException {
+  public Distribution update(Update.Request request) throws UpdateException {
     BasicAuth authValue = request.getAuthOverride().orElseGet(() -> this.auth.orElseThrow(() -> new RuntimeException("Auth is required for update")));
     return this.service.update(authValue, request.getId(), request.getBody());
   }

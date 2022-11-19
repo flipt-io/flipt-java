@@ -4,9 +4,9 @@ import com.fern.java.jersey.contracts.OptionalAwareContract;
 import com.flipt.api.client.constraints.exceptions.CreateException;
 import com.flipt.api.client.constraints.exceptions.DeleteException;
 import com.flipt.api.client.constraints.exceptions.UpdateException;
-import com.flipt.api.client.constraints.types.FliptConstraint;
-import com.flipt.api.client.constraints.types.FliptConstraintCreateRequest;
-import com.flipt.api.client.constraints.types.FliptConstraintUpdateRequest;
+import com.flipt.api.client.constraints.types.Constraint;
+import com.flipt.api.client.constraints.types.ConstraintCreateRequest;
+import com.flipt.api.client.constraints.types.ConstraintUpdateRequest;
 import com.flipt.api.core.BasicAuth;
 import com.flipt.api.core.ObjectMappers;
 import feign.Feign;
@@ -24,12 +24,12 @@ import javax.ws.rs.core.MediaType;
 
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-@Path("/segments/{segmentKey}/constraints")
+@Path("/api/v1/segments/{segmentKey}/constraints")
 interface ConstraintsService {
   @POST
   @Path("/")
-  FliptConstraint create(@HeaderParam("Authorization") BasicAuth auth,
-      FliptConstraintCreateRequest body) throws CreateException;
+  Constraint create(@HeaderParam("Authorization") BasicAuth auth, ConstraintCreateRequest body)
+      throws CreateException;
 
   @POST
   @Path("/{id}")
@@ -39,7 +39,7 @@ interface ConstraintsService {
   @POST
   @Path("/{id}")
   void update(@HeaderParam("Authorization") BasicAuth auth, @PathParam("id") String id,
-      FliptConstraintUpdateRequest body) throws UpdateException;
+      ConstraintUpdateRequest body) throws UpdateException;
 
   static ConstraintsService getClient(String url) {
     return Feign.builder()

@@ -1,6 +1,6 @@
 package com.flipt.api.client.distributions.endpoints;
 
-import com.flipt.api.client.distributions.types.FliptDistributionCreate;
+import com.flipt.api.client.distributions.types.DistributionCreateRequest;
 import com.flipt.api.core.BasicAuth;
 import java.lang.Object;
 import java.lang.Override;
@@ -15,11 +15,11 @@ public final class Create {
   public static final class Request {
     private final Optional<BasicAuth> authOverride;
 
-    private final FliptDistributionCreate body;
+    private final DistributionCreateRequest body;
 
     private int _cachedHashCode;
 
-    Request(Optional<BasicAuth> authOverride, FliptDistributionCreate body) {
+    Request(Optional<BasicAuth> authOverride, DistributionCreateRequest body) {
       this.authOverride = authOverride;
       this.body = body;
     }
@@ -28,7 +28,7 @@ public final class Create {
       return authOverride;
     }
 
-    public FliptDistributionCreate getBody() {
+    public DistributionCreateRequest getBody() {
       return body;
     }
 
@@ -60,7 +60,7 @@ public final class Create {
     }
 
     public interface BodyStage {
-      _FinalStage body(FliptDistributionCreate body);
+      _FinalStage body(DistributionCreateRequest body);
 
       Builder from(Request other);
     }
@@ -74,7 +74,7 @@ public final class Create {
     }
 
     static final class Builder implements BodyStage, _FinalStage {
-      private FliptDistributionCreate body;
+      private DistributionCreateRequest body;
 
       private Optional<BasicAuth> authOverride = Optional.empty();
 
@@ -89,7 +89,7 @@ public final class Create {
       }
 
       @Override
-      public _FinalStage body(FliptDistributionCreate body) {
+      public _FinalStage body(DistributionCreateRequest body) {
         this.body = body;
         return this;
       }

@@ -1,6 +1,6 @@
 package com.flipt.api.client.flags.endpoints;
 
-import com.flipt.api.client.flags.types.FliptCreateFlagRequest;
+import com.flipt.api.client.flags.types.FlagCreateRequest;
 import com.flipt.api.core.BasicAuth;
 import java.lang.Object;
 import java.lang.Override;
@@ -15,11 +15,11 @@ public final class Create {
   public static final class Request {
     private final Optional<BasicAuth> authOverride;
 
-    private final FliptCreateFlagRequest body;
+    private final FlagCreateRequest body;
 
     private int _cachedHashCode;
 
-    Request(Optional<BasicAuth> authOverride, FliptCreateFlagRequest body) {
+    Request(Optional<BasicAuth> authOverride, FlagCreateRequest body) {
       this.authOverride = authOverride;
       this.body = body;
     }
@@ -28,7 +28,7 @@ public final class Create {
       return authOverride;
     }
 
-    public FliptCreateFlagRequest getBody() {
+    public FlagCreateRequest getBody() {
       return body;
     }
 
@@ -60,7 +60,7 @@ public final class Create {
     }
 
     public interface BodyStage {
-      _FinalStage body(FliptCreateFlagRequest body);
+      _FinalStage body(FlagCreateRequest body);
 
       Builder from(Request other);
     }
@@ -74,7 +74,7 @@ public final class Create {
     }
 
     static final class Builder implements BodyStage, _FinalStage {
-      private FliptCreateFlagRequest body;
+      private FlagCreateRequest body;
 
       private Optional<BasicAuth> authOverride = Optional.empty();
 
@@ -89,7 +89,7 @@ public final class Create {
       }
 
       @Override
-      public _FinalStage body(FliptCreateFlagRequest body) {
+      public _FinalStage body(FlagCreateRequest body) {
         this.body = body;
         return this;
       }

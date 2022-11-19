@@ -1,5 +1,6 @@
 package com.flipt.api;
 
+import com.flipt.api.client.auth.AuthenticationServiceClient;
 import com.flipt.api.client.constraints.ConstraintsServiceClient;
 import com.flipt.api.client.distributions.DistributionsServiceClient;
 import com.flipt.api.client.evaluate.EvaluateServiceClient;
@@ -14,6 +15,8 @@ import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Supplier;
 
 public final class FliptApiClient {
+  private final Supplier<AuthenticationServiceClient> authenticationServiceClient;
+
   private final Supplier<ConstraintsServiceClient> constraintsServiceClient;
 
   private final Supplier<DistributionsServiceClient> distributionsServiceClient;
@@ -40,6 +43,11 @@ public final class FliptApiClient {
     this.variantsServiceClient = memoize(() -> new VariantsServiceClient(environment.getUrl(), auth));
     this.flagsServiceClient = memoize(() -> new FlagsServiceClient(environment.getUrl(), auth));
     this.constraintsServiceClient = memoize(() -> new ConstraintsServiceClient(environment.getUrl(), auth));
+    this.authenticationServiceClient = memoize(() -> new AuthenticationServiceClient(environment.getUrl(), auth));
+  }
+
+  public final AuthenticationServiceClient auth() {
+    return this.authenticationServiceClient.get();
   }
 
   public final ConstraintsServiceClient constraints() {

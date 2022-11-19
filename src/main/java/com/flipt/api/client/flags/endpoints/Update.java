@@ -1,6 +1,6 @@
 package com.flipt.api.client.flags.endpoints;
 
-import com.flipt.api.client.flags.types.FliptFlagUpdate;
+import com.flipt.api.client.flags.types.FlagUpdateRequest;
 import com.flipt.api.core.BasicAuth;
 import java.lang.Object;
 import java.lang.Override;
@@ -17,11 +17,11 @@ public final class Update {
 
     private final String key;
 
-    private final FliptFlagUpdate body;
+    private final FlagUpdateRequest body;
 
     private int _cachedHashCode;
 
-    Request(Optional<BasicAuth> authOverride, String key, FliptFlagUpdate body) {
+    Request(Optional<BasicAuth> authOverride, String key, FlagUpdateRequest body) {
       this.authOverride = authOverride;
       this.key = key;
       this.body = body;
@@ -35,7 +35,7 @@ public final class Update {
       return key;
     }
 
-    public FliptFlagUpdate getBody() {
+    public FlagUpdateRequest getBody() {
       return body;
     }
 
@@ -73,7 +73,7 @@ public final class Update {
     }
 
     public interface BodyStage {
-      _FinalStage body(FliptFlagUpdate body);
+      _FinalStage body(FlagUpdateRequest body);
     }
 
     public interface _FinalStage {
@@ -87,7 +87,7 @@ public final class Update {
     static final class Builder implements KeyStage, BodyStage, _FinalStage {
       private String key;
 
-      private FliptFlagUpdate body;
+      private FlagUpdateRequest body;
 
       private Optional<BasicAuth> authOverride = Optional.empty();
 
@@ -109,7 +109,7 @@ public final class Update {
       }
 
       @Override
-      public _FinalStage body(FliptFlagUpdate body) {
+      public _FinalStage body(FlagUpdateRequest body) {
         this.body = body;
         return this;
       }

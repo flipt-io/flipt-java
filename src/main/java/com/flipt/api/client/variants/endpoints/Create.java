@@ -1,6 +1,6 @@
 package com.flipt.api.client.variants.endpoints;
 
-import com.flipt.api.client.variants.types.FliptVariantCreate;
+import com.flipt.api.client.variants.types.VariantCreateRequest;
 import com.flipt.api.core.BasicAuth;
 import java.lang.Object;
 import java.lang.Override;
@@ -15,11 +15,11 @@ public final class Create {
   public static final class Request {
     private final Optional<BasicAuth> authOverride;
 
-    private final FliptVariantCreate body;
+    private final VariantCreateRequest body;
 
     private int _cachedHashCode;
 
-    Request(Optional<BasicAuth> authOverride, FliptVariantCreate body) {
+    Request(Optional<BasicAuth> authOverride, VariantCreateRequest body) {
       this.authOverride = authOverride;
       this.body = body;
     }
@@ -28,7 +28,7 @@ public final class Create {
       return authOverride;
     }
 
-    public FliptVariantCreate getBody() {
+    public VariantCreateRequest getBody() {
       return body;
     }
 
@@ -60,7 +60,7 @@ public final class Create {
     }
 
     public interface BodyStage {
-      _FinalStage body(FliptVariantCreate body);
+      _FinalStage body(VariantCreateRequest body);
 
       Builder from(Request other);
     }
@@ -74,7 +74,7 @@ public final class Create {
     }
 
     static final class Builder implements BodyStage, _FinalStage {
-      private FliptVariantCreate body;
+      private VariantCreateRequest body;
 
       private Optional<BasicAuth> authOverride = Optional.empty();
 
@@ -89,7 +89,7 @@ public final class Create {
       }
 
       @Override
-      public _FinalStage body(FliptVariantCreate body) {
+      public _FinalStage body(VariantCreateRequest body) {
         this.body = body;
         return this;
       }

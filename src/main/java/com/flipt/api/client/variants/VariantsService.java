@@ -4,9 +4,9 @@ import com.fern.java.jersey.contracts.OptionalAwareContract;
 import com.flipt.api.client.variants.exceptions.CreateException;
 import com.flipt.api.client.variants.exceptions.DeleteException;
 import com.flipt.api.client.variants.exceptions.UpdateException;
-import com.flipt.api.client.variants.types.FliptVariant;
-import com.flipt.api.client.variants.types.FliptVariantCreate;
-import com.flipt.api.client.variants.types.FliptVariantUpdate;
+import com.flipt.api.client.variants.types.Variant;
+import com.flipt.api.client.variants.types.VariantCreateRequest;
+import com.flipt.api.client.variants.types.VariantUpdateRequest;
 import com.flipt.api.core.BasicAuth;
 import com.flipt.api.core.ObjectMappers;
 import feign.Feign;
@@ -26,11 +26,11 @@ import javax.ws.rs.core.MediaType;
 
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-@Path("/flags/{flagKey}/variants")
+@Path("/api/v1/flags/{flagKey}/variants")
 interface VariantsService {
   @POST
   @Path("/")
-  FliptVariant create(@HeaderParam("Authorization") BasicAuth auth, FliptVariantCreate body) throws
+  Variant create(@HeaderParam("Authorization") BasicAuth auth, VariantCreateRequest body) throws
       CreateException;
 
   @DELETE
@@ -40,8 +40,8 @@ interface VariantsService {
 
   @PUT
   @Path("/{id}")
-  FliptVariant update(@HeaderParam("Authorization") BasicAuth auth, @PathParam("id") String id,
-      FliptVariantUpdate body) throws UpdateException;
+  Variant update(@HeaderParam("Authorization") BasicAuth auth, @PathParam("id") String id,
+      VariantUpdateRequest body) throws UpdateException;
 
   static VariantsService getClient(String url) {
     return Feign.builder()

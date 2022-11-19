@@ -4,9 +4,9 @@ import com.fern.java.jersey.contracts.OptionalAwareContract;
 import com.flipt.api.client.distributions.exceptions.CreateException;
 import com.flipt.api.client.distributions.exceptions.DeleteException;
 import com.flipt.api.client.distributions.exceptions.UpdateException;
-import com.flipt.api.client.distributions.types.FliptDistribution;
-import com.flipt.api.client.distributions.types.FliptDistributionCreate;
-import com.flipt.api.client.distributions.types.FliptDistributionUpdate;
+import com.flipt.api.client.distributions.types.Distribution;
+import com.flipt.api.client.distributions.types.DistributionCreateRequest;
+import com.flipt.api.client.distributions.types.DistributionUpdateRequest;
 import com.flipt.api.core.BasicAuth;
 import com.flipt.api.core.ObjectMappers;
 import feign.Feign;
@@ -27,12 +27,12 @@ import javax.ws.rs.core.MediaType;
 
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-@Path("/flags/{flagKey}/rules/{ruleId}/distributions")
+@Path("/api/v1/flags/{flagKey}/rules/{ruleId}/distributions")
 interface DistributionsService {
   @POST
   @Path("/")
-  FliptDistribution create(@HeaderParam("Authorization") BasicAuth auth,
-      FliptDistributionCreate body) throws CreateException;
+  Distribution create(@HeaderParam("Authorization") BasicAuth auth, DistributionCreateRequest body)
+      throws CreateException;
 
   @DELETE
   @Path("/{id}")
@@ -41,8 +41,8 @@ interface DistributionsService {
 
   @PUT
   @Path("/{id}")
-  FliptDistribution update(@HeaderParam("Authorization") BasicAuth auth, @PathParam("id") String id,
-      FliptDistributionUpdate body) throws UpdateException;
+  Distribution update(@HeaderParam("Authorization") BasicAuth auth, @PathParam("id") String id,
+      DistributionUpdateRequest body) throws UpdateException;
 
   static DistributionsService getClient(String url) {
     return Feign.builder()

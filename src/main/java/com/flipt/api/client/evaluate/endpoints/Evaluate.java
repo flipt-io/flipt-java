@@ -1,6 +1,6 @@
 package com.flipt.api.client.evaluate.endpoints;
 
-import com.flipt.api.client.evaluate.types.FliptEvaluationRequest;
+import com.flipt.api.client.evaluate.types.EvaluationRequest;
 import com.flipt.api.core.BasicAuth;
 import java.lang.Object;
 import java.lang.Override;
@@ -15,11 +15,11 @@ public final class Evaluate {
   public static final class Request {
     private final Optional<BasicAuth> authOverride;
 
-    private final FliptEvaluationRequest body;
+    private final EvaluationRequest body;
 
     private int _cachedHashCode;
 
-    Request(Optional<BasicAuth> authOverride, FliptEvaluationRequest body) {
+    Request(Optional<BasicAuth> authOverride, EvaluationRequest body) {
       this.authOverride = authOverride;
       this.body = body;
     }
@@ -28,7 +28,7 @@ public final class Evaluate {
       return authOverride;
     }
 
-    public FliptEvaluationRequest getBody() {
+    public EvaluationRequest getBody() {
       return body;
     }
 
@@ -60,7 +60,7 @@ public final class Evaluate {
     }
 
     public interface BodyStage {
-      _FinalStage body(FliptEvaluationRequest body);
+      _FinalStage body(EvaluationRequest body);
 
       Builder from(Request other);
     }
@@ -74,7 +74,7 @@ public final class Evaluate {
     }
 
     static final class Builder implements BodyStage, _FinalStage {
-      private FliptEvaluationRequest body;
+      private EvaluationRequest body;
 
       private Optional<BasicAuth> authOverride = Optional.empty();
 
@@ -89,7 +89,7 @@ public final class Evaluate {
       }
 
       @Override
-      public _FinalStage body(FliptEvaluationRequest body) {
+      public _FinalStage body(EvaluationRequest body) {
         this.body = body;
         return this;
       }
