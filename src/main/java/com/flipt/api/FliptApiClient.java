@@ -1,13 +1,13 @@
 package com.flipt.api;
 
-import com.flipt.api.client.auth.AuthenticationServiceClient;
-import com.flipt.api.client.constraints.ConstraintsServiceClient;
-import com.flipt.api.client.distributions.DistributionsServiceClient;
-import com.flipt.api.client.evaluate.EvaluateServiceClient;
-import com.flipt.api.client.flags.FlagsServiceClient;
-import com.flipt.api.client.rules.RulesServiceClient;
-import com.flipt.api.client.segments.SegmentsServiceClient;
-import com.flipt.api.client.variants.VariantsServiceClient;
+import com.flipt.api.client.auth.AuthenticationClient;
+import com.flipt.api.client.constraints.ConstraintsClient;
+import com.flipt.api.client.distributions.DistributionsClient;
+import com.flipt.api.client.evaluate.EvaluationClient;
+import com.flipt.api.client.flags.FlagsClient;
+import com.flipt.api.client.rules.RulesClient;
+import com.flipt.api.client.segments.SegmentsClient;
+import com.flipt.api.client.variants.VariantsClient;
 import com.flipt.api.core.BasicAuth;
 import com.flipt.api.core.Environment;
 import java.util.Objects;
@@ -15,67 +15,67 @@ import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Supplier;
 
 public final class FliptApiClient {
-  private final Supplier<AuthenticationServiceClient> authenticationServiceClient;
+  private final Supplier<AuthenticationClient> authenticationClient;
 
-  private final Supplier<ConstraintsServiceClient> constraintsServiceClient;
+  private final Supplier<ConstraintsClient> constraintsClient;
 
-  private final Supplier<DistributionsServiceClient> distributionsServiceClient;
+  private final Supplier<DistributionsClient> distributionsClient;
 
-  private final Supplier<EvaluateServiceClient> evaluateServiceClient;
+  private final Supplier<EvaluationClient> evaluationClient;
 
-  private final Supplier<FlagsServiceClient> flagsServiceClient;
+  private final Supplier<FlagsClient> flagsClient;
 
-  private final Supplier<RulesServiceClient> rulesServiceClient;
+  private final Supplier<RulesClient> rulesClient;
 
-  private final Supplier<SegmentsServiceClient> segmentsServiceClient;
+  private final Supplier<SegmentsClient> segmentsClient;
 
-  private final Supplier<VariantsServiceClient> variantsServiceClient;
+  private final Supplier<VariantsClient> variantsClient;
 
   public FliptApiClient(BasicAuth auth) {
     this(Environment.PRODUCTION, auth);
   }
 
   public FliptApiClient(Environment environment, BasicAuth auth) {
-    this.segmentsServiceClient = memoize(() -> new SegmentsServiceClient(environment.getUrl(), auth));
-    this.evaluateServiceClient = memoize(() -> new EvaluateServiceClient(environment.getUrl(), auth));
-    this.rulesServiceClient = memoize(() -> new RulesServiceClient(environment.getUrl(), auth));
-    this.distributionsServiceClient = memoize(() -> new DistributionsServiceClient(environment.getUrl(), auth));
-    this.variantsServiceClient = memoize(() -> new VariantsServiceClient(environment.getUrl(), auth));
-    this.flagsServiceClient = memoize(() -> new FlagsServiceClient(environment.getUrl(), auth));
-    this.constraintsServiceClient = memoize(() -> new ConstraintsServiceClient(environment.getUrl(), auth));
-    this.authenticationServiceClient = memoize(() -> new AuthenticationServiceClient(environment.getUrl(), auth));
+    this.rulesClient = memoize(() -> new RulesClient(environment.getUrl(), auth));
+    this.segmentsClient = memoize(() -> new SegmentsClient(environment.getUrl(), auth));
+    this.flagsClient = memoize(() -> new FlagsClient(environment.getUrl(), auth));
+    this.variantsClient = memoize(() -> new VariantsClient(environment.getUrl(), auth));
+    this.authenticationClient = memoize(() -> new AuthenticationClient(environment.getUrl(), auth));
+    this.distributionsClient = memoize(() -> new DistributionsClient(environment.getUrl(), auth));
+    this.constraintsClient = memoize(() -> new ConstraintsClient(environment.getUrl(), auth));
+    this.evaluationClient = memoize(() -> new EvaluationClient(environment.getUrl(), auth));
   }
 
-  public final AuthenticationServiceClient auth() {
-    return this.authenticationServiceClient.get();
+  public final AuthenticationClient auth() {
+    return this.authenticationClient.get();
   }
 
-  public final ConstraintsServiceClient constraints() {
-    return this.constraintsServiceClient.get();
+  public final ConstraintsClient constraints() {
+    return this.constraintsClient.get();
   }
 
-  public final DistributionsServiceClient distributions() {
-    return this.distributionsServiceClient.get();
+  public final DistributionsClient distributions() {
+    return this.distributionsClient.get();
   }
 
-  public final EvaluateServiceClient evaluate() {
-    return this.evaluateServiceClient.get();
+  public final EvaluationClient evaluate() {
+    return this.evaluationClient.get();
   }
 
-  public final FlagsServiceClient flags() {
-    return this.flagsServiceClient.get();
+  public final FlagsClient flags() {
+    return this.flagsClient.get();
   }
 
-  public final RulesServiceClient rules() {
-    return this.rulesServiceClient.get();
+  public final RulesClient rules() {
+    return this.rulesClient.get();
   }
 
-  public final SegmentsServiceClient segments() {
-    return this.segmentsServiceClient.get();
+  public final SegmentsClient segments() {
+    return this.segmentsClient.get();
   }
 
-  public final VariantsServiceClient variants() {
-    return this.variantsServiceClient.get();
+  public final VariantsClient variants() {
+    return this.variantsClient.get();
   }
 
   private static <T> Supplier<T> memoize(Supplier<T> delegate) {

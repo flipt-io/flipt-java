@@ -27,7 +27,7 @@ import javax.ws.rs.core.MediaType;
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 @Path("/api/v1/flags/{flagKey}/variants")
-interface VariantsService {
+interface Variants {
   @POST
   @Path("/")
   Variant create(@HeaderParam("Authorization") BasicAuth auth, VariantCreateRequest body) throws
@@ -43,11 +43,11 @@ interface VariantsService {
   Variant update(@HeaderParam("Authorization") BasicAuth auth, @PathParam("id") String id,
       VariantUpdateRequest body) throws UpdateException;
 
-  static VariantsService getClient(String url) {
+  static Variants getClient(String url) {
     return Feign.builder()
         .contract(new OptionalAwareContract(new JAXRSContract()))
         .decoder(new JacksonDecoder(ObjectMappers.JSON_MAPPER))
         .encoder(new JacksonEncoder(ObjectMappers.JSON_MAPPER))
-        .errorDecoder(new VariantsServiceErrorDecoder()).target(VariantsService.class, url);
+        .errorDecoder(new VariantsErrorDecoder()).target(Variants.class, url);
   }
 }

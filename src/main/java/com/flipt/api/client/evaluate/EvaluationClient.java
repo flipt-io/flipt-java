@@ -11,18 +11,18 @@ import java.lang.RuntimeException;
 import java.lang.String;
 import java.util.Optional;
 
-public final class EvaluateServiceClient {
-  private final EvaluateService service;
+public final class EvaluationClient {
+  private final Evaluation service;
 
   private final Optional<BasicAuth> auth;
 
-  public EvaluateServiceClient(String url) {
-    this.service = EvaluateService.getClient(url);
+  public EvaluationClient(String url) {
+    this.service = Evaluation.getClient(url);
     this.auth = Optional.empty();
   }
 
-  public EvaluateServiceClient(String url, BasicAuth auth) {
-    this.service = EvaluateService.getClient(url);
+  public EvaluationClient(String url, BasicAuth auth) {
+    this.service = Evaluation.getClient(url);
     this.auth = Optional.of(auth);
   }
 

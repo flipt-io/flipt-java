@@ -10,7 +10,6 @@ import com.flipt.api.client.auth.exceptions.DeleteTokenException;
 import com.flipt.api.client.auth.exceptions.GetSelfException;
 import com.flipt.api.client.auth.exceptions.GetTokenException;
 import com.flipt.api.client.auth.exceptions.ListTokensException;
-import com.flipt.api.client.auth.types.Authentication;
 import com.flipt.api.client.auth.types.AuthenticationList;
 import com.flipt.api.client.auth.types.AuthenticationToken;
 import com.flipt.api.core.BasicAuth;
@@ -18,18 +17,18 @@ import java.lang.RuntimeException;
 import java.lang.String;
 import java.util.Optional;
 
-public final class AuthenticationServiceClient {
-  private final AuthenticationService service;
+public final class AuthenticationClient {
+  private final Authentication service;
 
   private final Optional<BasicAuth> auth;
 
-  public AuthenticationServiceClient(String url) {
-    this.service = AuthenticationService.getClient(url);
+  public AuthenticationClient(String url) {
+    this.service = Authentication.getClient(url);
     this.auth = Optional.empty();
   }
 
-  public AuthenticationServiceClient(String url, BasicAuth auth) {
-    this.service = AuthenticationService.getClient(url);
+  public AuthenticationClient(String url, BasicAuth auth) {
+    this.service = Authentication.getClient(url);
     this.auth = Optional.of(auth);
   }
 
@@ -38,7 +37,8 @@ public final class AuthenticationServiceClient {
     return this.service.listTokens(authValue);
   }
 
-  public Authentication getToken(GetToken.Request request) throws GetTokenException {
+  public com.flipt.api.client.auth.types.Authentication getToken(GetToken.Request request) throws
+      GetTokenException {
     BasicAuth authValue = request.getAuthOverride().orElseGet(() -> this.auth.orElseThrow(() -> new RuntimeException("Auth is required for getToken")));
     return this.service.getToken(authValue, request.getId());
   }
@@ -53,7 +53,8 @@ public final class AuthenticationServiceClient {
     this.service.deleteToken(authValue, request.getId());
   }
 
-  public Authentication getSelf(GetSelf.Request request) throws GetSelfException {
+  public com.flipt.api.client.auth.types.Authentication getSelf(GetSelf.Request request) throws
+      GetSelfException {
     BasicAuth authValue = request.getAuthOverride().orElseGet(() -> this.auth.orElseThrow(() -> new RuntimeException("Auth is required for getSelf")));
     return this.service.getSelf(authValue);
   }

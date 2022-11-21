@@ -1,7 +1,8 @@
-package com.flipt.api.client.evaluate;
+package com.flipt.api.client.constraints;
 
-import com.flipt.api.client.evaluate.exceptions.BatchEvaluateException;
-import com.flipt.api.client.evaluate.exceptions.EvaluateException;
+import com.flipt.api.client.constraints.exceptions.CreateException;
+import com.flipt.api.client.constraints.exceptions.DeleteException;
+import com.flipt.api.client.constraints.exceptions.UpdateException;
 import com.flipt.api.core.ObjectMappers;
 import feign.Response;
 import feign.codec.ErrorDecoder;
@@ -12,15 +13,18 @@ import java.lang.Override;
 import java.lang.RuntimeException;
 import java.lang.String;
 
-final class EvaluateServiceErrorDecoder implements ErrorDecoder {
+final class ConstraintsErrorDecoder implements ErrorDecoder {
   @Override
   public Exception decode(String methodKey, Response response) {
     try {
-      if (methodKey.contains("evaluate")) {
-        return decodeException(response, EvaluateException.class);
+      if (methodKey.contains("create")) {
+        return decodeException(response, CreateException.class);
       }
-      if (methodKey.contains("batchEvaluate")) {
-        return decodeException(response, BatchEvaluateException.class);
+      if (methodKey.contains("delete")) {
+        return decodeException(response, DeleteException.class);
+      }
+      if (methodKey.contains("update")) {
+        return decodeException(response, UpdateException.class);
       }
     }
     catch (IOException e) {

@@ -24,7 +24,7 @@ import javax.ws.rs.core.MediaType;
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 @Path("/api/v1")
-interface EvaluateService {
+interface Evaluation {
   @POST
   @Path("/evaluate")
   EvaluationResponse evaluate(@HeaderParam("Authorization") BasicAuth auth, EvaluationRequest body)
@@ -35,11 +35,11 @@ interface EvaluateService {
   BatchEvaluationResponse batchEvaluate(@HeaderParam("Authorization") BasicAuth auth,
       BatchEvaluationRequest body) throws BatchEvaluateException;
 
-  static EvaluateService getClient(String url) {
+  static Evaluation getClient(String url) {
     return Feign.builder()
         .contract(new OptionalAwareContract(new JAXRSContract()))
         .decoder(new JacksonDecoder(ObjectMappers.JSON_MAPPER))
         .encoder(new JacksonEncoder(ObjectMappers.JSON_MAPPER))
-        .errorDecoder(new EvaluateServiceErrorDecoder()).target(EvaluateService.class, url);
+        .errorDecoder(new EvaluationErrorDecoder()).target(Evaluation.class, url);
   }
 }

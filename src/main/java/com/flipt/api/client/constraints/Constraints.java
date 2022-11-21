@@ -27,7 +27,7 @@ import javax.ws.rs.core.MediaType;
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 @Path("/api/v1/segments/{segmentKey}/constraints")
-interface ConstraintsService {
+interface Constraints {
   @POST
   @Path("/")
   Constraint create(@HeaderParam("Authorization") BasicAuth auth, ConstraintCreateRequest body)
@@ -43,11 +43,11 @@ interface ConstraintsService {
   void update(@HeaderParam("Authorization") BasicAuth auth, @PathParam("id") String id,
       ConstraintUpdateRequest body) throws UpdateException;
 
-  static ConstraintsService getClient(String url) {
+  static Constraints getClient(String url) {
     return Feign.builder()
         .contract(new OptionalAwareContract(new JAXRSContract()))
         .decoder(new JacksonDecoder(ObjectMappers.JSON_MAPPER))
         .encoder(new JacksonEncoder(ObjectMappers.JSON_MAPPER))
-        .errorDecoder(new ConstraintsServiceErrorDecoder()).target(ConstraintsService.class, url);
+        .errorDecoder(new ConstraintsErrorDecoder()).target(Constraints.class, url);
   }
 }

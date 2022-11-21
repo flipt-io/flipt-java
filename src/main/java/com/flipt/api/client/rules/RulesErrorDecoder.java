@@ -1,8 +1,11 @@
-package com.flipt.api.client.distributions;
+package com.flipt.api.client.rules;
 
-import com.flipt.api.client.distributions.exceptions.CreateException;
-import com.flipt.api.client.distributions.exceptions.DeleteException;
-import com.flipt.api.client.distributions.exceptions.UpdateException;
+import com.flipt.api.client.rules.exceptions.CreateException;
+import com.flipt.api.client.rules.exceptions.DeleteException;
+import com.flipt.api.client.rules.exceptions.GetException;
+import com.flipt.api.client.rules.exceptions.ListException;
+import com.flipt.api.client.rules.exceptions.OrderException;
+import com.flipt.api.client.rules.exceptions.UpdateException;
 import com.flipt.api.core.ObjectMappers;
 import feign.Response;
 import feign.codec.ErrorDecoder;
@@ -13,12 +16,21 @@ import java.lang.Override;
 import java.lang.RuntimeException;
 import java.lang.String;
 
-final class DistributionsServiceErrorDecoder implements ErrorDecoder {
+final class RulesErrorDecoder implements ErrorDecoder {
   @Override
   public Exception decode(String methodKey, Response response) {
     try {
+      if (methodKey.contains("list")) {
+        return decodeException(response, ListException.class);
+      }
       if (methodKey.contains("create")) {
         return decodeException(response, CreateException.class);
+      }
+      if (methodKey.contains("order")) {
+        return decodeException(response, OrderException.class);
+      }
+      if (methodKey.contains("get")) {
+        return decodeException(response, GetException.class);
       }
       if (methodKey.contains("delete")) {
         return decodeException(response, DeleteException.class);

@@ -6,7 +6,6 @@ import com.flipt.api.client.auth.exceptions.DeleteTokenException;
 import com.flipt.api.client.auth.exceptions.GetSelfException;
 import com.flipt.api.client.auth.exceptions.GetTokenException;
 import com.flipt.api.client.auth.exceptions.ListTokensException;
-import com.flipt.api.client.auth.types.Authentication;
 import com.flipt.api.client.auth.types.AuthenticationList;
 import com.flipt.api.client.auth.types.AuthenticationToken;
 import com.flipt.api.client.auth.types.AuthenticationTokenCreateRequest;
@@ -30,7 +29,7 @@ import javax.ws.rs.core.MediaType;
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 @Path("/auth/v1")
-interface AuthenticationService {
+interface Authentication {
   @GET
   @Path("/tokens")
   AuthenticationList listTokens(@HeaderParam("Authorization") BasicAuth auth) throws
@@ -38,8 +37,9 @@ interface AuthenticationService {
 
   @GET
   @Path("/tokens/{id}")
-  Authentication getToken(@HeaderParam("Authorization") BasicAuth auth, @PathParam("id") String id)
-      throws GetTokenException;
+  com.flipt.api.client.auth.types.Authentication getToken(
+      @HeaderParam("Authorization") BasicAuth auth, @PathParam("id") String id) throws
+      GetTokenException;
 
   @POST
   @Path("/method/token")
@@ -53,13 +53,14 @@ interface AuthenticationService {
 
   @GET
   @Path("/self")
-  Authentication getSelf(@HeaderParam("Authorization") BasicAuth auth) throws GetSelfException;
+  com.flipt.api.client.auth.types.Authentication getSelf(
+      @HeaderParam("Authorization") BasicAuth auth) throws GetSelfException;
 
-  static AuthenticationService getClient(String url) {
+  static Authentication getClient(String url) {
     return Feign.builder()
         .contract(new OptionalAwareContract(new JAXRSContract()))
         .decoder(new JacksonDecoder(ObjectMappers.JSON_MAPPER))
         .encoder(new JacksonEncoder(ObjectMappers.JSON_MAPPER))
-        .errorDecoder(new AuthenticationServiceErrorDecoder()).target(AuthenticationService.class, url);
+        .errorDecoder(new AuthenticationErrorDecoder()).target(Authentication.class, url);
   }
 }

@@ -15,7 +15,7 @@ import java.lang.Override;
 import java.lang.RuntimeException;
 import java.lang.String;
 
-final class AuthenticationServiceErrorDecoder implements ErrorDecoder {
+final class AuthenticationErrorDecoder implements ErrorDecoder {
   @Override
   public Exception decode(String methodKey, Response response) {
     try {

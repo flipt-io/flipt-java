@@ -33,7 +33,7 @@ import javax.ws.rs.core.MediaType;
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 @Path("/api/v1/segments")
-interface SegmentsService {
+interface Segments {
   @GET
   @Path("/")
   SegmentList list(@HeaderParam("Authorization") BasicAuth auth, @QueryParam("limit") Integer limit,
@@ -60,11 +60,11 @@ interface SegmentsService {
   Segment update(@HeaderParam("Authorization") BasicAuth auth, @PathParam("key") String key,
       SegmentUpdateRequest body) throws UpdateException;
 
-  static SegmentsService getClient(String url) {
+  static Segments getClient(String url) {
     return Feign.builder()
         .contract(new OptionalAwareContract(new JAXRSContract()))
         .decoder(new JacksonDecoder(ObjectMappers.JSON_MAPPER))
         .encoder(new JacksonEncoder(ObjectMappers.JSON_MAPPER))
-        .errorDecoder(new SegmentsServiceErrorDecoder()).target(SegmentsService.class, url);
+        .errorDecoder(new SegmentsErrorDecoder()).target(Segments.class, url);
   }
 }

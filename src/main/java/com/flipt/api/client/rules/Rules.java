@@ -36,7 +36,7 @@ import javax.ws.rs.core.MediaType;
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 @Path("/api/v1/flags/{flagKey}/rules")
-interface RulesService {
+interface Rules {
   @GET
   @Path("/")
   RuleList list(@HeaderParam("Authorization") BasicAuth auth,
@@ -67,11 +67,11 @@ interface RulesService {
   void update(@HeaderParam("Authorization") BasicAuth auth, @PathParam("id") String id,
       RuleUpdateRequest body) throws UpdateException;
 
-  static RulesService getClient(String url) {
+  static Rules getClient(String url) {
     return Feign.builder()
         .contract(new OptionalAwareContract(new JAXRSContract()))
         .decoder(new JacksonDecoder(ObjectMappers.JSON_MAPPER))
         .encoder(new JacksonEncoder(ObjectMappers.JSON_MAPPER))
-        .errorDecoder(new RulesServiceErrorDecoder()).target(RulesService.class, url);
+        .errorDecoder(new RulesErrorDecoder()).target(Rules.class, url);
   }
 }

@@ -28,7 +28,7 @@ import javax.ws.rs.core.MediaType;
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 @Path("/api/v1/flags/{flagKey}/rules/{ruleId}/distributions")
-interface DistributionsService {
+interface Distributions {
   @POST
   @Path("/")
   Distribution create(@HeaderParam("Authorization") BasicAuth auth, DistributionCreateRequest body)
@@ -44,11 +44,11 @@ interface DistributionsService {
   Distribution update(@HeaderParam("Authorization") BasicAuth auth, @PathParam("id") String id,
       DistributionUpdateRequest body) throws UpdateException;
 
-  static DistributionsService getClient(String url) {
+  static Distributions getClient(String url) {
     return Feign.builder()
         .contract(new OptionalAwareContract(new JAXRSContract()))
         .decoder(new JacksonDecoder(ObjectMappers.JSON_MAPPER))
         .encoder(new JacksonEncoder(ObjectMappers.JSON_MAPPER))
-        .errorDecoder(new DistributionsServiceErrorDecoder()).target(DistributionsService.class, url);
+        .errorDecoder(new DistributionsErrorDecoder()).target(Distributions.class, url);
   }
 }

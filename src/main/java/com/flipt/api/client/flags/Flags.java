@@ -34,7 +34,7 @@ import javax.ws.rs.core.MediaType;
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 @Path("/api/v1/flags")
-interface FlagsService {
+interface Flags {
   @GET
   @Path("/")
   FlagList list(@HeaderParam("Authorization") BasicAuth auth,
@@ -61,11 +61,11 @@ interface FlagsService {
   Flag update(@HeaderParam("Authorization") BasicAuth auth, @PathParam("key") String key,
       FlagUpdateRequest body) throws UpdateException;
 
-  static FlagsService getClient(String url) {
+  static Flags getClient(String url) {
     return Feign.builder()
         .contract(new OptionalAwareContract(new JAXRSContract()))
         .decoder(new JacksonDecoder(ObjectMappers.JSON_MAPPER))
         .encoder(new JacksonEncoder(ObjectMappers.JSON_MAPPER))
-        .errorDecoder(new FlagsServiceErrorDecoder()).target(FlagsService.class, url);
+        .errorDecoder(new FlagsErrorDecoder()).target(Flags.class, url);
   }
 }

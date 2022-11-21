@@ -12,18 +12,18 @@ import java.lang.RuntimeException;
 import java.lang.String;
 import java.util.Optional;
 
-public final class DistributionsServiceClient {
-  private final DistributionsService service;
+public final class DistributionsClient {
+  private final Distributions service;
 
   private final Optional<BasicAuth> auth;
 
-  public DistributionsServiceClient(String url) {
-    this.service = DistributionsService.getClient(url);
+  public DistributionsClient(String url) {
+    this.service = Distributions.getClient(url);
     this.auth = Optional.empty();
   }
 
-  public DistributionsServiceClient(String url, BasicAuth auth) {
-    this.service = DistributionsService.getClient(url);
+  public DistributionsClient(String url, BasicAuth auth) {
+    this.service = Distributions.getClient(url);
     this.auth = Optional.of(auth);
   }
 

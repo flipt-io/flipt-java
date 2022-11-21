@@ -1,10 +1,8 @@
-package com.flipt.api.client.flags;
+package com.flipt.api.client.variants;
 
-import com.flipt.api.client.flags.exceptions.CreateException;
-import com.flipt.api.client.flags.exceptions.DeleteException;
-import com.flipt.api.client.flags.exceptions.GetException;
-import com.flipt.api.client.flags.exceptions.ListException;
-import com.flipt.api.client.flags.exceptions.UpdateException;
+import com.flipt.api.client.variants.exceptions.CreateException;
+import com.flipt.api.client.variants.exceptions.DeleteException;
+import com.flipt.api.client.variants.exceptions.UpdateException;
 import com.flipt.api.core.ObjectMappers;
 import feign.Response;
 import feign.codec.ErrorDecoder;
@@ -15,18 +13,12 @@ import java.lang.Override;
 import java.lang.RuntimeException;
 import java.lang.String;
 
-final class FlagsServiceErrorDecoder implements ErrorDecoder {
+final class VariantsErrorDecoder implements ErrorDecoder {
   @Override
   public Exception decode(String methodKey, Response response) {
     try {
-      if (methodKey.contains("list")) {
-        return decodeException(response, ListException.class);
-      }
       if (methodKey.contains("create")) {
         return decodeException(response, CreateException.class);
-      }
-      if (methodKey.contains("get")) {
-        return decodeException(response, GetException.class);
       }
       if (methodKey.contains("delete")) {
         return decodeException(response, DeleteException.class);

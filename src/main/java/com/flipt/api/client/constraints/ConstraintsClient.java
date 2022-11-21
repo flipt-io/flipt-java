@@ -12,18 +12,18 @@ import java.lang.RuntimeException;
 import java.lang.String;
 import java.util.Optional;
 
-public final class ConstraintsServiceClient {
-  private final ConstraintsService service;
+public final class ConstraintsClient {
+  private final Constraints service;
 
   private final Optional<BasicAuth> auth;
 
-  public ConstraintsServiceClient(String url) {
-    this.service = ConstraintsService.getClient(url);
+  public ConstraintsClient(String url) {
+    this.service = Constraints.getClient(url);
     this.auth = Optional.empty();
   }
 
-  public ConstraintsServiceClient(String url, BasicAuth auth) {
-    this.service = ConstraintsService.getClient(url);
+  public ConstraintsClient(String url, BasicAuth auth) {
+    this.service = Constraints.getClient(url);
     this.auth = Optional.of(auth);
   }
 

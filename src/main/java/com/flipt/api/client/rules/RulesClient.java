@@ -19,18 +19,18 @@ import java.lang.RuntimeException;
 import java.lang.String;
 import java.util.Optional;
 
-public final class RulesServiceClient {
-  private final RulesService service;
+public final class RulesClient {
+  private final Rules service;
 
   private final Optional<BasicAuth> auth;
 
-  public RulesServiceClient(String url) {
-    this.service = RulesService.getClient(url);
+  public RulesClient(String url) {
+    this.service = Rules.getClient(url);
     this.auth = Optional.empty();
   }
 
-  public RulesServiceClient(String url, BasicAuth auth) {
-    this.service = RulesService.getClient(url);
+  public RulesClient(String url, BasicAuth auth) {
+    this.service = Rules.getClient(url);
     this.auth = Optional.of(auth);
   }
 

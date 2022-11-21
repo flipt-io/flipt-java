@@ -1,11 +1,10 @@
-package com.flipt.api.client.rules;
+package com.flipt.api.client.segments;
 
-import com.flipt.api.client.rules.exceptions.CreateException;
-import com.flipt.api.client.rules.exceptions.DeleteException;
-import com.flipt.api.client.rules.exceptions.GetException;
-import com.flipt.api.client.rules.exceptions.ListException;
-import com.flipt.api.client.rules.exceptions.OrderException;
-import com.flipt.api.client.rules.exceptions.UpdateException;
+import com.flipt.api.client.segments.exceptions.CreateException;
+import com.flipt.api.client.segments.exceptions.DeleteException;
+import com.flipt.api.client.segments.exceptions.GetException;
+import com.flipt.api.client.segments.exceptions.ListException;
+import com.flipt.api.client.segments.exceptions.UpdateException;
 import com.flipt.api.core.ObjectMappers;
 import feign.Response;
 import feign.codec.ErrorDecoder;
@@ -16,7 +15,7 @@ import java.lang.Override;
 import java.lang.RuntimeException;
 import java.lang.String;
 
-final class RulesServiceErrorDecoder implements ErrorDecoder {
+final class SegmentsErrorDecoder implements ErrorDecoder {
   @Override
   public Exception decode(String methodKey, Response response) {
     try {
@@ -25,9 +24,6 @@ final class RulesServiceErrorDecoder implements ErrorDecoder {
       }
       if (methodKey.contains("create")) {
         return decodeException(response, CreateException.class);
-      }
-      if (methodKey.contains("order")) {
-        return decodeException(response, OrderException.class);
       }
       if (methodKey.contains("get")) {
         return decodeException(response, GetException.class);

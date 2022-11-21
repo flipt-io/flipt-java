@@ -12,18 +12,18 @@ import java.lang.RuntimeException;
 import java.lang.String;
 import java.util.Optional;
 
-public final class VariantsServiceClient {
-  private final VariantsService service;
+public final class VariantsClient {
+  private final Variants service;
 
   private final Optional<BasicAuth> auth;
 
-  public VariantsServiceClient(String url) {
-    this.service = VariantsService.getClient(url);
+  public VariantsClient(String url) {
+    this.service = Variants.getClient(url);
     this.auth = Optional.empty();
   }
 
-  public VariantsServiceClient(String url, BasicAuth auth) {
-    this.service = VariantsService.getClient(url);
+  public VariantsClient(String url, BasicAuth auth) {
+    this.service = Variants.getClient(url);
     this.auth = Optional.of(auth);
   }
 
