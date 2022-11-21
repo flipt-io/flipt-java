@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.flipt.api.client.commons.types.IPageable;
 import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
@@ -16,36 +15,26 @@ import java.util.Objects;
 @JsonDeserialize(
     builder = AuthenticationList.Builder.class
 )
-public final class AuthenticationList implements IPageable {
-  private final String nextPageToken;
-
-  private final int totalCount;
-
+public final class AuthenticationList {
   private final List<Authentication> authentications;
+
+  private final String nextPageToken;
 
   private int _cachedHashCode;
 
-  AuthenticationList(String nextPageToken, int totalCount, List<Authentication> authentications) {
-    this.nextPageToken = nextPageToken;
-    this.totalCount = totalCount;
+  AuthenticationList(List<Authentication> authentications, String nextPageToken) {
     this.authentications = authentications;
-  }
-
-  @JsonProperty("nextPageToken")
-  @Override
-  public String getNextPageToken() {
-    return nextPageToken;
-  }
-
-  @JsonProperty("totalCount")
-  @Override
-  public int getTotalCount() {
-    return totalCount;
+    this.nextPageToken = nextPageToken;
   }
 
   @JsonProperty("authentications")
   public List<Authentication> getAuthentications() {
     return authentications;
+  }
+
+  @JsonProperty("nextPageToken")
+  public String getNextPageToken() {
+    return nextPageToken;
   }
 
   @Override
@@ -55,20 +44,20 @@ public final class AuthenticationList implements IPageable {
   }
 
   private boolean equalTo(AuthenticationList other) {
-    return nextPageToken.equals(other.nextPageToken) && totalCount == other.totalCount && authentications.equals(other.authentications);
+    return authentications.equals(other.authentications) && nextPageToken.equals(other.nextPageToken);
   }
 
   @Override
   public int hashCode() {
     if (_cachedHashCode == 0) {
-      _cachedHashCode = Objects.hash(this.nextPageToken, this.totalCount, this.authentications);
+      _cachedHashCode = Objects.hash(this.authentications, this.nextPageToken);
     }
     return _cachedHashCode;
   }
 
   @Override
   public String toString() {
-    return "AuthenticationList{" + "nextPageToken: " + nextPageToken + ", totalCount: " + totalCount + ", authentications: " + authentications + "}";
+    return "AuthenticationList{" + "authentications: " + authentications + ", nextPageToken: " + nextPageToken + "}";
   }
 
   public static NextPageTokenStage builder() {
@@ -76,13 +65,9 @@ public final class AuthenticationList implements IPageable {
   }
 
   public interface NextPageTokenStage {
-    TotalCountStage nextPageToken(String nextPageToken);
+    _FinalStage nextPageToken(String nextPageToken);
 
     Builder from(AuthenticationList other);
-  }
-
-  public interface TotalCountStage {
-    _FinalStage totalCount(int totalCount);
   }
 
   public interface _FinalStage {
@@ -98,10 +83,8 @@ public final class AuthenticationList implements IPageable {
   @JsonIgnoreProperties(
       ignoreUnknown = true
   )
-  static final class Builder implements NextPageTokenStage, TotalCountStage, _FinalStage {
+  static final class Builder implements NextPageTokenStage, _FinalStage {
     private String nextPageToken;
-
-    private int totalCount;
 
     private List<Authentication> authentications = new ArrayList<>();
 
@@ -110,23 +93,15 @@ public final class AuthenticationList implements IPageable {
 
     @Override
     public Builder from(AuthenticationList other) {
-      nextPageToken(other.getNextPageToken());
-      totalCount(other.getTotalCount());
       authentications(other.getAuthentications());
+      nextPageToken(other.getNextPageToken());
       return this;
     }
 
     @Override
     @JsonSetter("nextPageToken")
-    public TotalCountStage nextPageToken(String nextPageToken) {
+    public _FinalStage nextPageToken(String nextPageToken) {
       this.nextPageToken = nextPageToken;
-      return this;
-    }
-
-    @Override
-    @JsonSetter("totalCount")
-    public _FinalStage totalCount(int totalCount) {
-      this.totalCount = totalCount;
       return this;
     }
 
@@ -155,7 +130,7 @@ public final class AuthenticationList implements IPageable {
 
     @Override
     public AuthenticationList build() {
-      return new AuthenticationList(nextPageToken, totalCount, authentications);
+      return new AuthenticationList(authentications, nextPageToken);
     }
   }
 }
