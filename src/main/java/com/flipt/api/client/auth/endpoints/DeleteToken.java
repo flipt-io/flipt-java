@@ -1,6 +1,6 @@
 package com.flipt.api.client.auth.endpoints;
 
-import com.flipt.api.core.BasicAuth;
+import com.flipt.api.core.BearerAuth;
 import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
@@ -12,18 +12,18 @@ public final class DeleteToken {
   }
 
   public static final class Request {
-    private final Optional<BasicAuth> authOverride;
+    private final Optional<BearerAuth> authOverride;
 
     private final String id;
 
     private int _cachedHashCode;
 
-    Request(Optional<BasicAuth> authOverride, String id) {
+    Request(Optional<BearerAuth> authOverride, String id) {
       this.authOverride = authOverride;
       this.id = id;
     }
 
-    public Optional<BasicAuth> getAuthOverride() {
+    public Optional<BearerAuth> getAuthOverride() {
       return authOverride;
     }
 
@@ -67,15 +67,15 @@ public final class DeleteToken {
     public interface _FinalStage {
       Request build();
 
-      _FinalStage authOverride(Optional<BasicAuth> authOverride);
+      _FinalStage authOverride(Optional<BearerAuth> authOverride);
 
-      _FinalStage authOverride(BasicAuth authOverride);
+      _FinalStage authOverride(BearerAuth authOverride);
     }
 
     static final class Builder implements IdStage, _FinalStage {
       private String id;
 
-      private Optional<BasicAuth> authOverride = Optional.empty();
+      private Optional<BearerAuth> authOverride = Optional.empty();
 
       private Builder() {
       }
@@ -94,13 +94,13 @@ public final class DeleteToken {
       }
 
       @Override
-      public _FinalStage authOverride(BasicAuth authOverride) {
+      public _FinalStage authOverride(BearerAuth authOverride) {
         this.authOverride = Optional.of(authOverride);
         return this;
       }
 
       @Override
-      public _FinalStage authOverride(Optional<BasicAuth> authOverride) {
+      public _FinalStage authOverride(Optional<BearerAuth> authOverride) {
         this.authOverride = authOverride;
         return this;
       }

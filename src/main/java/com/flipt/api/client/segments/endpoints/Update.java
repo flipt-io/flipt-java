@@ -1,7 +1,7 @@
 package com.flipt.api.client.segments.endpoints;
 
 import com.flipt.api.client.segments.types.SegmentUpdateRequest;
-import com.flipt.api.core.BasicAuth;
+import com.flipt.api.core.BearerAuth;
 import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
@@ -13,7 +13,7 @@ public final class Update {
   }
 
   public static final class Request {
-    private final Optional<BasicAuth> authOverride;
+    private final Optional<BearerAuth> authOverride;
 
     private final String key;
 
@@ -21,13 +21,13 @@ public final class Update {
 
     private int _cachedHashCode;
 
-    Request(Optional<BasicAuth> authOverride, String key, SegmentUpdateRequest body) {
+    Request(Optional<BearerAuth> authOverride, String key, SegmentUpdateRequest body) {
       this.authOverride = authOverride;
       this.key = key;
       this.body = body;
     }
 
-    public Optional<BasicAuth> getAuthOverride() {
+    public Optional<BearerAuth> getAuthOverride() {
       return authOverride;
     }
 
@@ -79,9 +79,9 @@ public final class Update {
     public interface _FinalStage {
       Request build();
 
-      _FinalStage authOverride(Optional<BasicAuth> authOverride);
+      _FinalStage authOverride(Optional<BearerAuth> authOverride);
 
-      _FinalStage authOverride(BasicAuth authOverride);
+      _FinalStage authOverride(BearerAuth authOverride);
     }
 
     static final class Builder implements KeyStage, BodyStage, _FinalStage {
@@ -89,7 +89,7 @@ public final class Update {
 
       private SegmentUpdateRequest body;
 
-      private Optional<BasicAuth> authOverride = Optional.empty();
+      private Optional<BearerAuth> authOverride = Optional.empty();
 
       private Builder() {
       }
@@ -115,13 +115,13 @@ public final class Update {
       }
 
       @Override
-      public _FinalStage authOverride(BasicAuth authOverride) {
+      public _FinalStage authOverride(BearerAuth authOverride) {
         this.authOverride = Optional.of(authOverride);
         return this;
       }
 
       @Override
-      public _FinalStage authOverride(Optional<BasicAuth> authOverride) {
+      public _FinalStage authOverride(Optional<BearerAuth> authOverride) {
         this.authOverride = authOverride;
         return this;
       }

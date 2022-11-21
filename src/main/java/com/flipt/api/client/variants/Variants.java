@@ -7,7 +7,7 @@ import com.flipt.api.client.variants.exceptions.UpdateException;
 import com.flipt.api.client.variants.types.Variant;
 import com.flipt.api.client.variants.types.VariantCreateRequest;
 import com.flipt.api.client.variants.types.VariantUpdateRequest;
-import com.flipt.api.core.BasicAuth;
+import com.flipt.api.core.BearerAuth;
 import com.flipt.api.core.ObjectMappers;
 import feign.Feign;
 import feign.jackson.JacksonDecoder;
@@ -30,17 +30,17 @@ import javax.ws.rs.core.MediaType;
 interface Variants {
   @POST
   @Path("/")
-  Variant create(@HeaderParam("Authorization") BasicAuth auth, VariantCreateRequest body) throws
+  Variant create(@HeaderParam("Authorization") BearerAuth auth, VariantCreateRequest body) throws
       CreateException;
 
   @DELETE
   @Path("/{id}")
-  void delete(@HeaderParam("Authorization") BasicAuth auth, @PathParam("id") String id) throws
+  void delete(@HeaderParam("Authorization") BearerAuth auth, @PathParam("id") String id) throws
       DeleteException;
 
   @PUT
   @Path("/{id}")
-  Variant update(@HeaderParam("Authorization") BasicAuth auth, @PathParam("id") String id,
+  Variant update(@HeaderParam("Authorization") BearerAuth auth, @PathParam("id") String id,
       VariantUpdateRequest body) throws UpdateException;
 
   static Variants getClient(String url) {

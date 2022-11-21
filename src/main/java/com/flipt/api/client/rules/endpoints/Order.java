@@ -1,7 +1,7 @@
 package com.flipt.api.client.rules.endpoints;
 
 import com.flipt.api.client.rules.types.RuleOrder;
-import com.flipt.api.core.BasicAuth;
+import com.flipt.api.core.BearerAuth;
 import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
@@ -13,18 +13,18 @@ public final class Order {
   }
 
   public static final class Request {
-    private final Optional<BasicAuth> authOverride;
+    private final Optional<BearerAuth> authOverride;
 
     private final RuleOrder body;
 
     private int _cachedHashCode;
 
-    Request(Optional<BasicAuth> authOverride, RuleOrder body) {
+    Request(Optional<BearerAuth> authOverride, RuleOrder body) {
       this.authOverride = authOverride;
       this.body = body;
     }
 
-    public Optional<BasicAuth> getAuthOverride() {
+    public Optional<BearerAuth> getAuthOverride() {
       return authOverride;
     }
 
@@ -68,15 +68,15 @@ public final class Order {
     public interface _FinalStage {
       Request build();
 
-      _FinalStage authOverride(Optional<BasicAuth> authOverride);
+      _FinalStage authOverride(Optional<BearerAuth> authOverride);
 
-      _FinalStage authOverride(BasicAuth authOverride);
+      _FinalStage authOverride(BearerAuth authOverride);
     }
 
     static final class Builder implements BodyStage, _FinalStage {
       private RuleOrder body;
 
-      private Optional<BasicAuth> authOverride = Optional.empty();
+      private Optional<BearerAuth> authOverride = Optional.empty();
 
       private Builder() {
       }
@@ -95,13 +95,13 @@ public final class Order {
       }
 
       @Override
-      public _FinalStage authOverride(BasicAuth authOverride) {
+      public _FinalStage authOverride(BearerAuth authOverride) {
         this.authOverride = Optional.of(authOverride);
         return this;
       }
 
       @Override
-      public _FinalStage authOverride(Optional<BasicAuth> authOverride) {
+      public _FinalStage authOverride(Optional<BearerAuth> authOverride) {
         this.authOverride = authOverride;
         return this;
       }

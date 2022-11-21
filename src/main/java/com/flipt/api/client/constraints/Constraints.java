@@ -7,7 +7,7 @@ import com.flipt.api.client.constraints.exceptions.UpdateException;
 import com.flipt.api.client.constraints.types.Constraint;
 import com.flipt.api.client.constraints.types.ConstraintCreateRequest;
 import com.flipt.api.client.constraints.types.ConstraintUpdateRequest;
-import com.flipt.api.core.BasicAuth;
+import com.flipt.api.core.BearerAuth;
 import com.flipt.api.core.ObjectMappers;
 import feign.Feign;
 import feign.jackson.JacksonDecoder;
@@ -30,17 +30,17 @@ import javax.ws.rs.core.MediaType;
 interface Constraints {
   @POST
   @Path("/")
-  Constraint create(@HeaderParam("Authorization") BasicAuth auth, ConstraintCreateRequest body)
+  Constraint create(@HeaderParam("Authorization") BearerAuth auth, ConstraintCreateRequest body)
       throws CreateException;
 
   @DELETE
   @Path("/{id}")
-  void delete(@HeaderParam("Authorization") BasicAuth auth, @PathParam("id") String id) throws
+  void delete(@HeaderParam("Authorization") BearerAuth auth, @PathParam("id") String id) throws
       DeleteException;
 
   @PUT
   @Path("/{id}")
-  void update(@HeaderParam("Authorization") BasicAuth auth, @PathParam("id") String id,
+  void update(@HeaderParam("Authorization") BearerAuth auth, @PathParam("id") String id,
       ConstraintUpdateRequest body) throws UpdateException;
 
   static Constraints getClient(String url) {

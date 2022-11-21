@@ -1,6 +1,6 @@
 package com.flipt.api.client.auth.endpoints;
 
-import com.flipt.api.core.BasicAuth;
+import com.flipt.api.core.BearerAuth;
 import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
@@ -12,15 +12,15 @@ public final class ListTokens {
   }
 
   public static final class Request {
-    private final Optional<BasicAuth> authOverride;
+    private final Optional<BearerAuth> authOverride;
 
     private int _cachedHashCode;
 
-    Request(Optional<BasicAuth> authOverride) {
+    Request(Optional<BearerAuth> authOverride) {
       this.authOverride = authOverride;
     }
 
-    public Optional<BasicAuth> getAuthOverride() {
+    public Optional<BearerAuth> getAuthOverride() {
       return authOverride;
     }
 
@@ -52,7 +52,7 @@ public final class ListTokens {
     }
 
     public static final class Builder {
-      private Optional<BasicAuth> authOverride = Optional.empty();
+      private Optional<BearerAuth> authOverride = Optional.empty();
 
       private Builder() {
       }
@@ -62,12 +62,12 @@ public final class ListTokens {
         return this;
       }
 
-      public Builder authOverride(Optional<BasicAuth> authOverride) {
+      public Builder authOverride(Optional<BearerAuth> authOverride) {
         this.authOverride = authOverride;
         return this;
       }
 
-      public Builder authOverride(BasicAuth authOverride) {
+      public Builder authOverride(BearerAuth authOverride) {
         this.authOverride = Optional.of(authOverride);
         return this;
       }

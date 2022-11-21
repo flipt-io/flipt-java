@@ -12,7 +12,7 @@ import com.flipt.api.client.flags.exceptions.ListException;
 import com.flipt.api.client.flags.exceptions.UpdateException;
 import com.flipt.api.client.flags.types.Flag;
 import com.flipt.api.client.flags.types.FlagList;
-import com.flipt.api.core.BasicAuth;
+import com.flipt.api.core.BearerAuth;
 import java.lang.RuntimeException;
 import java.lang.String;
 import java.util.Optional;
@@ -20,40 +20,40 @@ import java.util.Optional;
 public final class FlagsClient {
   private final Flags service;
 
-  private final Optional<BasicAuth> auth;
+  private final Optional<BearerAuth> auth;
 
   public FlagsClient(String url) {
     this.service = Flags.getClient(url);
     this.auth = Optional.empty();
   }
 
-  public FlagsClient(String url, BasicAuth auth) {
+  public FlagsClient(String url, BearerAuth auth) {
     this.service = Flags.getClient(url);
     this.auth = Optional.of(auth);
   }
 
   public FlagList list(List.Request request) throws ListException {
-    BasicAuth authValue = request.getAuthOverride().orElseGet(() -> this.auth.orElseThrow(() -> new RuntimeException("Auth is required for list")));
+    BearerAuth authValue = request.getAuthOverride().orElseGet(() -> this.auth.orElseThrow(() -> new RuntimeException("Auth is required for list")));
     return this.service.list(authValue, request.getLimit(), request.getOffset(), request.getPageToken());
   }
 
   public Flag create(Create.Request request) throws CreateException {
-    BasicAuth authValue = request.getAuthOverride().orElseGet(() -> this.auth.orElseThrow(() -> new RuntimeException("Auth is required for create")));
+    BearerAuth authValue = request.getAuthOverride().orElseGet(() -> this.auth.orElseThrow(() -> new RuntimeException("Auth is required for create")));
     return this.service.create(authValue, request.getBody());
   }
 
   public Flag get(Get.Request request) throws GetException {
-    BasicAuth authValue = request.getAuthOverride().orElseGet(() -> this.auth.orElseThrow(() -> new RuntimeException("Auth is required for get")));
+    BearerAuth authValue = request.getAuthOverride().orElseGet(() -> this.auth.orElseThrow(() -> new RuntimeException("Auth is required for get")));
     return this.service.get(authValue, request.getKey());
   }
 
   public void delete(Delete.Request request) throws DeleteException {
-    BasicAuth authValue = request.getAuthOverride().orElseGet(() -> this.auth.orElseThrow(() -> new RuntimeException("Auth is required for delete")));
+    BearerAuth authValue = request.getAuthOverride().orElseGet(() -> this.auth.orElseThrow(() -> new RuntimeException("Auth is required for delete")));
     this.service.delete(authValue, request.getKey());
   }
 
   public Flag update(Update.Request request) throws UpdateException {
-    BasicAuth authValue = request.getAuthOverride().orElseGet(() -> this.auth.orElseThrow(() -> new RuntimeException("Auth is required for update")));
+    BearerAuth authValue = request.getAuthOverride().orElseGet(() -> this.auth.orElseThrow(() -> new RuntimeException("Auth is required for update")));
     return this.service.update(authValue, request.getKey(), request.getBody());
   }
 }

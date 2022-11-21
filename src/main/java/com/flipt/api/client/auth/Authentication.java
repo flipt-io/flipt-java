@@ -9,7 +9,7 @@ import com.flipt.api.client.auth.exceptions.ListTokensException;
 import com.flipt.api.client.auth.types.AuthenticationList;
 import com.flipt.api.client.auth.types.AuthenticationToken;
 import com.flipt.api.client.auth.types.AuthenticationTokenCreateRequest;
-import com.flipt.api.core.BasicAuth;
+import com.flipt.api.core.BearerAuth;
 import com.flipt.api.core.ObjectMappers;
 import feign.Feign;
 import feign.jackson.JacksonDecoder;
@@ -32,29 +32,29 @@ import javax.ws.rs.core.MediaType;
 interface Authentication {
   @GET
   @Path("/tokens")
-  AuthenticationList listTokens(@HeaderParam("Authorization") BasicAuth auth) throws
+  AuthenticationList listTokens(@HeaderParam("Authorization") BearerAuth auth) throws
       ListTokensException;
 
   @GET
   @Path("/tokens/{id}")
   com.flipt.api.client.auth.types.Authentication getToken(
-      @HeaderParam("Authorization") BasicAuth auth, @PathParam("id") String id) throws
+      @HeaderParam("Authorization") BearerAuth auth, @PathParam("id") String id) throws
       GetTokenException;
 
   @POST
   @Path("/method/token")
-  AuthenticationToken createToken(@HeaderParam("Authorization") BasicAuth auth,
+  AuthenticationToken createToken(@HeaderParam("Authorization") BearerAuth auth,
       AuthenticationTokenCreateRequest body) throws CreateTokenException;
 
   @DELETE
   @Path("/tokens/{id}")
-  void deleteToken(@HeaderParam("Authorization") BasicAuth auth, @PathParam("id") String id) throws
+  void deleteToken(@HeaderParam("Authorization") BearerAuth auth, @PathParam("id") String id) throws
       DeleteTokenException;
 
   @GET
   @Path("/self")
   com.flipt.api.client.auth.types.Authentication getSelf(
-      @HeaderParam("Authorization") BasicAuth auth) throws GetSelfException;
+      @HeaderParam("Authorization") BearerAuth auth) throws GetSelfException;
 
   static Authentication getClient(String url) {
     return Feign.builder()

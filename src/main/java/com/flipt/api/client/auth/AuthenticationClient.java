@@ -12,7 +12,7 @@ import com.flipt.api.client.auth.exceptions.GetTokenException;
 import com.flipt.api.client.auth.exceptions.ListTokensException;
 import com.flipt.api.client.auth.types.AuthenticationList;
 import com.flipt.api.client.auth.types.AuthenticationToken;
-import com.flipt.api.core.BasicAuth;
+import com.flipt.api.core.BearerAuth;
 import java.lang.RuntimeException;
 import java.lang.String;
 import java.util.Optional;
@@ -20,42 +20,42 @@ import java.util.Optional;
 public final class AuthenticationClient {
   private final Authentication service;
 
-  private final Optional<BasicAuth> auth;
+  private final Optional<BearerAuth> auth;
 
   public AuthenticationClient(String url) {
     this.service = Authentication.getClient(url);
     this.auth = Optional.empty();
   }
 
-  public AuthenticationClient(String url, BasicAuth auth) {
+  public AuthenticationClient(String url, BearerAuth auth) {
     this.service = Authentication.getClient(url);
     this.auth = Optional.of(auth);
   }
 
   public AuthenticationList listTokens(ListTokens.Request request) throws ListTokensException {
-    BasicAuth authValue = request.getAuthOverride().orElseGet(() -> this.auth.orElseThrow(() -> new RuntimeException("Auth is required for listTokens")));
+    BearerAuth authValue = request.getAuthOverride().orElseGet(() -> this.auth.orElseThrow(() -> new RuntimeException("Auth is required for listTokens")));
     return this.service.listTokens(authValue);
   }
 
   public com.flipt.api.client.auth.types.Authentication getToken(GetToken.Request request) throws
       GetTokenException {
-    BasicAuth authValue = request.getAuthOverride().orElseGet(() -> this.auth.orElseThrow(() -> new RuntimeException("Auth is required for getToken")));
+    BearerAuth authValue = request.getAuthOverride().orElseGet(() -> this.auth.orElseThrow(() -> new RuntimeException("Auth is required for getToken")));
     return this.service.getToken(authValue, request.getId());
   }
 
   public AuthenticationToken createToken(CreateToken.Request request) throws CreateTokenException {
-    BasicAuth authValue = request.getAuthOverride().orElseGet(() -> this.auth.orElseThrow(() -> new RuntimeException("Auth is required for createToken")));
+    BearerAuth authValue = request.getAuthOverride().orElseGet(() -> this.auth.orElseThrow(() -> new RuntimeException("Auth is required for createToken")));
     return this.service.createToken(authValue, request.getBody());
   }
 
   public void deleteToken(DeleteToken.Request request) throws DeleteTokenException {
-    BasicAuth authValue = request.getAuthOverride().orElseGet(() -> this.auth.orElseThrow(() -> new RuntimeException("Auth is required for deleteToken")));
+    BearerAuth authValue = request.getAuthOverride().orElseGet(() -> this.auth.orElseThrow(() -> new RuntimeException("Auth is required for deleteToken")));
     this.service.deleteToken(authValue, request.getId());
   }
 
   public com.flipt.api.client.auth.types.Authentication getSelf(GetSelf.Request request) throws
       GetSelfException {
-    BasicAuth authValue = request.getAuthOverride().orElseGet(() -> this.auth.orElseThrow(() -> new RuntimeException("Auth is required for getSelf")));
+    BearerAuth authValue = request.getAuthOverride().orElseGet(() -> this.auth.orElseThrow(() -> new RuntimeException("Auth is required for getSelf")));
     return this.service.getSelf(authValue);
   }
 }

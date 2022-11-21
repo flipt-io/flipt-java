@@ -7,7 +7,7 @@ import com.flipt.api.client.evaluate.types.BatchEvaluationRequest;
 import com.flipt.api.client.evaluate.types.BatchEvaluationResponse;
 import com.flipt.api.client.evaluate.types.EvaluationRequest;
 import com.flipt.api.client.evaluate.types.EvaluationResponse;
-import com.flipt.api.core.BasicAuth;
+import com.flipt.api.core.BearerAuth;
 import com.flipt.api.core.ObjectMappers;
 import feign.Feign;
 import feign.jackson.JacksonDecoder;
@@ -27,12 +27,12 @@ import javax.ws.rs.core.MediaType;
 interface Evaluation {
   @POST
   @Path("/evaluate")
-  EvaluationResponse evaluate(@HeaderParam("Authorization") BasicAuth auth, EvaluationRequest body)
+  EvaluationResponse evaluate(@HeaderParam("Authorization") BearerAuth auth, EvaluationRequest body)
       throws EvaluateException;
 
   @POST
   @Path("/batch-evaluate")
-  BatchEvaluationResponse batchEvaluate(@HeaderParam("Authorization") BasicAuth auth,
+  BatchEvaluationResponse batchEvaluate(@HeaderParam("Authorization") BearerAuth auth,
       BatchEvaluationRequest body) throws BatchEvaluateException;
 
   static Evaluation getClient(String url) {

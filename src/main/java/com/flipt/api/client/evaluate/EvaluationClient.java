@@ -6,7 +6,7 @@ import com.flipt.api.client.evaluate.exceptions.BatchEvaluateException;
 import com.flipt.api.client.evaluate.exceptions.EvaluateException;
 import com.flipt.api.client.evaluate.types.BatchEvaluationResponse;
 import com.flipt.api.client.evaluate.types.EvaluationResponse;
-import com.flipt.api.core.BasicAuth;
+import com.flipt.api.core.BearerAuth;
 import java.lang.RuntimeException;
 import java.lang.String;
 import java.util.Optional;
@@ -14,26 +14,26 @@ import java.util.Optional;
 public final class EvaluationClient {
   private final Evaluation service;
 
-  private final Optional<BasicAuth> auth;
+  private final Optional<BearerAuth> auth;
 
   public EvaluationClient(String url) {
     this.service = Evaluation.getClient(url);
     this.auth = Optional.empty();
   }
 
-  public EvaluationClient(String url, BasicAuth auth) {
+  public EvaluationClient(String url, BearerAuth auth) {
     this.service = Evaluation.getClient(url);
     this.auth = Optional.of(auth);
   }
 
   public EvaluationResponse evaluate(Evaluate.Request request) throws EvaluateException {
-    BasicAuth authValue = request.getAuthOverride().orElseGet(() -> this.auth.orElseThrow(() -> new RuntimeException("Auth is required for evaluate")));
+    BearerAuth authValue = request.getAuthOverride().orElseGet(() -> this.auth.orElseThrow(() -> new RuntimeException("Auth is required for evaluate")));
     return this.service.evaluate(authValue, request.getBody());
   }
 
   public BatchEvaluationResponse batchEvaluate(BatchEvaluate.Request request) throws
       BatchEvaluateException {
-    BasicAuth authValue = request.getAuthOverride().orElseGet(() -> this.auth.orElseThrow(() -> new RuntimeException("Auth is required for batchEvaluate")));
+    BearerAuth authValue = request.getAuthOverride().orElseGet(() -> this.auth.orElseThrow(() -> new RuntimeException("Auth is required for batchEvaluate")));
     return this.service.batchEvaluate(authValue, request.getBody());
   }
 }

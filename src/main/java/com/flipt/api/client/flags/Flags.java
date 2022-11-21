@@ -10,7 +10,7 @@ import com.flipt.api.client.flags.types.Flag;
 import com.flipt.api.client.flags.types.FlagCreateRequest;
 import com.flipt.api.client.flags.types.FlagList;
 import com.flipt.api.client.flags.types.FlagUpdateRequest;
-import com.flipt.api.core.BasicAuth;
+import com.flipt.api.core.BearerAuth;
 import com.flipt.api.core.ObjectMappers;
 import feign.Feign;
 import feign.jackson.JacksonDecoder;
@@ -37,28 +37,28 @@ import javax.ws.rs.core.MediaType;
 interface Flags {
   @GET
   @Path("/")
-  FlagList list(@HeaderParam("Authorization") BasicAuth auth,
+  FlagList list(@HeaderParam("Authorization") BearerAuth auth,
       @QueryParam("limit") Optional<Integer> limit, @QueryParam("offset") Optional<Integer> offset,
       @QueryParam("pageToken") Optional<String> pageToken) throws ListException;
 
   @POST
   @Path("/")
-  Flag create(@HeaderParam("Authorization") BasicAuth auth, FlagCreateRequest body) throws
+  Flag create(@HeaderParam("Authorization") BearerAuth auth, FlagCreateRequest body) throws
       CreateException;
 
   @GET
   @Path("/{key}")
-  Flag get(@HeaderParam("Authorization") BasicAuth auth, @PathParam("key") String key) throws
+  Flag get(@HeaderParam("Authorization") BearerAuth auth, @PathParam("key") String key) throws
       GetException;
 
   @DELETE
   @Path("/{key}")
-  void delete(@HeaderParam("Authorization") BasicAuth auth, @PathParam("key") String key) throws
+  void delete(@HeaderParam("Authorization") BearerAuth auth, @PathParam("key") String key) throws
       DeleteException;
 
   @PUT
   @Path("/{key}")
-  Flag update(@HeaderParam("Authorization") BasicAuth auth, @PathParam("key") String key,
+  Flag update(@HeaderParam("Authorization") BearerAuth auth, @PathParam("key") String key,
       FlagUpdateRequest body) throws UpdateException;
 
   static Flags getClient(String url) {

@@ -7,7 +7,7 @@ import com.flipt.api.client.distributions.exceptions.UpdateException;
 import com.flipt.api.client.distributions.types.Distribution;
 import com.flipt.api.client.distributions.types.DistributionCreateRequest;
 import com.flipt.api.client.distributions.types.DistributionUpdateRequest;
-import com.flipt.api.core.BasicAuth;
+import com.flipt.api.core.BearerAuth;
 import com.flipt.api.core.ObjectMappers;
 import feign.Feign;
 import feign.jackson.JacksonDecoder;
@@ -31,17 +31,17 @@ import javax.ws.rs.core.MediaType;
 interface Distributions {
   @POST
   @Path("/")
-  Distribution create(@HeaderParam("Authorization") BasicAuth auth, DistributionCreateRequest body)
+  Distribution create(@HeaderParam("Authorization") BearerAuth auth, DistributionCreateRequest body)
       throws CreateException;
 
   @DELETE
   @Path("/{id}")
-  void delete(@HeaderParam("Authorization") BasicAuth auth, @PathParam("id") String id,
+  void delete(@HeaderParam("Authorization") BearerAuth auth, @PathParam("id") String id,
       @QueryParam("variantId") String variantId) throws DeleteException;
 
   @PUT
   @Path("/{id}")
-  Distribution update(@HeaderParam("Authorization") BasicAuth auth, @PathParam("id") String id,
+  Distribution update(@HeaderParam("Authorization") BearerAuth auth, @PathParam("id") String id,
       DistributionUpdateRequest body) throws UpdateException;
 
   static Distributions getClient(String url) {

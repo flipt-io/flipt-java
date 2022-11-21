@@ -12,7 +12,7 @@ import com.flipt.api.client.rules.types.RuleCreateRequest;
 import com.flipt.api.client.rules.types.RuleList;
 import com.flipt.api.client.rules.types.RuleOrder;
 import com.flipt.api.client.rules.types.RuleUpdateRequest;
-import com.flipt.api.core.BasicAuth;
+import com.flipt.api.core.BearerAuth;
 import com.flipt.api.core.ObjectMappers;
 import feign.Feign;
 import feign.jackson.JacksonDecoder;
@@ -39,32 +39,32 @@ import javax.ws.rs.core.MediaType;
 interface Rules {
   @GET
   @Path("/")
-  RuleList list(@HeaderParam("Authorization") BasicAuth auth,
+  RuleList list(@HeaderParam("Authorization") BearerAuth auth,
       @QueryParam("limit") Optional<Integer> limit, @QueryParam("offset") Optional<Integer> offset,
       @QueryParam("pageToken") Optional<String> pageToken) throws ListException;
 
   @POST
   @Path("/")
-  Rule create(@HeaderParam("Authorization") BasicAuth auth, RuleCreateRequest body) throws
+  Rule create(@HeaderParam("Authorization") BearerAuth auth, RuleCreateRequest body) throws
       CreateException;
 
   @PUT
   @Path("/order")
-  void order(@HeaderParam("Authorization") BasicAuth auth, RuleOrder body) throws OrderException;
+  void order(@HeaderParam("Authorization") BearerAuth auth, RuleOrder body) throws OrderException;
 
   @GET
   @Path("/{id}")
-  Rule get(@HeaderParam("Authorization") BasicAuth auth, @PathParam("id") String id) throws
+  Rule get(@HeaderParam("Authorization") BearerAuth auth, @PathParam("id") String id) throws
       GetException;
 
   @DELETE
   @Path("/{id}")
-  void delete(@HeaderParam("Authorization") BasicAuth auth, @PathParam("id") String id) throws
+  void delete(@HeaderParam("Authorization") BearerAuth auth, @PathParam("id") String id) throws
       DeleteException;
 
   @PUT
   @Path("/{id}")
-  void update(@HeaderParam("Authorization") BasicAuth auth, @PathParam("id") String id,
+  void update(@HeaderParam("Authorization") BearerAuth auth, @PathParam("id") String id,
       RuleUpdateRequest body) throws UpdateException;
 
   static Rules getClient(String url) {

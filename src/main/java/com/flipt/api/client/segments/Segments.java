@@ -10,7 +10,7 @@ import com.flipt.api.client.segments.types.Segment;
 import com.flipt.api.client.segments.types.SegmentCreateRequest;
 import com.flipt.api.client.segments.types.SegmentList;
 import com.flipt.api.client.segments.types.SegmentUpdateRequest;
-import com.flipt.api.core.BasicAuth;
+import com.flipt.api.core.BearerAuth;
 import com.flipt.api.core.ObjectMappers;
 import feign.Feign;
 import feign.jackson.JacksonDecoder;
@@ -36,28 +36,28 @@ import javax.ws.rs.core.MediaType;
 interface Segments {
   @GET
   @Path("/")
-  SegmentList list(@HeaderParam("Authorization") BasicAuth auth, @QueryParam("limit") Integer limit,
-      @QueryParam("offset") Integer offset, @QueryParam("pageToken") String pageToken) throws
-      ListException;
+  SegmentList list(@HeaderParam("Authorization") BearerAuth auth,
+      @QueryParam("limit") Integer limit, @QueryParam("offset") Integer offset,
+      @QueryParam("pageToken") String pageToken) throws ListException;
 
   @POST
   @Path("/")
-  Segment create(@HeaderParam("Authorization") BasicAuth auth, SegmentCreateRequest body) throws
+  Segment create(@HeaderParam("Authorization") BearerAuth auth, SegmentCreateRequest body) throws
       CreateException;
 
   @GET
   @Path("/{key}")
-  Segment get(@HeaderParam("Authorization") BasicAuth auth, @PathParam("key") String key) throws
+  Segment get(@HeaderParam("Authorization") BearerAuth auth, @PathParam("key") String key) throws
       GetException;
 
   @DELETE
   @Path("/{key}")
-  void delete(@HeaderParam("Authorization") BasicAuth auth, @PathParam("key") String key) throws
+  void delete(@HeaderParam("Authorization") BearerAuth auth, @PathParam("key") String key) throws
       DeleteException;
 
   @PUT
   @Path("/{key}")
-  Segment update(@HeaderParam("Authorization") BasicAuth auth, @PathParam("key") String key,
+  Segment update(@HeaderParam("Authorization") BearerAuth auth, @PathParam("key") String key,
       SegmentUpdateRequest body) throws UpdateException;
 
   static Segments getClient(String url) {

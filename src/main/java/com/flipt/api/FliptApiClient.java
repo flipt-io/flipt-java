@@ -8,7 +8,7 @@ import com.flipt.api.client.flags.FlagsClient;
 import com.flipt.api.client.rules.RulesClient;
 import com.flipt.api.client.segments.SegmentsClient;
 import com.flipt.api.client.variants.VariantsClient;
-import com.flipt.api.core.BasicAuth;
+import com.flipt.api.core.BearerAuth;
 import com.flipt.api.core.Environment;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
@@ -31,11 +31,11 @@ public final class FliptApiClient {
 
   private final Supplier<VariantsClient> variantsClient;
 
-  public FliptApiClient(BasicAuth auth) {
+  public FliptApiClient(BearerAuth auth) {
     this(Environment.PRODUCTION, auth);
   }
 
-  public FliptApiClient(Environment environment, BasicAuth auth) {
+  public FliptApiClient(Environment environment, BearerAuth auth) {
     this.rulesClient = memoize(() -> new RulesClient(environment.getUrl(), auth));
     this.segmentsClient = memoize(() -> new SegmentsClient(environment.getUrl(), auth));
     this.flagsClient = memoize(() -> new FlagsClient(environment.getUrl(), auth));
