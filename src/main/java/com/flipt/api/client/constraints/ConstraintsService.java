@@ -15,8 +15,10 @@ import feign.jackson.JacksonEncoder;
 import feign.jaxrs.JAXRSContract;
 import java.lang.String;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -31,12 +33,12 @@ interface ConstraintsService {
   Constraint create(@HeaderParam("Authorization") BasicAuth auth, ConstraintCreateRequest body)
       throws CreateException;
 
-  @POST
+  @DELETE
   @Path("/{id}")
   void delete(@HeaderParam("Authorization") BasicAuth auth, @PathParam("id") String id) throws
       DeleteException;
 
-  @POST
+  @PUT
   @Path("/{id}")
   void update(@HeaderParam("Authorization") BasicAuth auth, @PathParam("id") String id,
       ConstraintUpdateRequest body) throws UpdateException;
