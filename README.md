@@ -1,7 +1,7 @@
 # Flipt Java Library
 
-![Maven Central](https://img.shields.io/maven-central/v/com.flipt/flipt-java) 
-![Sonatype Nexus (Releases)](https://img.shields.io/nexus/r/com.flipt/flipt-java?server=https%3A%2F%2Fs01.oss.sonatype.org)
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.fern-api/flipt)](https://central.sonatype.dev/artifact/io.github.fern-api/flipt/0.1.0/versions)
+![Sonatype Nexus (Releases)](https://img.shields.io/nexus/r/io.github.fern-api/flipt?server=https%3A%2F%2Fs01.oss.sonatype.org)
 
 ## Documentation
 
@@ -12,8 +12,28 @@ API documentation is available at <https://www.flipt.io/docs/api/flipt-core/v1.1
 Check out the [sample app](.sample-app/app.java) which consumes this SDK!
 
 ```java
-// start with env variables
-TODO
+import com.flipt.api.FliptApiClient;
+import com.flipt.api.client.flags.endpoints.Get;
+import com.flipt.api.client.flags.exceptions.GetException;
+import com.flipt.api.client.flags.types.FliptFlag;
+import com.flipt.api.core.BasicAuth;
+
+String username = System.getenv("FLIPT_USERNAME");
+String password = System.getenv("FLIPT_USERNAME");
+
+BasicAuth auth = BasicAuth.of(username,password);
+
+FliptApiClient fliptApiClient =
+        new FliptApiClient("https://flipt.io/api/v1", auth);
+
+try {
+    FliptFlag fliptFlag = fliptApiClient.flags().get(Get.Request.builder()
+            .key("flag_abc123")
+            .build());
+    System.out.println("Successfully fetched flag with id" + fliptFlag.getKey());
+} catch (GetException e) {
+    System.out.println("Encountered error while getting flag" + e.getMessage());
+}
 ```
 
 ## Beta status
