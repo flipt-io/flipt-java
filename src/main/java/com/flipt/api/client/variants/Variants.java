@@ -29,7 +29,7 @@ import javax.ws.rs.core.MediaType;
 @Path("/api/v1/flags/{flagKey}/variants")
 interface Variants {
   @POST
-  @Path("/")
+  @Path("")
   Variant create(@HeaderParam("Authorization") BearerAuth auth, VariantCreateRequest body) throws
       CreateException;
 

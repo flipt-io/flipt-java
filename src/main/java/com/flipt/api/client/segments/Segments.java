@@ -35,13 +35,13 @@ import javax.ws.rs.core.MediaType;
 @Path("/api/v1/segments")
 interface Segments {
   @GET
-  @Path("/")
+  @Path("")
   SegmentList list(@HeaderParam("Authorization") BearerAuth auth,
       @QueryParam("limit") Integer limit, @QueryParam("offset") Integer offset,
       @QueryParam("pageToken") String pageToken) throws ListException;
 
   @POST
-  @Path("/")
+  @Path("")
   Segment create(@HeaderParam("Authorization") BearerAuth auth, SegmentCreateRequest body) throws
       CreateException;
 

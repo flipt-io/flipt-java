@@ -38,13 +38,13 @@ import javax.ws.rs.core.MediaType;
 @Path("/api/v1/flags/{flagKey}/rules")
 interface Rules {
   @GET
-  @Path("/")
+  @Path("")
   RuleList list(@HeaderParam("Authorization") BearerAuth auth,
       @QueryParam("limit") Optional<Integer> limit, @QueryParam("offset") Optional<Integer> offset,
       @QueryParam("pageToken") Optional<String> pageToken) throws ListException;
 
   @POST
-  @Path("/")
+  @Path("")
   Rule create(@HeaderParam("Authorization") BearerAuth auth, RuleCreateRequest body) throws
       CreateException;
 

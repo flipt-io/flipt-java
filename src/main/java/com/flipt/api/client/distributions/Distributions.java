@@ -30,7 +30,7 @@ import javax.ws.rs.core.MediaType;
 @Path("/api/v1/flags/{flagKey}/rules/{ruleId}/distributions")
 interface Distributions {
   @POST
-  @Path("/")
+  @Path("")
   Distribution create(@HeaderParam("Authorization") BearerAuth auth, DistributionCreateRequest body)
       throws CreateException;
 

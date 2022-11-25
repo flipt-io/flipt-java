@@ -29,7 +29,7 @@ import javax.ws.rs.core.MediaType;
 @Path("/api/v1/segments/{segmentKey}/constraints")
 interface Constraints {
   @POST
-  @Path("/")
+  @Path("")
   Constraint create(@HeaderParam("Authorization") BearerAuth auth, ConstraintCreateRequest body)
       throws CreateException;
 

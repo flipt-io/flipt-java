@@ -36,13 +36,13 @@ import javax.ws.rs.core.MediaType;
 @Path("/api/v1/flags")
 interface Flags {
   @GET
-  @Path("/")
+  @Path("")
   FlagList list(@HeaderParam("Authorization") BearerAuth auth,
       @QueryParam("limit") Optional<Integer> limit, @QueryParam("offset") Optional<Integer> offset,
       @QueryParam("pageToken") Optional<String> pageToken) throws ListException;
 
   @POST
-  @Path("/")
+  @Path("")
   Flag create(@HeaderParam("Authorization") BearerAuth auth, FlagCreateRequest body) throws
       CreateException;
 
