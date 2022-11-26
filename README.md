@@ -5,7 +5,7 @@
 
 ## Documentation
 
-API documentation is available at <https://www.flipt.io/docs/api/flipt-core/v1.14.0>.
+API documentation is available at <https://www.flipt.io/docs/reference/flags/list-flags>.
 
 ## Usage
 
@@ -16,15 +16,13 @@ import com.flipt.api.FliptApiClient;
 import com.flipt.api.client.flags.endpoints.Get;
 import com.flipt.api.client.flags.exceptions.GetException;
 import com.flipt.api.client.flags.types.FliptFlag;
-import com.flipt.api.core.BasicAuth;
+import com.flipt.api.core.BearerAuth;
 
-String username = System.getenv("FLIPT_USERNAME");
-String password = System.getenv("FLIPT_USERNAME");
+String token = System.getenv("FLIPT_API_TOKEN");
 
-BasicAuth auth = BasicAuth.of(username,password);
+BearerAuth auth = BearerAuth.of(token);
 
-FliptApiClient fliptApiClient =
-        new FliptApiClient("https://flipt.io/api/v1", auth);
+FliptApiClient fliptApiClient = new FliptApiClient("http://localhost:8080", auth);
 
 try {
     FliptFlag fliptFlag = fliptApiClient.flags().get(Get.Request.builder()
