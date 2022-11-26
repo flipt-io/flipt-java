@@ -6,7 +6,7 @@ plugins {
 repositories {
     mavenCentral()
     maven {
-        url 'https://s01.oss.sonatype.org/content/repositories/releases/'
+        url 'https://jitpack.io'
     }
 }
 
@@ -27,8 +27,8 @@ java {
 publishing {
     publications {
         maven(MavenPublication) {
-            groupId = 'io.github.fern-api'
-            artifactId = 'flipt'
+            groupId = 'com.github.flipt-io'
+            artifactId = 'flipt-java'
             version = '0.1.1'
             from components.java
         }

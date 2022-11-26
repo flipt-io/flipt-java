@@ -1,8 +1,5 @@
 # Flipt Java Library
 
-[![Maven Central](https://img.shields.io/maven-central/v/io.github.fern-api/flipt)](https://central.sonatype.dev/artifact/io.github.fern-api/flipt/0.1.0/versions)
-![Sonatype Nexus (Releases)](https://img.shields.io/nexus/r/io.github.fern-api/flipt?server=https%3A%2F%2Fs01.oss.sonatype.org)
-
 ## Documentation
 
 API documentation is available at <https://www.flipt.io/docs/reference/flags/list-flags>.
