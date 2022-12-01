@@ -12,22 +12,18 @@ public final class Delete {
   }
 
   public static final class Request {
-    private final Optional<BearerAuth> authOverride;
-
     private final String id;
 
     private final String variantId;
 
+    private final Optional<BearerAuth> authOverride;
+
     private int _cachedHashCode;
 
-    Request(Optional<BearerAuth> authOverride, String id, String variantId) {
-      this.authOverride = authOverride;
+    Request(String id, String variantId, Optional<BearerAuth> authOverride) {
       this.id = id;
       this.variantId = variantId;
-    }
-
-    public Optional<BearerAuth> getAuthOverride() {
-      return authOverride;
+      this.authOverride = authOverride;
     }
 
     public String getId() {
@@ -38,6 +34,10 @@ public final class Delete {
       return variantId;
     }
 
+    public Optional<BearerAuth> getAuthOverride() {
+      return authOverride;
+    }
+
     @Override
     public boolean equals(Object other) {
       if (this == other) return true;
@@ -45,20 +45,20 @@ public final class Delete {
     }
 
     private boolean equalTo(Request other) {
-      return authOverride.equals(other.authOverride) && id.equals(other.id) && variantId.equals(other.variantId);
+      return id.equals(other.id) && variantId.equals(other.variantId) && authOverride.equals(other.authOverride);
     }
 
     @Override
     public int hashCode() {
       if (_cachedHashCode == 0) {
-        _cachedHashCode = Objects.hash(this.authOverride, this.id, this.variantId);
+        _cachedHashCode = Objects.hash(this.id, this.variantId, this.authOverride);
       }
       return _cachedHashCode;
     }
 
     @Override
     public String toString() {
-      return "Delete.Request{" + "authOverride: " + authOverride + ", id: " + id + ", variantId: " + variantId + "}";
+      return "Delete.Request{" + "id: " + id + ", variantId: " + variantId + ", authOverride: " + authOverride + "}";
     }
 
     public static IdStage builder() {
@@ -83,7 +83,7 @@ public final class Delete {
       _FinalStage authOverride(BearerAuth authOverride);
     }
 
-    static final class Builder implements IdStage, VariantIdStage, _FinalStage {
+    public static final class Builder implements IdStage, VariantIdStage, _FinalStage {
       private String id;
 
       private String variantId;
@@ -95,9 +95,9 @@ public final class Delete {
 
       @Override
       public Builder from(Request other) {
-        authOverride(other.getAuthOverride());
         id(other.getId());
         variantId(other.getVariantId());
+        authOverride(other.getAuthOverride());
         return this;
       }
 
@@ -127,7 +127,7 @@ public final class Delete {
 
       @Override
       public Request build() {
-        return new Request(authOverride, id, variantId);
+        return new Request(id, variantId, authOverride);
       }
     }
   }

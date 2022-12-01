@@ -41,11 +41,6 @@ interface Authentication {
       @HeaderParam("Authorization") BearerAuth auth, @PathParam("id") String id) throws
       GetTokenException;
 
-  @POST
-  @Path("/method/token")
-  AuthenticationToken createToken(@HeaderParam("Authorization") BearerAuth auth,
-      AuthenticationTokenCreateRequest body) throws CreateTokenException;
-
   @DELETE
   @Path("/tokens/{id}")
   void deleteToken(@HeaderParam("Authorization") BearerAuth auth, @PathParam("id") String id) throws
@@ -55,6 +50,11 @@ interface Authentication {
   @Path("/self")
   com.flipt.api.client.auth.types.Authentication getSelf(
       @HeaderParam("Authorization") BearerAuth auth) throws GetSelfException;
+
+  @POST
+  @Path("/method/token")
+  AuthenticationToken createToken(@HeaderParam("Authorization") BearerAuth auth,
+      AuthenticationTokenCreateRequest body) throws CreateTokenException;
 
   static Authentication getClient(String url) {
     return Feign.builder()

@@ -1,12 +1,13 @@
 plugins {
     id 'java-library'
     id 'maven-publish'
+    id 'com.diffplug.spotless' version '6.11.0'
 }
 
 repositories {
     mavenCentral()
     maven {
-        url 'https://jitpack.io'
+        url 'https://s01.oss.sonatype.org/content/repositories/releases/'
     }
 }
 
@@ -19,28 +20,14 @@ dependencies {
     api 'io.github.openfeign:feign-jaxrs2:11.8'
 }
 
+spotless {
+    java {
+        googleJavaFormat()
+    }
+}
+
 java {
     withSourcesJar()
     withJavadocJar()
-}
-
-publishing {
-    publications {
-        maven(MavenPublication) {
-            groupId = 'com.github.flipt-io'
-            artifactId = 'flipt-java'
-            version = '0.1.1'
-            from components.java
-        }
-    }
-    repositories {
-        maven {
-            url "$System.env.MAVEN_PUBLISH_REGISTRY_URL"
-            credentials {
-                username "$System.env.MAVEN_USERNAME"
-                password "$System.env.MAVEN_PASSWORD"
-            }
-        }
-    }
 }
 

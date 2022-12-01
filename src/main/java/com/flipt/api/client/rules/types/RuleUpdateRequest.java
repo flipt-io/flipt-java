@@ -66,7 +66,7 @@ public final class RuleUpdateRequest {
   @JsonIgnoreProperties(
       ignoreUnknown = true
   )
-  static final class Builder implements SegmentKeyStage, _FinalStage {
+  public static final class Builder implements SegmentKeyStage, _FinalStage {
     private String segmentKey;
 
     private Builder() {

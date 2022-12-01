@@ -10,13 +10,13 @@ import java.util.Locale;
 public final class EvaluationReason {
   public static final EvaluationReason FLAG_DISABLED_EVALUATION_REASON = new EvaluationReason(Value.FLAG_DISABLED_EVALUATION_REASON, "FLAG_DISABLED_EVALUATION_REASON");
 
-  public static final EvaluationReason ERROR_EVALUATION_REASON = new EvaluationReason(Value.ERROR_EVALUATION_REASON, "ERROR_EVALUATION_REASON");
+  public static final EvaluationReason MATCH_EVALUATION_REASON = new EvaluationReason(Value.MATCH_EVALUATION_REASON, "MATCH_EVALUATION_REASON");
 
-  public static final EvaluationReason UNKNOWN_EVALUATION_REASON = new EvaluationReason(Value.UNKNOWN_EVALUATION_REASON, "UNKNOWN_EVALUATION_REASON");
+  public static final EvaluationReason ERROR_EVALUATION_REASON = new EvaluationReason(Value.ERROR_EVALUATION_REASON, "ERROR_EVALUATION_REASON");
 
   public static final EvaluationReason FLAG_NOT_FOUND_EVALUATION_REASON = new EvaluationReason(Value.FLAG_NOT_FOUND_EVALUATION_REASON, "FLAG_NOT_FOUND_EVALUATION_REASON");
 
-  public static final EvaluationReason MATCH_EVALUATION_REASON = new EvaluationReason(Value.MATCH_EVALUATION_REASON, "MATCH_EVALUATION_REASON");
+  public static final EvaluationReason UNKNOWN_EVALUATION_REASON = new EvaluationReason(Value.UNKNOWN_EVALUATION_REASON, "UNKNOWN_EVALUATION_REASON");
 
   private final Value value;
 
@@ -52,14 +52,14 @@ public final class EvaluationReason {
     switch (value) {
       case FLAG_DISABLED_EVALUATION_REASON:
         return visitor.visitFlagDisabledEvaluationReason();
-      case ERROR_EVALUATION_REASON:
-        return visitor.visitErrorEvaluationReason();
-      case UNKNOWN_EVALUATION_REASON:
-        return visitor.visitUnknownEvaluationReason();
-      case FLAG_NOT_FOUND_EVALUATION_REASON:
-        return visitor.visitFlagNotFoundEvaluationReason();
       case MATCH_EVALUATION_REASON:
         return visitor.visitMatchEvaluationReason();
+      case ERROR_EVALUATION_REASON:
+        return visitor.visitErrorEvaluationReason();
+      case FLAG_NOT_FOUND_EVALUATION_REASON:
+        return visitor.visitFlagNotFoundEvaluationReason();
+      case UNKNOWN_EVALUATION_REASON:
+        return visitor.visitUnknownEvaluationReason();
       case UNKNOWN:
       default:
         return visitor.visitUnknown(string);
@@ -74,14 +74,14 @@ public final class EvaluationReason {
     switch (upperCasedValue) {
       case "FLAG_DISABLED_EVALUATION_REASON":
         return FLAG_DISABLED_EVALUATION_REASON;
-      case "ERROR_EVALUATION_REASON":
-        return ERROR_EVALUATION_REASON;
-      case "UNKNOWN_EVALUATION_REASON":
-        return UNKNOWN_EVALUATION_REASON;
-      case "FLAG_NOT_FOUND_EVALUATION_REASON":
-        return FLAG_NOT_FOUND_EVALUATION_REASON;
       case "MATCH_EVALUATION_REASON":
         return MATCH_EVALUATION_REASON;
+      case "ERROR_EVALUATION_REASON":
+        return ERROR_EVALUATION_REASON;
+      case "FLAG_NOT_FOUND_EVALUATION_REASON":
+        return FLAG_NOT_FOUND_EVALUATION_REASON;
+      case "UNKNOWN_EVALUATION_REASON":
+        return UNKNOWN_EVALUATION_REASON;
       default:
         return new EvaluationReason(Value.UNKNOWN, upperCasedValue);
     }

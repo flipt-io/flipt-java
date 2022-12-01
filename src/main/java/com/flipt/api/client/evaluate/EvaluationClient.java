@@ -27,13 +27,13 @@ public final class EvaluationClient {
   }
 
   public EvaluationResponse evaluate(Evaluate.Request request) throws EvaluateException {
-    BearerAuth authValue = request.getAuthOverride().orElseGet(() -> this.auth.orElseThrow(() -> new RuntimeException("Auth is required for evaluate")));
+    BearerAuth authValue = request.getAuthOverride().orElseGet(() -> this.auth.orElseThrow(() -> new RuntimeException("Auth is required")));
     return this.service.evaluate(authValue, request.getBody());
   }
 
   public BatchEvaluationResponse batchEvaluate(BatchEvaluate.Request request) throws
       BatchEvaluateException {
-    BearerAuth authValue = request.getAuthOverride().orElseGet(() -> this.auth.orElseThrow(() -> new RuntimeException("Auth is required for batchEvaluate")));
+    BearerAuth authValue = request.getAuthOverride().orElseGet(() -> this.auth.orElseThrow(() -> new RuntimeException("Auth is required")));
     return this.service.batchEvaluate(authValue, request.getBody());
   }
 }

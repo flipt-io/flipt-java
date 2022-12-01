@@ -105,7 +105,7 @@ public final class VariantUpdateRequest {
   @JsonIgnoreProperties(
       ignoreUnknown = true
   )
-  static final class Builder implements KeyStage, _FinalStage {
+  public static final class Builder implements KeyStage, _FinalStage {
     private String key;
 
     private Optional<String> attachment = Optional.empty();

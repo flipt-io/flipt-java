@@ -188,7 +188,7 @@ public final class EvaluationResponse {
   @JsonIgnoreProperties(
       ignoreUnknown = true
   )
-  static final class Builder implements RequestIdStage, EntityIdStage, RequestContextStage, MatchStage, FlagKeyStage, SegmentKeyStage, TimestampStage, ValueStage, RequestDurationMillisStage, AttachmentStage, ReasonsStage, _FinalStage {
+  public static final class Builder implements RequestIdStage, EntityIdStage, RequestContextStage, MatchStage, FlagKeyStage, SegmentKeyStage, TimestampStage, ValueStage, RequestDurationMillisStage, AttachmentStage, ReasonsStage, _FinalStage {
     private String requestId;
 
     private String entityId;

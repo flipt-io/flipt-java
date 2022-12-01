@@ -78,7 +78,7 @@ public final class RuleCreateRequest {
   @JsonIgnoreProperties(
       ignoreUnknown = true
   )
-  static final class Builder implements SegmentKeyStage, RankStage, _FinalStage {
+  public static final class Builder implements SegmentKeyStage, RankStage, _FinalStage {
     private String segmentKey;
 
     private int rank;

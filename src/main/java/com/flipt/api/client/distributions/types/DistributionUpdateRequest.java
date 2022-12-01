@@ -78,7 +78,7 @@ public final class DistributionUpdateRequest {
   @JsonIgnoreProperties(
       ignoreUnknown = true
   )
-  static final class Builder implements VariantIdStage, RolloutStage, _FinalStage {
+  public static final class Builder implements VariantIdStage, RolloutStage, _FinalStage {
     private String variantId;
 
     private double rollout;

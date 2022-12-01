@@ -13,22 +13,18 @@ public final class Update {
   }
 
   public static final class Request {
-    private final Optional<BearerAuth> authOverride;
-
     private final String key;
 
     private final FlagUpdateRequest body;
 
+    private final Optional<BearerAuth> authOverride;
+
     private int _cachedHashCode;
 
-    Request(Optional<BearerAuth> authOverride, String key, FlagUpdateRequest body) {
-      this.authOverride = authOverride;
+    Request(String key, FlagUpdateRequest body, Optional<BearerAuth> authOverride) {
       this.key = key;
       this.body = body;
-    }
-
-    public Optional<BearerAuth> getAuthOverride() {
-      return authOverride;
+      this.authOverride = authOverride;
     }
 
     public String getKey() {
@@ -39,6 +35,10 @@ public final class Update {
       return body;
     }
 
+    public Optional<BearerAuth> getAuthOverride() {
+      return authOverride;
+    }
+
     @Override
     public boolean equals(Object other) {
       if (this == other) return true;
@@ -46,20 +46,20 @@ public final class Update {
     }
 
     private boolean equalTo(Request other) {
-      return authOverride.equals(other.authOverride) && key.equals(other.key) && body.equals(other.body);
+      return key.equals(other.key) && body.equals(other.body) && authOverride.equals(other.authOverride);
     }
 
     @Override
     public int hashCode() {
       if (_cachedHashCode == 0) {
-        _cachedHashCode = Objects.hash(this.authOverride, this.key, this.body);
+        _cachedHashCode = Objects.hash(this.key, this.body, this.authOverride);
       }
       return _cachedHashCode;
     }
 
     @Override
     public String toString() {
-      return "Update.Request{" + "authOverride: " + authOverride + ", key: " + key + ", body: " + body + "}";
+      return "Update.Request{" + "key: " + key + ", body: " + body + ", authOverride: " + authOverride + "}";
     }
 
     public static KeyStage builder() {
@@ -84,7 +84,7 @@ public final class Update {
       _FinalStage authOverride(BearerAuth authOverride);
     }
 
-    static final class Builder implements KeyStage, BodyStage, _FinalStage {
+    public static final class Builder implements KeyStage, BodyStage, _FinalStage {
       private String key;
 
       private FlagUpdateRequest body;
@@ -96,9 +96,9 @@ public final class Update {
 
       @Override
       public Builder from(Request other) {
-        authOverride(other.getAuthOverride());
         key(other.getKey());
         body(other.getBody());
+        authOverride(other.getAuthOverride());
         return this;
       }
 
@@ -128,7 +128,7 @@ public final class Update {
 
       @Override
       public Request build() {
-        return new Request(authOverride, key, body);
+        return new Request(key, body, authOverride);
       }
     }
   }

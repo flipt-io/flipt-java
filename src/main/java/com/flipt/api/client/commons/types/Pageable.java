@@ -3,36 +3,37 @@ package com.flipt.api.client.commons.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import java.lang.Integer;
 import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
 import java.util.Objects;
+import java.util.Optional;
 
 @JsonDeserialize(
     builder = Pageable.Builder.class
 )
-public final class Pageable implements IPageable {
-  private final String nextPageToken;
+public final class Pageable {
+  private final Optional<String> nextPageToken;
 
-  private final int totalCount;
+  private final Optional<Integer> totalCount;
 
   private int _cachedHashCode;
 
-  Pageable(String nextPageToken, int totalCount) {
+  Pageable(Optional<String> nextPageToken, Optional<Integer> totalCount) {
     this.nextPageToken = nextPageToken;
     this.totalCount = totalCount;
   }
 
   @JsonProperty("nextPageToken")
-  @Override
-  public String getNextPageToken() {
+  public Optional<String> getNextPageToken() {
     return nextPageToken;
   }
 
   @JsonProperty("totalCount")
-  @Override
-  public int getTotalCount() {
+  public Optional<Integer> getTotalCount() {
     return totalCount;
   }
 
@@ -43,7 +44,7 @@ public final class Pageable implements IPageable {
   }
 
   private boolean equalTo(Pageable other) {
-    return nextPageToken.equals(other.nextPageToken) && totalCount == other.totalCount;
+    return nextPageToken.equals(other.nextPageToken) && totalCount.equals(other.totalCount);
   }
 
   @Override
@@ -59,57 +60,55 @@ public final class Pageable implements IPageable {
     return "Pageable{" + "nextPageToken: " + nextPageToken + ", totalCount: " + totalCount + "}";
   }
 
-  public static NextPageTokenStage builder() {
+  public static Builder builder() {
     return new Builder();
-  }
-
-  public interface NextPageTokenStage {
-    TotalCountStage nextPageToken(String nextPageToken);
-
-    Builder from(Pageable other);
-  }
-
-  public interface TotalCountStage {
-    _FinalStage totalCount(int totalCount);
-  }
-
-  public interface _FinalStage {
-    Pageable build();
   }
 
   @JsonIgnoreProperties(
       ignoreUnknown = true
   )
-  static final class Builder implements NextPageTokenStage, TotalCountStage, _FinalStage {
-    private String nextPageToken;
+  public static final class Builder {
+    private Optional<String> nextPageToken = Optional.empty();
 
-    private int totalCount;
+    private Optional<Integer> totalCount = Optional.empty();
 
     private Builder() {
     }
 
-    @Override
     public Builder from(Pageable other) {
       nextPageToken(other.getNextPageToken());
       totalCount(other.getTotalCount());
       return this;
     }
 
-    @Override
-    @JsonSetter("nextPageToken")
-    public TotalCountStage nextPageToken(String nextPageToken) {
+    @JsonSetter(
+        value = "nextPageToken",
+        nulls = Nulls.SKIP
+    )
+    public Builder nextPageToken(Optional<String> nextPageToken) {
       this.nextPageToken = nextPageToken;
       return this;
     }
 
-    @Override
-    @JsonSetter("totalCount")
-    public _FinalStage totalCount(int totalCount) {
+    public Builder nextPageToken(String nextPageToken) {
+      this.nextPageToken = Optional.of(nextPageToken);
+      return this;
+    }
+
+    @JsonSetter(
+        value = "totalCount",
+        nulls = Nulls.SKIP
+    )
+    public Builder totalCount(Optional<Integer> totalCount) {
       this.totalCount = totalCount;
       return this;
     }
 
-    @Override
+    public Builder totalCount(Integer totalCount) {
+      this.totalCount = Optional.of(totalCount);
+      return this;
+    }
+
     public Pageable build() {
       return new Pageable(nextPageToken, totalCount);
     }

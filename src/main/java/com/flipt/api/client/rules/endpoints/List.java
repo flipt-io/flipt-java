@@ -13,26 +13,22 @@ public final class List {
   }
 
   public static final class Request {
-    private final Optional<BearerAuth> authOverride;
-
     private final Optional<Integer> limit;
 
     private final Optional<Integer> offset;
 
     private final Optional<String> pageToken;
 
+    private final Optional<BearerAuth> authOverride;
+
     private int _cachedHashCode;
 
-    Request(Optional<BearerAuth> authOverride, Optional<Integer> limit, Optional<Integer> offset,
-        Optional<String> pageToken) {
-      this.authOverride = authOverride;
+    Request(Optional<Integer> limit, Optional<Integer> offset, Optional<String> pageToken,
+        Optional<BearerAuth> authOverride) {
       this.limit = limit;
       this.offset = offset;
       this.pageToken = pageToken;
-    }
-
-    public Optional<BearerAuth> getAuthOverride() {
-      return authOverride;
+      this.authOverride = authOverride;
     }
 
     public Optional<Integer> getLimit() {
@@ -47,6 +43,10 @@ public final class List {
       return pageToken;
     }
 
+    public Optional<BearerAuth> getAuthOverride() {
+      return authOverride;
+    }
+
     @Override
     public boolean equals(Object other) {
       if (this == other) return true;
@@ -54,20 +54,20 @@ public final class List {
     }
 
     private boolean equalTo(Request other) {
-      return authOverride.equals(other.authOverride) && limit.equals(other.limit) && offset.equals(other.offset) && pageToken.equals(other.pageToken);
+      return limit.equals(other.limit) && offset.equals(other.offset) && pageToken.equals(other.pageToken) && authOverride.equals(other.authOverride);
     }
 
     @Override
     public int hashCode() {
       if (_cachedHashCode == 0) {
-        _cachedHashCode = Objects.hash(this.authOverride, this.limit, this.offset, this.pageToken);
+        _cachedHashCode = Objects.hash(this.limit, this.offset, this.pageToken, this.authOverride);
       }
       return _cachedHashCode;
     }
 
     @Override
     public String toString() {
-      return "List.Request{" + "authOverride: " + authOverride + ", limit: " + limit + ", offset: " + offset + ", pageToken: " + pageToken + "}";
+      return "List.Request{" + "limit: " + limit + ", offset: " + offset + ", pageToken: " + pageToken + ", authOverride: " + authOverride + "}";
     }
 
     public static Builder builder() {
@@ -75,32 +75,22 @@ public final class List {
     }
 
     public static final class Builder {
-      private Optional<BearerAuth> authOverride = Optional.empty();
-
       private Optional<Integer> limit = Optional.empty();
 
       private Optional<Integer> offset = Optional.empty();
 
       private Optional<String> pageToken = Optional.empty();
 
+      private Optional<BearerAuth> authOverride = Optional.empty();
+
       private Builder() {
       }
 
       public Builder from(Request other) {
-        authOverride(other.getAuthOverride());
         limit(other.getLimit());
         offset(other.getOffset());
         pageToken(other.getPageToken());
-        return this;
-      }
-
-      public Builder authOverride(Optional<BearerAuth> authOverride) {
-        this.authOverride = authOverride;
-        return this;
-      }
-
-      public Builder authOverride(BearerAuth authOverride) {
-        this.authOverride = Optional.of(authOverride);
+        authOverride(other.getAuthOverride());
         return this;
       }
 
@@ -134,8 +124,18 @@ public final class List {
         return this;
       }
 
+      public Builder authOverride(Optional<BearerAuth> authOverride) {
+        this.authOverride = authOverride;
+        return this;
+      }
+
+      public Builder authOverride(BearerAuth authOverride) {
+        this.authOverride = Optional.of(authOverride);
+        return this;
+      }
+
       public Request build() {
-        return new Request(authOverride, limit, offset, pageToken);
+        return new Request(limit, offset, pageToken, authOverride);
       }
     }
   }

@@ -12,23 +12,23 @@ public final class Get {
   }
 
   public static final class Request {
-    private final Optional<BearerAuth> authOverride;
-
     private final String key;
+
+    private final Optional<BearerAuth> authOverride;
 
     private int _cachedHashCode;
 
-    Request(Optional<BearerAuth> authOverride, String key) {
-      this.authOverride = authOverride;
+    Request(String key, Optional<BearerAuth> authOverride) {
       this.key = key;
-    }
-
-    public Optional<BearerAuth> getAuthOverride() {
-      return authOverride;
+      this.authOverride = authOverride;
     }
 
     public String getKey() {
       return key;
+    }
+
+    public Optional<BearerAuth> getAuthOverride() {
+      return authOverride;
     }
 
     @Override
@@ -38,20 +38,20 @@ public final class Get {
     }
 
     private boolean equalTo(Request other) {
-      return authOverride.equals(other.authOverride) && key.equals(other.key);
+      return key.equals(other.key) && authOverride.equals(other.authOverride);
     }
 
     @Override
     public int hashCode() {
       if (_cachedHashCode == 0) {
-        _cachedHashCode = Objects.hash(this.authOverride, this.key);
+        _cachedHashCode = Objects.hash(this.key, this.authOverride);
       }
       return _cachedHashCode;
     }
 
     @Override
     public String toString() {
-      return "Get.Request{" + "authOverride: " + authOverride + ", key: " + key + "}";
+      return "Get.Request{" + "key: " + key + ", authOverride: " + authOverride + "}";
     }
 
     public static KeyStage builder() {
@@ -72,7 +72,7 @@ public final class Get {
       _FinalStage authOverride(BearerAuth authOverride);
     }
 
-    static final class Builder implements KeyStage, _FinalStage {
+    public static final class Builder implements KeyStage, _FinalStage {
       private String key;
 
       private Optional<BearerAuth> authOverride = Optional.empty();
@@ -82,8 +82,8 @@ public final class Get {
 
       @Override
       public Builder from(Request other) {
-        authOverride(other.getAuthOverride());
         key(other.getKey());
+        authOverride(other.getAuthOverride());
         return this;
       }
 
@@ -107,7 +107,7 @@ public final class Get {
 
       @Override
       public Request build() {
-        return new Request(authOverride, key);
+        return new Request(key, authOverride);
       }
     }
   }

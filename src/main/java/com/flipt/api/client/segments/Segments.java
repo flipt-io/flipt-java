@@ -18,6 +18,7 @@ import feign.jackson.JacksonEncoder;
 import feign.jaxrs.JAXRSContract;
 import java.lang.Integer;
 import java.lang.String;
+import java.util.Optional;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -37,8 +38,8 @@ interface Segments {
   @GET
   @Path("")
   SegmentList list(@HeaderParam("Authorization") BearerAuth auth,
-      @QueryParam("limit") Integer limit, @QueryParam("offset") Integer offset,
-      @QueryParam("pageToken") String pageToken) throws ListException;
+      @QueryParam("limit") Optional<Integer> limit, @QueryParam("offset") Optional<Integer> offset,
+      @QueryParam("pageToken") Optional<String> pageToken) throws ListException;
 
   @POST
   @Path("")

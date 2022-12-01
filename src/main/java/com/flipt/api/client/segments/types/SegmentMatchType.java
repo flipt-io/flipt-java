@@ -8,9 +8,9 @@ import java.lang.String;
 import java.util.Locale;
 
 public final class SegmentMatchType {
-  public static final SegmentMatchType ALL_MATCH_TYPE = new SegmentMatchType(Value.ALL_MATCH_TYPE, "ALL_MATCH_TYPE");
-
   public static final SegmentMatchType ANY_MATCH_TYPE = new SegmentMatchType(Value.ANY_MATCH_TYPE, "ANY_MATCH_TYPE");
+
+  public static final SegmentMatchType ALL_MATCH_TYPE = new SegmentMatchType(Value.ALL_MATCH_TYPE, "ALL_MATCH_TYPE");
 
   private final Value value;
 
@@ -44,10 +44,10 @@ public final class SegmentMatchType {
 
   public <T> T visit(Visitor<T> visitor) {
     switch (value) {
-      case ALL_MATCH_TYPE:
-        return visitor.visitAllMatchType();
       case ANY_MATCH_TYPE:
         return visitor.visitAnyMatchType();
+      case ALL_MATCH_TYPE:
+        return visitor.visitAllMatchType();
       case UNKNOWN:
       default:
         return visitor.visitUnknown(string);
@@ -60,10 +60,10 @@ public final class SegmentMatchType {
   public static SegmentMatchType valueOf(String value) {
     String upperCasedValue = value.toUpperCase(Locale.ROOT);
     switch (upperCasedValue) {
-      case "ALL_MATCH_TYPE":
-        return ALL_MATCH_TYPE;
       case "ANY_MATCH_TYPE":
         return ANY_MATCH_TYPE;
+      case "ALL_MATCH_TYPE":
+        return ALL_MATCH_TYPE;
       default:
         return new SegmentMatchType(Value.UNKNOWN, upperCasedValue);
     }

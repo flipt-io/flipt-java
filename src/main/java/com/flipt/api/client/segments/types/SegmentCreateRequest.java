@@ -102,7 +102,7 @@ public final class SegmentCreateRequest {
   @JsonIgnoreProperties(
       ignoreUnknown = true
   )
-  static final class Builder implements KeyStage, NameStage, DescriptionStage, MatchTypeStage, _FinalStage {
+  public static final class Builder implements KeyStage, NameStage, DescriptionStage, MatchTypeStage, _FinalStage {
     private String key;
 
     private String name;

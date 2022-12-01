@@ -25,14 +25,14 @@ final class AuthenticationErrorDecoder implements ErrorDecoder {
       if (methodKey.contains("getToken")) {
         return decodeException(response, GetTokenException.class);
       }
-      if (methodKey.contains("createToken")) {
-        return decodeException(response, CreateTokenException.class);
-      }
       if (methodKey.contains("deleteToken")) {
         return decodeException(response, DeleteTokenException.class);
       }
       if (methodKey.contains("getSelf")) {
         return decodeException(response, GetSelfException.class);
+      }
+      if (methodKey.contains("createToken")) {
+        return decodeException(response, CreateTokenException.class);
       }
     }
     catch (IOException e) {

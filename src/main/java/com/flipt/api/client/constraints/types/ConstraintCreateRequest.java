@@ -105,7 +105,7 @@ public final class ConstraintCreateRequest {
   @JsonIgnoreProperties(
       ignoreUnknown = true
   )
-  static final class Builder implements TypeStage, PropertyStage, OperatorStage, _FinalStage {
+  public static final class Builder implements TypeStage, PropertyStage, OperatorStage, _FinalStage {
     private ConstraintComparisonType type;
 
     private String property;

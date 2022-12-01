@@ -127,7 +127,7 @@ public final class Distribution {
   @JsonIgnoreProperties(
       ignoreUnknown = true
   )
-  static final class Builder implements IdStage, RuleIdStage, VariantIdStage, RolloutStage, CreatedAtStage, UpdatedAtStage, _FinalStage {
+  public static final class Builder implements IdStage, RuleIdStage, VariantIdStage, RolloutStage, CreatedAtStage, UpdatedAtStage, _FinalStage {
     private String id;
 
     private String ruleId;

@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.flipt.api.client.commons.types.IPageable;
 import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
@@ -16,36 +15,34 @@ import java.util.Objects;
 @JsonDeserialize(
     builder = SegmentList.Builder.class
 )
-public final class SegmentList implements IPageable {
+public final class SegmentList {
+  private final List<Segment> segments;
+
   private final String nextPageToken;
 
   private final int totalCount;
 
-  private final List<Segment> segments;
-
   private int _cachedHashCode;
 
-  SegmentList(String nextPageToken, int totalCount, List<Segment> segments) {
+  SegmentList(List<Segment> segments, String nextPageToken, int totalCount) {
+    this.segments = segments;
     this.nextPageToken = nextPageToken;
     this.totalCount = totalCount;
-    this.segments = segments;
-  }
-
-  @JsonProperty("nextPageToken")
-  @Override
-  public String getNextPageToken() {
-    return nextPageToken;
-  }
-
-  @JsonProperty("totalCount")
-  @Override
-  public int getTotalCount() {
-    return totalCount;
   }
 
   @JsonProperty("segments")
   public List<Segment> getSegments() {
     return segments;
+  }
+
+  @JsonProperty("nextPageToken")
+  public String getNextPageToken() {
+    return nextPageToken;
+  }
+
+  @JsonProperty("totalCount")
+  public int getTotalCount() {
+    return totalCount;
   }
 
   @Override
@@ -55,20 +52,20 @@ public final class SegmentList implements IPageable {
   }
 
   private boolean equalTo(SegmentList other) {
-    return nextPageToken.equals(other.nextPageToken) && totalCount == other.totalCount && segments.equals(other.segments);
+    return segments.equals(other.segments) && nextPageToken.equals(other.nextPageToken) && totalCount == other.totalCount;
   }
 
   @Override
   public int hashCode() {
     if (_cachedHashCode == 0) {
-      _cachedHashCode = Objects.hash(this.nextPageToken, this.totalCount, this.segments);
+      _cachedHashCode = Objects.hash(this.segments, this.nextPageToken, this.totalCount);
     }
     return _cachedHashCode;
   }
 
   @Override
   public String toString() {
-    return "SegmentList{" + "nextPageToken: " + nextPageToken + ", totalCount: " + totalCount + ", segments: " + segments + "}";
+    return "SegmentList{" + "segments: " + segments + ", nextPageToken: " + nextPageToken + ", totalCount: " + totalCount + "}";
   }
 
   public static NextPageTokenStage builder() {
@@ -98,7 +95,7 @@ public final class SegmentList implements IPageable {
   @JsonIgnoreProperties(
       ignoreUnknown = true
   )
-  static final class Builder implements NextPageTokenStage, TotalCountStage, _FinalStage {
+  public static final class Builder implements NextPageTokenStage, TotalCountStage, _FinalStage {
     private String nextPageToken;
 
     private int totalCount;
@@ -110,9 +107,9 @@ public final class SegmentList implements IPageable {
 
     @Override
     public Builder from(SegmentList other) {
+      segments(other.getSegments());
       nextPageToken(other.getNextPageToken());
       totalCount(other.getTotalCount());
-      segments(other.getSegments());
       return this;
     }
 
@@ -155,7 +152,7 @@ public final class SegmentList implements IPageable {
 
     @Override
     public SegmentList build() {
-      return new SegmentList(nextPageToken, totalCount, segments);
+      return new SegmentList(segments, nextPageToken, totalCount);
     }
   }
 }

@@ -145,7 +145,7 @@ public final class Segment {
   @JsonIgnoreProperties(
       ignoreUnknown = true
   )
-  static final class Builder implements KeyStage, NameStage, DescriptionStage, CreatedAtStage, UpdatedAtStage, MatchTypeStage, _FinalStage {
+  public static final class Builder implements KeyStage, NameStage, DescriptionStage, CreatedAtStage, UpdatedAtStage, MatchTypeStage, _FinalStage {
     private String key;
 
     private String name;

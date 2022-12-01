@@ -83,7 +83,7 @@ public final class AuthenticationList {
   @JsonIgnoreProperties(
       ignoreUnknown = true
   )
-  static final class Builder implements NextPageTokenStage, _FinalStage {
+  public static final class Builder implements NextPageTokenStage, _FinalStage {
     private String nextPageToken;
 
     private List<Authentication> authentications = new ArrayList<>();

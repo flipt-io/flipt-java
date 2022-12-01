@@ -145,7 +145,7 @@ public final class Flag {
   @JsonIgnoreProperties(
       ignoreUnknown = true
   )
-  static final class Builder implements KeyStage, NameStage, DescriptionStage, EnabledStage, CreatedAtStage, UpdatedAtStage, _FinalStage {
+  public static final class Builder implements KeyStage, NameStage, DescriptionStage, EnabledStage, CreatedAtStage, UpdatedAtStage, _FinalStage {
     private String key;
 
     private String name;

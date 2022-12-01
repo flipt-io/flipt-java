@@ -90,7 +90,7 @@ public final class SegmentUpdateRequest {
   @JsonIgnoreProperties(
       ignoreUnknown = true
   )
-  static final class Builder implements NameStage, DescriptionStage, MatchTypeStage, _FinalStage {
+  public static final class Builder implements NameStage, DescriptionStage, MatchTypeStage, _FinalStage {
     private String name;
 
     private String description;

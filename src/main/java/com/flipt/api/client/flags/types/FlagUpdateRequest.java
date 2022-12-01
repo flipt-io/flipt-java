@@ -93,7 +93,7 @@ public final class FlagUpdateRequest {
   @JsonIgnoreProperties(
       ignoreUnknown = true
   )
-  static final class Builder implements NameStage, _FinalStage {
+  public static final class Builder implements NameStage, _FinalStage {
     private String name;
 
     private Optional<Boolean> enabled = Optional.empty();

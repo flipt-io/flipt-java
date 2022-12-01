@@ -15,15 +15,23 @@ import java.util.Objects;
 public final class AuthenticationToken {
   private final String clientToken;
 
+  private final Authentication authentication;
+
   private int _cachedHashCode;
 
-  AuthenticationToken(String clientToken) {
+  AuthenticationToken(String clientToken, Authentication authentication) {
     this.clientToken = clientToken;
+    this.authentication = authentication;
   }
 
   @JsonProperty("clientToken")
   public String getClientToken() {
     return clientToken;
+  }
+
+  @JsonProperty("authentication")
+  public Authentication getAuthentication() {
+    return authentication;
   }
 
   @Override
@@ -33,20 +41,20 @@ public final class AuthenticationToken {
   }
 
   private boolean equalTo(AuthenticationToken other) {
-    return clientToken.equals(other.clientToken);
+    return clientToken.equals(other.clientToken) && authentication.equals(other.authentication);
   }
 
   @Override
   public int hashCode() {
     if (_cachedHashCode == 0) {
-      _cachedHashCode = Objects.hash(this.clientToken);
+      _cachedHashCode = Objects.hash(this.clientToken, this.authentication);
     }
     return _cachedHashCode;
   }
 
   @Override
   public String toString() {
-    return "AuthenticationToken{" + "clientToken: " + clientToken + "}";
+    return "AuthenticationToken{" + "clientToken: " + clientToken + ", authentication: " + authentication + "}";
   }
 
   public static ClientTokenStage builder() {
@@ -54,9 +62,13 @@ public final class AuthenticationToken {
   }
 
   public interface ClientTokenStage {
-    _FinalStage clientToken(String clientToken);
+    AuthenticationStage clientToken(String clientToken);
 
     Builder from(AuthenticationToken other);
+  }
+
+  public interface AuthenticationStage {
+    _FinalStage authentication(Authentication authentication);
   }
 
   public interface _FinalStage {
@@ -66,8 +78,10 @@ public final class AuthenticationToken {
   @JsonIgnoreProperties(
       ignoreUnknown = true
   )
-  static final class Builder implements ClientTokenStage, _FinalStage {
+  public static final class Builder implements ClientTokenStage, AuthenticationStage, _FinalStage {
     private String clientToken;
+
+    private Authentication authentication;
 
     private Builder() {
     }
@@ -75,19 +89,27 @@ public final class AuthenticationToken {
     @Override
     public Builder from(AuthenticationToken other) {
       clientToken(other.getClientToken());
+      authentication(other.getAuthentication());
       return this;
     }
 
     @Override
     @JsonSetter("clientToken")
-    public _FinalStage clientToken(String clientToken) {
+    public AuthenticationStage clientToken(String clientToken) {
       this.clientToken = clientToken;
       return this;
     }
 
     @Override
+    @JsonSetter("authentication")
+    public _FinalStage authentication(Authentication authentication) {
+      this.authentication = authentication;
+      return this;
+    }
+
+    @Override
     public AuthenticationToken build() {
-      return new AuthenticationToken(clientToken);
+      return new AuthenticationToken(clientToken, authentication);
     }
   }
 }

@@ -13,23 +13,23 @@ public final class BatchEvaluate {
   }
 
   public static final class Request {
-    private final Optional<BearerAuth> authOverride;
-
     private final BatchEvaluationRequest body;
+
+    private final Optional<BearerAuth> authOverride;
 
     private int _cachedHashCode;
 
-    Request(Optional<BearerAuth> authOverride, BatchEvaluationRequest body) {
-      this.authOverride = authOverride;
+    Request(BatchEvaluationRequest body, Optional<BearerAuth> authOverride) {
       this.body = body;
-    }
-
-    public Optional<BearerAuth> getAuthOverride() {
-      return authOverride;
+      this.authOverride = authOverride;
     }
 
     public BatchEvaluationRequest getBody() {
       return body;
+    }
+
+    public Optional<BearerAuth> getAuthOverride() {
+      return authOverride;
     }
 
     @Override
@@ -39,20 +39,20 @@ public final class BatchEvaluate {
     }
 
     private boolean equalTo(Request other) {
-      return authOverride.equals(other.authOverride) && body.equals(other.body);
+      return body.equals(other.body) && authOverride.equals(other.authOverride);
     }
 
     @Override
     public int hashCode() {
       if (_cachedHashCode == 0) {
-        _cachedHashCode = Objects.hash(this.authOverride, this.body);
+        _cachedHashCode = Objects.hash(this.body, this.authOverride);
       }
       return _cachedHashCode;
     }
 
     @Override
     public String toString() {
-      return "BatchEvaluate.Request{" + "authOverride: " + authOverride + ", body: " + body + "}";
+      return "BatchEvaluate.Request{" + "body: " + body + ", authOverride: " + authOverride + "}";
     }
 
     public static BodyStage builder() {
@@ -73,7 +73,7 @@ public final class BatchEvaluate {
       _FinalStage authOverride(BearerAuth authOverride);
     }
 
-    static final class Builder implements BodyStage, _FinalStage {
+    public static final class Builder implements BodyStage, _FinalStage {
       private BatchEvaluationRequest body;
 
       private Optional<BearerAuth> authOverride = Optional.empty();
@@ -83,8 +83,8 @@ public final class BatchEvaluate {
 
       @Override
       public Builder from(Request other) {
-        authOverride(other.getAuthOverride());
         body(other.getBody());
+        authOverride(other.getAuthOverride());
         return this;
       }
 
@@ -108,7 +108,7 @@ public final class BatchEvaluate {
 
       @Override
       public Request build() {
-        return new Request(authOverride, body);
+        return new Request(body, authOverride);
       }
     }
   }

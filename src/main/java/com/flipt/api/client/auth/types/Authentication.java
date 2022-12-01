@@ -133,7 +133,7 @@ public final class Authentication {
   @JsonIgnoreProperties(
       ignoreUnknown = true
   )
-  static final class Builder implements IdStage, MethodStage, CreatedAtStage, UpdatedAtStage, _FinalStage {
+  public static final class Builder implements IdStage, MethodStage, CreatedAtStage, UpdatedAtStage, _FinalStage {
     private String id;
 
     private AuthenticationMethod method;

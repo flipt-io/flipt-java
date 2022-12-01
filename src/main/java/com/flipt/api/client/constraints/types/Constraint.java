@@ -151,7 +151,7 @@ public final class Constraint {
   @JsonIgnoreProperties(
       ignoreUnknown = true
   )
-  static final class Builder implements IdStage, SegmentKeyStage, TypeStage, PropertyStage, OperatorStage, ValueStage, CreatedAtStage, UpdatedAtStage, _FinalStage {
+  public static final class Builder implements IdStage, SegmentKeyStage, TypeStage, PropertyStage, OperatorStage, ValueStage, CreatedAtStage, UpdatedAtStage, _FinalStage {
     private String id;
 
     private String segmentKey;

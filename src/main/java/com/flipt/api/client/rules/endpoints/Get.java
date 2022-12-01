@@ -12,23 +12,23 @@ public final class Get {
   }
 
   public static final class Request {
-    private final Optional<BearerAuth> authOverride;
-
     private final String id;
+
+    private final Optional<BearerAuth> authOverride;
 
     private int _cachedHashCode;
 
-    Request(Optional<BearerAuth> authOverride, String id) {
-      this.authOverride = authOverride;
+    Request(String id, Optional<BearerAuth> authOverride) {
       this.id = id;
-    }
-
-    public Optional<BearerAuth> getAuthOverride() {
-      return authOverride;
+      this.authOverride = authOverride;
     }
 
     public String getId() {
       return id;
+    }
+
+    public Optional<BearerAuth> getAuthOverride() {
+      return authOverride;
     }
 
     @Override
@@ -38,20 +38,20 @@ public final class Get {
     }
 
     private boolean equalTo(Request other) {
-      return authOverride.equals(other.authOverride) && id.equals(other.id);
+      return id.equals(other.id) && authOverride.equals(other.authOverride);
     }
 
     @Override
     public int hashCode() {
       if (_cachedHashCode == 0) {
-        _cachedHashCode = Objects.hash(this.authOverride, this.id);
+        _cachedHashCode = Objects.hash(this.id, this.authOverride);
       }
       return _cachedHashCode;
     }
 
     @Override
     public String toString() {
-      return "Get.Request{" + "authOverride: " + authOverride + ", id: " + id + "}";
+      return "Get.Request{" + "id: " + id + ", authOverride: " + authOverride + "}";
     }
 
     public static IdStage builder() {
@@ -72,7 +72,7 @@ public final class Get {
       _FinalStage authOverride(BearerAuth authOverride);
     }
 
-    static final class Builder implements IdStage, _FinalStage {
+    public static final class Builder implements IdStage, _FinalStage {
       private String id;
 
       private Optional<BearerAuth> authOverride = Optional.empty();
@@ -82,8 +82,8 @@ public final class Get {
 
       @Override
       public Builder from(Request other) {
-        authOverride(other.getAuthOverride());
         id(other.getId());
+        authOverride(other.getAuthOverride());
         return this;
       }
 
@@ -107,7 +107,7 @@ public final class Get {
 
       @Override
       public Request build() {
-        return new Request(authOverride, id);
+        return new Request(id, authOverride);
       }
     }
   }

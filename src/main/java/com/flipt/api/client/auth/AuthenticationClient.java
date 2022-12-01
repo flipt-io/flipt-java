@@ -33,29 +33,29 @@ public final class AuthenticationClient {
   }
 
   public AuthenticationList listTokens(ListTokens.Request request) throws ListTokensException {
-    BearerAuth authValue = request.getAuthOverride().orElseGet(() -> this.auth.orElseThrow(() -> new RuntimeException("Auth is required for listTokens")));
+    BearerAuth authValue = request.getAuthOverride().orElseGet(() -> this.auth.orElseThrow(() -> new RuntimeException("Auth is required")));
     return this.service.listTokens(authValue);
   }
 
   public com.flipt.api.client.auth.types.Authentication getToken(GetToken.Request request) throws
       GetTokenException {
-    BearerAuth authValue = request.getAuthOverride().orElseGet(() -> this.auth.orElseThrow(() -> new RuntimeException("Auth is required for getToken")));
+    BearerAuth authValue = request.getAuthOverride().orElseGet(() -> this.auth.orElseThrow(() -> new RuntimeException("Auth is required")));
     return this.service.getToken(authValue, request.getId());
   }
 
-  public AuthenticationToken createToken(CreateToken.Request request) throws CreateTokenException {
-    BearerAuth authValue = request.getAuthOverride().orElseGet(() -> this.auth.orElseThrow(() -> new RuntimeException("Auth is required for createToken")));
-    return this.service.createToken(authValue, request.getBody());
-  }
-
   public void deleteToken(DeleteToken.Request request) throws DeleteTokenException {
-    BearerAuth authValue = request.getAuthOverride().orElseGet(() -> this.auth.orElseThrow(() -> new RuntimeException("Auth is required for deleteToken")));
+    BearerAuth authValue = request.getAuthOverride().orElseGet(() -> this.auth.orElseThrow(() -> new RuntimeException("Auth is required")));
     this.service.deleteToken(authValue, request.getId());
   }
 
   public com.flipt.api.client.auth.types.Authentication getSelf(GetSelf.Request request) throws
       GetSelfException {
-    BearerAuth authValue = request.getAuthOverride().orElseGet(() -> this.auth.orElseThrow(() -> new RuntimeException("Auth is required for getSelf")));
+    BearerAuth authValue = request.getAuthOverride().orElseGet(() -> this.auth.orElseThrow(() -> new RuntimeException("Auth is required")));
     return this.service.getSelf(authValue);
+  }
+
+  public AuthenticationToken createToken(CreateToken.Request request) throws CreateTokenException {
+    BearerAuth authValue = request.getAuthOverride().orElseGet(() -> this.auth.orElseThrow(() -> new RuntimeException("Auth is required")));
+    return this.service.createToken(authValue, request.getBody());
   }
 }

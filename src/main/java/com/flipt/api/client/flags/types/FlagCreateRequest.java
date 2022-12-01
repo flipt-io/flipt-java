@@ -106,7 +106,7 @@ public final class FlagCreateRequest {
   @JsonIgnoreProperties(
       ignoreUnknown = true
   )
-  static final class Builder implements KeyStage, NameStage, _FinalStage {
+  public static final class Builder implements KeyStage, NameStage, _FinalStage {
     private String key;
 
     private String name;

@@ -145,7 +145,7 @@ public final class Rule {
   @JsonIgnoreProperties(
       ignoreUnknown = true
   )
-  static final class Builder implements IdStage, FlagKeyStage, SegmentKeyStage, RankStage, CreatedAtStage, UpdatedAtStage, _FinalStage {
+  public static final class Builder implements IdStage, FlagKeyStage, SegmentKeyStage, RankStage, CreatedAtStage, UpdatedAtStage, _FinalStage {
     private String id;
 
     private String flagKey;

@@ -151,7 +151,7 @@ public final class Variant {
   @JsonIgnoreProperties(
       ignoreUnknown = true
   )
-  static final class Builder implements IdStage, FlagKeyStage, KeyStage, NameStage, DescriptionStage, CreatedAtStage, UpdatedAtStage, AttachmentStage, _FinalStage {
+  public static final class Builder implements IdStage, FlagKeyStage, KeyStage, NameStage, DescriptionStage, CreatedAtStage, UpdatedAtStage, AttachmentStage, _FinalStage {
     private String id;
 
     private String flagKey;

@@ -10,11 +10,11 @@ import java.util.Locale;
 public final class ConstraintComparisonType {
   public static final ConstraintComparisonType NUMBER_COMPARISON_TYPE = new ConstraintComparisonType(Value.NUMBER_COMPARISON_TYPE, "NUMBER_COMPARISON_TYPE");
 
-  public static final ConstraintComparisonType BOOLEAN_COMPARISON_TYPE = new ConstraintComparisonType(Value.BOOLEAN_COMPARISON_TYPE, "BOOLEAN_COMPARISON_TYPE");
+  public static final ConstraintComparisonType UNKNOWN_COMPARISON_TYPE = new ConstraintComparisonType(Value.UNKNOWN_COMPARISON_TYPE, "UNKNOWN_COMPARISON_TYPE");
 
   public static final ConstraintComparisonType STRING_COMPARISON_TYPE = new ConstraintComparisonType(Value.STRING_COMPARISON_TYPE, "STRING_COMPARISON_TYPE");
 
-  public static final ConstraintComparisonType UNKNOWN_COMPARISON_TYPE = new ConstraintComparisonType(Value.UNKNOWN_COMPARISON_TYPE, "UNKNOWN_COMPARISON_TYPE");
+  public static final ConstraintComparisonType BOOLEAN_COMPARISON_TYPE = new ConstraintComparisonType(Value.BOOLEAN_COMPARISON_TYPE, "BOOLEAN_COMPARISON_TYPE");
 
   private final Value value;
 
@@ -50,12 +50,12 @@ public final class ConstraintComparisonType {
     switch (value) {
       case NUMBER_COMPARISON_TYPE:
         return visitor.visitNumberComparisonType();
-      case BOOLEAN_COMPARISON_TYPE:
-        return visitor.visitBooleanComparisonType();
-      case STRING_COMPARISON_TYPE:
-        return visitor.visitStringComparisonType();
       case UNKNOWN_COMPARISON_TYPE:
         return visitor.visitUnknownComparisonType();
+      case STRING_COMPARISON_TYPE:
+        return visitor.visitStringComparisonType();
+      case BOOLEAN_COMPARISON_TYPE:
+        return visitor.visitBooleanComparisonType();
       case UNKNOWN:
       default:
         return visitor.visitUnknown(string);
@@ -70,12 +70,12 @@ public final class ConstraintComparisonType {
     switch (upperCasedValue) {
       case "NUMBER_COMPARISON_TYPE":
         return NUMBER_COMPARISON_TYPE;
-      case "BOOLEAN_COMPARISON_TYPE":
-        return BOOLEAN_COMPARISON_TYPE;
-      case "STRING_COMPARISON_TYPE":
-        return STRING_COMPARISON_TYPE;
       case "UNKNOWN_COMPARISON_TYPE":
         return UNKNOWN_COMPARISON_TYPE;
+      case "STRING_COMPARISON_TYPE":
+        return STRING_COMPARISON_TYPE;
+      case "BOOLEAN_COMPARISON_TYPE":
+        return BOOLEAN_COMPARISON_TYPE;
       default:
         return new ConstraintComparisonType(Value.UNKNOWN, upperCasedValue);
     }

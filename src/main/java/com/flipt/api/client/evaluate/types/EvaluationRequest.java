@@ -104,7 +104,7 @@ public final class EvaluationRequest {
   @JsonIgnoreProperties(
       ignoreUnknown = true
   )
-  static final class Builder implements FlagKeyStage, EntityIdStage, ContextStage, _FinalStage {
+  public static final class Builder implements FlagKeyStage, EntityIdStage, ContextStage, _FinalStage {
     private String flagKey;
 
     private String entityId;

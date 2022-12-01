@@ -96,7 +96,7 @@ public final class BatchEvaluationResponse {
   @JsonIgnoreProperties(
       ignoreUnknown = true
   )
-  static final class Builder implements RequestIdStage, RequestDurationMillisStage, _FinalStage {
+  public static final class Builder implements RequestIdStage, RequestDurationMillisStage, _FinalStage {
     private String requestId;
 
     private double requestDurationMillis;

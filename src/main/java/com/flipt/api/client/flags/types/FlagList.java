@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.flipt.api.client.commons.types.IPageable;
 import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
@@ -16,36 +15,34 @@ import java.util.Objects;
 @JsonDeserialize(
     builder = FlagList.Builder.class
 )
-public final class FlagList implements IPageable {
+public final class FlagList {
+  private final List<Flag> flags;
+
   private final String nextPageToken;
 
   private final int totalCount;
 
-  private final List<Flag> flags;
-
   private int _cachedHashCode;
 
-  FlagList(String nextPageToken, int totalCount, List<Flag> flags) {
+  FlagList(List<Flag> flags, String nextPageToken, int totalCount) {
+    this.flags = flags;
     this.nextPageToken = nextPageToken;
     this.totalCount = totalCount;
-    this.flags = flags;
-  }
-
-  @JsonProperty("nextPageToken")
-  @Override
-  public String getNextPageToken() {
-    return nextPageToken;
-  }
-
-  @JsonProperty("totalCount")
-  @Override
-  public int getTotalCount() {
-    return totalCount;
   }
 
   @JsonProperty("flags")
   public List<Flag> getFlags() {
     return flags;
+  }
+
+  @JsonProperty("nextPageToken")
+  public String getNextPageToken() {
+    return nextPageToken;
+  }
+
+  @JsonProperty("totalCount")
+  public int getTotalCount() {
+    return totalCount;
   }
 
   @Override
@@ -55,20 +52,20 @@ public final class FlagList implements IPageable {
   }
 
   private boolean equalTo(FlagList other) {
-    return nextPageToken.equals(other.nextPageToken) && totalCount == other.totalCount && flags.equals(other.flags);
+    return flags.equals(other.flags) && nextPageToken.equals(other.nextPageToken) && totalCount == other.totalCount;
   }
 
   @Override
   public int hashCode() {
     if (_cachedHashCode == 0) {
-      _cachedHashCode = Objects.hash(this.nextPageToken, this.totalCount, this.flags);
+      _cachedHashCode = Objects.hash(this.flags, this.nextPageToken, this.totalCount);
     }
     return _cachedHashCode;
   }
 
   @Override
   public String toString() {
-    return "FlagList{" + "nextPageToken: " + nextPageToken + ", totalCount: " + totalCount + ", flags: " + flags + "}";
+    return "FlagList{" + "flags: " + flags + ", nextPageToken: " + nextPageToken + ", totalCount: " + totalCount + "}";
   }
 
   public static NextPageTokenStage builder() {
@@ -98,7 +95,7 @@ public final class FlagList implements IPageable {
   @JsonIgnoreProperties(
       ignoreUnknown = true
   )
-  static final class Builder implements NextPageTokenStage, TotalCountStage, _FinalStage {
+  public static final class Builder implements NextPageTokenStage, TotalCountStage, _FinalStage {
     private String nextPageToken;
 
     private int totalCount;
@@ -110,9 +107,9 @@ public final class FlagList implements IPageable {
 
     @Override
     public Builder from(FlagList other) {
+      flags(other.getFlags());
       nextPageToken(other.getNextPageToken());
       totalCount(other.getTotalCount());
-      flags(other.getFlags());
       return this;
     }
 
@@ -155,7 +152,7 @@ public final class FlagList implements IPageable {
 
     @Override
     public FlagList build() {
-      return new FlagList(nextPageToken, totalCount, flags);
+      return new FlagList(flags, nextPageToken, totalCount);
     }
   }
 }

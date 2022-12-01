@@ -95,7 +95,7 @@ public final class RuleList {
   @JsonIgnoreProperties(
       ignoreUnknown = true
   )
-  static final class Builder implements NextPageTokenStage, TotalCountStage, _FinalStage {
+  public static final class Builder implements NextPageTokenStage, TotalCountStage, _FinalStage {
     private String nextPageToken;
 
     private int totalCount;

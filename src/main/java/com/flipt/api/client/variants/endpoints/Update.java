@@ -13,22 +13,18 @@ public final class Update {
   }
 
   public static final class Request {
-    private final Optional<BearerAuth> authOverride;
-
     private final String id;
 
     private final VariantUpdateRequest body;
 
+    private final Optional<BearerAuth> authOverride;
+
     private int _cachedHashCode;
 
-    Request(Optional<BearerAuth> authOverride, String id, VariantUpdateRequest body) {
-      this.authOverride = authOverride;
+    Request(String id, VariantUpdateRequest body, Optional<BearerAuth> authOverride) {
       this.id = id;
       this.body = body;
-    }
-
-    public Optional<BearerAuth> getAuthOverride() {
-      return authOverride;
+      this.authOverride = authOverride;
     }
 
     public String getId() {
@@ -39,6 +35,10 @@ public final class Update {
       return body;
     }
 
+    public Optional<BearerAuth> getAuthOverride() {
+      return authOverride;
+    }
+
     @Override
     public boolean equals(Object other) {
       if (this == other) return true;
@@ -46,20 +46,20 @@ public final class Update {
     }
 
     private boolean equalTo(Request other) {
-      return authOverride.equals(other.authOverride) && id.equals(other.id) && body.equals(other.body);
+      return id.equals(other.id) && body.equals(other.body) && authOverride.equals(other.authOverride);
     }
 
     @Override
     public int hashCode() {
       if (_cachedHashCode == 0) {
-        _cachedHashCode = Objects.hash(this.authOverride, this.id, this.body);
+        _cachedHashCode = Objects.hash(this.id, this.body, this.authOverride);
       }
       return _cachedHashCode;
     }
 
     @Override
     public String toString() {
-      return "Update.Request{" + "authOverride: " + authOverride + ", id: " + id + ", body: " + body + "}";
+      return "Update.Request{" + "id: " + id + ", body: " + body + ", authOverride: " + authOverride + "}";
     }
 
     public static IdStage builder() {
@@ -84,7 +84,7 @@ public final class Update {
       _FinalStage authOverride(BearerAuth authOverride);
     }
 
-    static final class Builder implements IdStage, BodyStage, _FinalStage {
+    public static final class Builder implements IdStage, BodyStage, _FinalStage {
       private String id;
 
       private VariantUpdateRequest body;
@@ -96,9 +96,9 @@ public final class Update {
 
       @Override
       public Builder from(Request other) {
-        authOverride(other.getAuthOverride());
         id(other.getId());
         body(other.getBody());
+        authOverride(other.getAuthOverride());
         return this;
       }
 
@@ -128,7 +128,7 @@ public final class Update {
 
       @Override
       public Request build() {
-        return new Request(authOverride, id, body);
+        return new Request(id, body, authOverride);
       }
     }
   }
