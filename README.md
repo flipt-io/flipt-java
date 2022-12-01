@@ -25,7 +25,7 @@ Add the dependency:
 
 ```groovy
 dependencies {
-    implementation 'com.github.flipt-io:flipt-java:0.1.1'
+    implementation 'com.github.flipt-io:flipt-java:0.x.x'
 }
 ```
 
