@@ -4,7 +4,7 @@
 
 ## Documentation
 
-API documentation is available at <https://www.flipt.io/docs/reference/flags/list-flags>.
+API documentation is available at <https://www.flipt.io/docs/reference/overview>.
 
 ## Install
 
