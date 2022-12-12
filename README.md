@@ -4,7 +4,7 @@
 
 ## Documentation
 
-API documentation is available at <https://www.flipt.io/docs/reference/flags/list-flags>.
+API documentation is available at <https://www.flipt.io/docs/reference/overview>.
 
 ## Install
 
@@ -67,6 +67,6 @@ This SDK is in beta, and there may be breaking changes between versions without 
 
 ## Contributing
 
-While we value open-source contributions to this SDK, this library is generated programmatically. Additions made directly to this library would have to be moved over to our generation code, otherwise they would be overwritten upon the next generated release. Feel free to open a PR as a proof of concept, but know that we will not be able to merge it as-is. We suggest [opening an issue](https://github.com/fern-flipt/flipt-java/issues) first to discuss with us!
+While we value open-source contributions to this SDK, this library is generated programmatically. Additions made directly to this library would have to be moved over to our generation code, otherwise they would be overwritten upon the next generated release. Feel free to open a PR as a proof of concept, but know that we will not be able to merge it as-is. We suggest [opening an issue](https://github.com/flipt-io/flipt-java/issues) first to discuss with us!
 
 On the other hand, contributions to the README are always very welcome!

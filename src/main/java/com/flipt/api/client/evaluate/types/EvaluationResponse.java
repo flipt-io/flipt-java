@@ -33,13 +33,13 @@ public final class EvaluationResponse {
 
   private final String attachment;
 
-  private final EvaluationReason reasons;
+  private final EvaluationReason reason;
 
   private int _cachedHashCode;
 
   EvaluationResponse(String requestId, String entityId, String requestContext, boolean match,
       String flagKey, String segmentKey, String timestamp, String value,
-      double requestDurationMillis, String attachment, EvaluationReason reasons) {
+      double requestDurationMillis, String attachment, EvaluationReason reason) {
     this.requestId = requestId;
     this.entityId = entityId;
     this.requestContext = requestContext;
@@ -50,7 +50,7 @@ public final class EvaluationResponse {
     this.value = value;
     this.requestDurationMillis = requestDurationMillis;
     this.attachment = attachment;
-    this.reasons = reasons;
+    this.reason = reason;
   }
 
   @JsonProperty("requestId")
@@ -103,9 +103,9 @@ public final class EvaluationResponse {
     return attachment;
   }
 
-  @JsonProperty("reasons")
-  public EvaluationReason getReasons() {
-    return reasons;
+  @JsonProperty("reason")
+  public EvaluationReason getReason() {
+    return reason;
   }
 
   @Override
@@ -115,20 +115,20 @@ public final class EvaluationResponse {
   }
 
   private boolean equalTo(EvaluationResponse other) {
-    return requestId.equals(other.requestId) && entityId.equals(other.entityId) && requestContext.equals(other.requestContext) && match == other.match && flagKey.equals(other.flagKey) && segmentKey.equals(other.segmentKey) && timestamp.equals(other.timestamp) && value.equals(other.value) && requestDurationMillis == other.requestDurationMillis && attachment.equals(other.attachment) && reasons.equals(other.reasons);
+    return requestId.equals(other.requestId) && entityId.equals(other.entityId) && requestContext.equals(other.requestContext) && match == other.match && flagKey.equals(other.flagKey) && segmentKey.equals(other.segmentKey) && timestamp.equals(other.timestamp) && value.equals(other.value) && requestDurationMillis == other.requestDurationMillis && attachment.equals(other.attachment) && reason.equals(other.reason);
   }
 
   @Override
   public int hashCode() {
     if (_cachedHashCode == 0) {
-      _cachedHashCode = Objects.hash(this.requestId, this.entityId, this.requestContext, this.match, this.flagKey, this.segmentKey, this.timestamp, this.value, this.requestDurationMillis, this.attachment, this.reasons);
+      _cachedHashCode = Objects.hash(this.requestId, this.entityId, this.requestContext, this.match, this.flagKey, this.segmentKey, this.timestamp, this.value, this.requestDurationMillis, this.attachment, this.reason);
     }
     return _cachedHashCode;
   }
 
   @Override
   public String toString() {
-    return "EvaluationResponse{" + "requestId: " + requestId + ", entityId: " + entityId + ", requestContext: " + requestContext + ", match: " + match + ", flagKey: " + flagKey + ", segmentKey: " + segmentKey + ", timestamp: " + timestamp + ", value: " + value + ", requestDurationMillis: " + requestDurationMillis + ", attachment: " + attachment + ", reasons: " + reasons + "}";
+    return "EvaluationResponse{" + "requestId: " + requestId + ", entityId: " + entityId + ", requestContext: " + requestContext + ", match: " + match + ", flagKey: " + flagKey + ", segmentKey: " + segmentKey + ", timestamp: " + timestamp + ", value: " + value + ", requestDurationMillis: " + requestDurationMillis + ", attachment: " + attachment + ", reason: " + reason + "}";
   }
 
   public static RequestIdStage builder() {
@@ -174,11 +174,11 @@ public final class EvaluationResponse {
   }
 
   public interface AttachmentStage {
-    ReasonsStage attachment(String attachment);
+    ReasonStage attachment(String attachment);
   }
 
-  public interface ReasonsStage {
-    _FinalStage reasons(EvaluationReason reasons);
+  public interface ReasonStage {
+    _FinalStage reason(EvaluationReason reason);
   }
 
   public interface _FinalStage {
@@ -188,7 +188,7 @@ public final class EvaluationResponse {
   @JsonIgnoreProperties(
       ignoreUnknown = true
   )
-  public static final class Builder implements RequestIdStage, EntityIdStage, RequestContextStage, MatchStage, FlagKeyStage, SegmentKeyStage, TimestampStage, ValueStage, RequestDurationMillisStage, AttachmentStage, ReasonsStage, _FinalStage {
+  public static final class Builder implements RequestIdStage, EntityIdStage, RequestContextStage, MatchStage, FlagKeyStage, SegmentKeyStage, TimestampStage, ValueStage, RequestDurationMillisStage, AttachmentStage, ReasonStage, _FinalStage {
     private String requestId;
 
     private String entityId;
@@ -209,7 +209,7 @@ public final class EvaluationResponse {
 
     private String attachment;
 
-    private EvaluationReason reasons;
+    private EvaluationReason reason;
 
     private Builder() {
     }
@@ -226,7 +226,7 @@ public final class EvaluationResponse {
       value(other.getValue());
       requestDurationMillis(other.getRequestDurationMillis());
       attachment(other.getAttachment());
-      reasons(other.getReasons());
+      reason(other.getReason());
       return this;
     }
 
@@ -295,21 +295,21 @@ public final class EvaluationResponse {
 
     @Override
     @JsonSetter("attachment")
-    public ReasonsStage attachment(String attachment) {
+    public ReasonStage attachment(String attachment) {
       this.attachment = attachment;
       return this;
     }
 
     @Override
-    @JsonSetter("reasons")
-    public _FinalStage reasons(EvaluationReason reasons) {
-      this.reasons = reasons;
+    @JsonSetter("reason")
+    public _FinalStage reason(EvaluationReason reason) {
+      this.reason = reason;
       return this;
     }
 
     @Override
     public EvaluationResponse build() {
-      return new EvaluationResponse(requestId, entityId, requestContext, match, flagKey, segmentKey, timestamp, value, requestDurationMillis, attachment, reasons);
+      return new EvaluationResponse(requestId, entityId, requestContext, match, flagKey, segmentKey, timestamp, value, requestDurationMillis, attachment, reason);
     }
   }
 }
