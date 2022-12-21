@@ -3,10 +3,13 @@ package com.flipt.api.client.evaluate.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Objects;
 
 @JsonDeserialize(
@@ -17,7 +20,7 @@ public final class EvaluationResponse {
 
   private final String entityId;
 
-  private final String requestContext;
+  private final Map<String, String> requestContext;
 
   private final boolean match;
 
@@ -37,8 +40,8 @@ public final class EvaluationResponse {
 
   private int _cachedHashCode;
 
-  EvaluationResponse(String requestId, String entityId, String requestContext, boolean match,
-      String flagKey, String segmentKey, String timestamp, String value,
+  EvaluationResponse(String requestId, String entityId, Map<String, String> requestContext,
+      boolean match, String flagKey, String segmentKey, String timestamp, String value,
       double requestDurationMillis, String attachment, EvaluationReason reason) {
     this.requestId = requestId;
     this.entityId = entityId;
@@ -64,7 +67,7 @@ public final class EvaluationResponse {
   }
 
   @JsonProperty("requestContext")
-  public String getRequestContext() {
+  public Map<String, String> getRequestContext() {
     return requestContext;
   }
 
@@ -142,11 +145,7 @@ public final class EvaluationResponse {
   }
 
   public interface EntityIdStage {
-    RequestContextStage entityId(String entityId);
-  }
-
-  public interface RequestContextStage {
-    MatchStage requestContext(String requestContext);
+    MatchStage entityId(String entityId);
   }
 
   public interface MatchStage {
@@ -183,17 +182,21 @@ public final class EvaluationResponse {
 
   public interface _FinalStage {
     EvaluationResponse build();
+
+    _FinalStage requestContext(Map<String, String> requestContext);
+
+    _FinalStage putAllRequestContext(Map<String, String> requestContext);
+
+    _FinalStage requestContext(String key, String value);
   }
 
   @JsonIgnoreProperties(
       ignoreUnknown = true
   )
-  public static final class Builder implements RequestIdStage, EntityIdStage, RequestContextStage, MatchStage, FlagKeyStage, SegmentKeyStage, TimestampStage, ValueStage, RequestDurationMillisStage, AttachmentStage, ReasonStage, _FinalStage {
+  public static final class Builder implements RequestIdStage, EntityIdStage, MatchStage, FlagKeyStage, SegmentKeyStage, TimestampStage, ValueStage, RequestDurationMillisStage, AttachmentStage, ReasonStage, _FinalStage {
     private String requestId;
 
     private String entityId;
-
-    private String requestContext;
 
     private boolean match;
 
@@ -210,6 +213,8 @@ public final class EvaluationResponse {
     private String attachment;
 
     private EvaluationReason reason;
+
+    private Map<String, String> requestContext = new LinkedHashMap<>();
 
     private Builder() {
     }
@@ -239,15 +244,8 @@ public final class EvaluationResponse {
 
     @Override
     @JsonSetter("entityId")
-    public RequestContextStage entityId(String entityId) {
+    public MatchStage entityId(String entityId) {
       this.entityId = entityId;
-      return this;
-    }
-
-    @Override
-    @JsonSetter("requestContext")
-    public MatchStage requestContext(String requestContext) {
-      this.requestContext = requestContext;
       return this;
     }
 
@@ -304,6 +302,29 @@ public final class EvaluationResponse {
     @JsonSetter("reason")
     public _FinalStage reason(EvaluationReason reason) {
       this.reason = reason;
+      return this;
+    }
+
+    @Override
+    public _FinalStage requestContext(String key, String value) {
+      this.requestContext.put(key, value);
+      return this;
+    }
+
+    @Override
+    public _FinalStage putAllRequestContext(Map<String, String> requestContext) {
+      this.requestContext.putAll(requestContext);
+      return this;
+    }
+
+    @Override
+    @JsonSetter(
+        value = "requestContext",
+        nulls = Nulls.SKIP
+    )
+    public _FinalStage requestContext(Map<String, String> requestContext) {
+      this.requestContext.clear();
+      this.requestContext.putAll(requestContext);
       return this;
     }
 

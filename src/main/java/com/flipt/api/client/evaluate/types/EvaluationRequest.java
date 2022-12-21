@@ -8,6 +8,8 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -21,11 +23,12 @@ public final class EvaluationRequest {
 
   private final String entityId;
 
-  private final String context;
+  private final Map<String, String> context;
 
   private int _cachedHashCode;
 
-  EvaluationRequest(Optional<String> requestId, String flagKey, String entityId, String context) {
+  EvaluationRequest(Optional<String> requestId, String flagKey, String entityId,
+      Map<String, String> context) {
     this.requestId = requestId;
     this.flagKey = flagKey;
     this.entityId = entityId;
@@ -48,7 +51,7 @@ public final class EvaluationRequest {
   }
 
   @JsonProperty("context")
-  public String getContext() {
+  public Map<String, String> getContext() {
     return context;
   }
 
@@ -86,11 +89,7 @@ public final class EvaluationRequest {
   }
 
   public interface EntityIdStage {
-    ContextStage entityId(String entityId);
-  }
-
-  public interface ContextStage {
-    _FinalStage context(String context);
+    _FinalStage entityId(String entityId);
   }
 
   public interface _FinalStage {
@@ -99,17 +98,23 @@ public final class EvaluationRequest {
     _FinalStage requestId(Optional<String> requestId);
 
     _FinalStage requestId(String requestId);
+
+    _FinalStage context(Map<String, String> context);
+
+    _FinalStage putAllContext(Map<String, String> context);
+
+    _FinalStage context(String key, String value);
   }
 
   @JsonIgnoreProperties(
       ignoreUnknown = true
   )
-  public static final class Builder implements FlagKeyStage, EntityIdStage, ContextStage, _FinalStage {
+  public static final class Builder implements FlagKeyStage, EntityIdStage, _FinalStage {
     private String flagKey;
 
     private String entityId;
 
-    private String context;
+    private Map<String, String> context = new LinkedHashMap<>();
 
     private Optional<String> requestId = Optional.empty();
 
@@ -134,15 +139,31 @@ public final class EvaluationRequest {
 
     @Override
     @JsonSetter("entityId")
-    public ContextStage entityId(String entityId) {
+    public _FinalStage entityId(String entityId) {
       this.entityId = entityId;
       return this;
     }
 
     @Override
-    @JsonSetter("context")
-    public _FinalStage context(String context) {
-      this.context = context;
+    public _FinalStage context(String key, String value) {
+      this.context.put(key, value);
+      return this;
+    }
+
+    @Override
+    public _FinalStage putAllContext(Map<String, String> context) {
+      this.context.putAll(context);
+      return this;
+    }
+
+    @Override
+    @JsonSetter(
+        value = "context",
+        nulls = Nulls.SKIP
+    )
+    public _FinalStage context(Map<String, String> context) {
+      this.context.clear();
+      this.context.putAll(context);
       return this;
     }
 
