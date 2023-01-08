@@ -1,6 +1,6 @@
 # Flipt Java Library
 
-[![](https://jitpack.io/v/flipt-io/flipt-java.svg)](https://jitpack.io/#flipt-io/flipt-java)
+![Maven Central](https://img.shields.io/maven-central/v/io.flipt/flipt-java)
 
 ## Documentation
 
@@ -12,20 +12,11 @@ API documentation is available at <https://www.flipt.io/docs/reference/overview>
 
 Add to your root build.gradle at the end of repositories:
 
-```groovy
-allprojects {
-    repositories {
-        ...
-        maven { url 'https://jitpack.io' }
-    }
-}
-```
-
 Add the dependency:
 
 ```groovy
 dependencies {
-    implementation 'com.github.flipt-io:flipt-java:0.x.x'
+    implementation 'io.flipt-io:flipt-java:0.x.x'
 }
 ```
 
