@@ -10,14 +10,24 @@ API documentation is available at <https://www.flipt.io/docs/reference/overview>
 
 ### Gradle
 
-Add to your root build.gradle at the end of repositories:
-
-Add the dependency:
+Add the dependency in your `build.gradle`:
 
 ```groovy
 dependencies {
     implementation 'io.flipt-io:flipt-java:0.x.x'
 }
+```
+
+### Maven
+
+Add the dependency in your `pom.xml`:
+
+```xml
+<dependency>
+    <groupId>io.flipt</groupId>
+    <artifactId>flipt-java</artifactId>
+    <version>0.x.x</version>
+</dependency>
 ```
 
 ## Usage
