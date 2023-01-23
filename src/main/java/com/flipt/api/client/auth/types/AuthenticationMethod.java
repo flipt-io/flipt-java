@@ -12,6 +12,8 @@ public final class AuthenticationMethod {
 
   public static final AuthenticationMethod METHOD_NONE = new AuthenticationMethod(Value.METHOD_NONE, "METHOD_NONE");
 
+  public static final AuthenticationMethod METHOD_OIDC = new AuthenticationMethod(Value.METHOD_OIDC, "METHOD_OIDC");
+
   private final Value value;
 
   private final String string;
@@ -48,6 +50,8 @@ public final class AuthenticationMethod {
         return visitor.visitMethodToken();
       case METHOD_NONE:
         return visitor.visitMethodNone();
+      case METHOD_OIDC:
+        return visitor.visitMethodOidc();
       case UNKNOWN:
       default:
         return visitor.visitUnknown(string);
@@ -64,6 +68,8 @@ public final class AuthenticationMethod {
         return METHOD_TOKEN;
       case "METHOD_NONE":
         return METHOD_NONE;
+      case "METHOD_OIDC":
+        return METHOD_OIDC;
       default:
         return new AuthenticationMethod(Value.UNKNOWN, upperCasedValue);
     }
@@ -74,6 +80,8 @@ public final class AuthenticationMethod {
 
     METHOD_TOKEN,
 
+    METHOD_OIDC,
+
     UNKNOWN
   }
 
@@ -81,6 +89,8 @@ public final class AuthenticationMethod {
     T visitMethodNone();
 
     T visitMethodToken();
+
+    T visitMethodOidc();
 
     T visitUnknown(String unknownType);
   }

@@ -2,11 +2,13 @@ package com.flipt.api.client.auth;
 
 import com.flipt.api.client.auth.endpoints.CreateToken;
 import com.flipt.api.client.auth.endpoints.DeleteToken;
+import com.flipt.api.client.auth.endpoints.ExpireSelf;
 import com.flipt.api.client.auth.endpoints.GetSelf;
 import com.flipt.api.client.auth.endpoints.GetToken;
 import com.flipt.api.client.auth.endpoints.ListTokens;
 import com.flipt.api.client.auth.exceptions.CreateTokenException;
 import com.flipt.api.client.auth.exceptions.DeleteTokenException;
+import com.flipt.api.client.auth.exceptions.ExpireSelfException;
 import com.flipt.api.client.auth.exceptions.GetSelfException;
 import com.flipt.api.client.auth.exceptions.GetTokenException;
 import com.flipt.api.client.auth.exceptions.ListTokensException;
@@ -52,6 +54,11 @@ public final class AuthenticationClient {
       GetSelfException {
     BearerAuth authValue = request.getAuthOverride().orElseGet(() -> this.auth.orElseThrow(() -> new RuntimeException("Auth is required")));
     return this.service.getSelf(authValue);
+  }
+
+  public void expireSelf(ExpireSelf.Request request) throws ExpireSelfException {
+    BearerAuth authValue = request.getAuthOverride().orElseGet(() -> this.auth.orElseThrow(() -> new RuntimeException("Auth is required")));
+    this.service.expireSelf(authValue, request.getBody());
   }
 
   public AuthenticationToken createToken(CreateToken.Request request) throws CreateTokenException {
