@@ -1,6 +1,5 @@
 package com.flipt.api.client.auth;
 
-import com.flipt.api.client.auth.exceptions.CreateTokenException;
 import com.flipt.api.client.auth.exceptions.DeleteTokenException;
 import com.flipt.api.client.auth.exceptions.ExpireSelfException;
 import com.flipt.api.client.auth.exceptions.GetSelfException;
@@ -34,9 +33,6 @@ final class AuthenticationErrorDecoder implements ErrorDecoder {
       }
       if (methodKey.contains("expireSelf")) {
         return decodeException(response, ExpireSelfException.class);
-      }
-      if (methodKey.contains("createToken")) {
-        return decodeException(response, CreateTokenException.class);
       }
     }
     catch (IOException e) {

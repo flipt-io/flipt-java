@@ -1,7 +1,6 @@
 package com.flipt.api.client.auth;
 
 import com.fern.java.jersey.contracts.OptionalAwareContract;
-import com.flipt.api.client.auth.exceptions.CreateTokenException;
 import com.flipt.api.client.auth.exceptions.DeleteTokenException;
 import com.flipt.api.client.auth.exceptions.ExpireSelfException;
 import com.flipt.api.client.auth.exceptions.GetSelfException;
@@ -9,8 +8,6 @@ import com.flipt.api.client.auth.exceptions.GetTokenException;
 import com.flipt.api.client.auth.exceptions.ListTokensException;
 import com.flipt.api.client.auth.types.AuthenticationExpireSelfRequest;
 import com.flipt.api.client.auth.types.AuthenticationList;
-import com.flipt.api.client.auth.types.AuthenticationToken;
-import com.flipt.api.client.auth.types.AuthenticationTokenCreateRequest;
 import com.flipt.api.core.BearerAuth;
 import com.flipt.api.core.ObjectMappers;
 import feign.Feign;
@@ -22,7 +19,6 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
-import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -58,11 +54,6 @@ interface Authentication {
   @Path("/self/expire")
   void expireSelf(@HeaderParam("Authorization") BearerAuth auth,
       AuthenticationExpireSelfRequest body) throws ExpireSelfException;
-
-  @POST
-  @Path("/method/token")
-  AuthenticationToken createToken(@HeaderParam("Authorization") BearerAuth auth,
-      AuthenticationTokenCreateRequest body) throws CreateTokenException;
 
   static Authentication getClient(String url) {
     return Feign.builder()
