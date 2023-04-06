@@ -1,133 +1,53 @@
 package com.flipt.api;
 
-import com.flipt.api.client.auth.AuthenticationClient;
-import com.flipt.api.client.auth.AuthenticationMethodKubernetesClient;
-import com.flipt.api.client.auth.AuthenticationMethodOIDCClient;
-import com.flipt.api.client.auth.AuthenticationMethodTokenClient;
-import com.flipt.api.client.constraints.ConstraintsClient;
-import com.flipt.api.client.distributions.DistributionsClient;
-import com.flipt.api.client.evaluate.EvaluationClient;
-import com.flipt.api.client.flags.FlagsClient;
-import com.flipt.api.client.rules.RulesClient;
-import com.flipt.api.client.segments.SegmentsClient;
-import com.flipt.api.client.variants.VariantsClient;
-import com.flipt.api.core.BearerAuth;
 import com.flipt.api.core.Environment;
-import java.util.Objects;
-import java.util.concurrent.atomic.AtomicReference;
-import java.util.function.Supplier;
+import com.flipt.api.resources.auth.AuthClient;
+import com.flipt.api.resources.auth.method.k.8.s.AuthMethodK8SClient;
+import com.flipt.api.resources.auth.method.oidc.AuthMethodOidcClient;
+import com.flipt.api.resources.auth.method.token.AuthMethodTokenClient;
+import com.flipt.api.resources.constraints.ConstraintsClient;
+import com.flipt.api.resources.distributions.DistributionsClient;
+import com.flipt.api.resources.evaluate.EvaluateClient;
+import com.flipt.api.resources.flags.FlagsClient;
+import com.flipt.api.resources.rules.RulesClient;
+import com.flipt.api.resources.segments.SegmentsClient;
+import com.flipt.api.resources.variants.VariantsClient;
+import java.lang.String;
 
-public final class FliptApiClient {
-  private final Supplier<AuthenticationClient> authenticationClient;
+public interface FliptApiClient {
+  AuthMethodK8SClient authMethodK8S();
 
-  private final Supplier<AuthenticationMethodTokenClient> authenticationMethodTokenClient;
+  AuthMethodOidcClient authMethodOidc();
 
-  private final Supplier<AuthenticationMethodOIDCClient> authenticationMethodOIDCClient;
+  AuthMethodTokenClient authMethodToken();
 
-  private final Supplier<AuthenticationMethodKubernetesClient> authenticationMethodKubernetesClient;
+  AuthClient auth();
 
-  private final Supplier<ConstraintsClient> constraintsClient;
+  ConstraintsClient constraints();
 
-  private final Supplier<DistributionsClient> distributionsClient;
+  DistributionsClient distributions();
 
-  private final Supplier<EvaluationClient> evaluationClient;
+  EvaluateClient evaluate();
 
-  private final Supplier<FlagsClient> flagsClient;
+  FlagsClient flags();
 
-  private final Supplier<RulesClient> rulesClient;
+  RulesClient rules();
 
-  private final Supplier<SegmentsClient> segmentsClient;
+  SegmentsClient segments();
 
-  private final Supplier<VariantsClient> variantsClient;
+  VariantsClient variants();
 
-  public FliptApiClient() {
-    this(Environment.PRODUCTION);
+  static Builder builder() {
+    return new FliptApiClientImpl.Builder();
   }
 
-  public FliptApiClient(BearerAuth auth) {
-    this(Environment.PRODUCTION, auth);
-  }
+  interface Builder {
+    Builder token(String token);
 
-  public FliptApiClient(Environment environment) {
-    this.rulesClient = memoize(() -> new RulesClient(environment.getUrl()));
-    this.segmentsClient = memoize(() -> new SegmentsClient(environment.getUrl()));
-    this.flagsClient = memoize(() -> new FlagsClient(environment.getUrl()));
-    this.variantsClient = memoize(() -> new VariantsClient(environment.getUrl()));
-    this.authenticationClient = memoize(() -> new AuthenticationClient(environment.getUrl()));
-    this.authenticationMethodTokenClient = memoize(() -> new AuthenticationMethodTokenClient(environment.getUrl()));
-    this.distributionsClient = memoize(() -> new DistributionsClient(environment.getUrl()));
-    this.authenticationMethodKubernetesClient = memoize(() -> new AuthenticationMethodKubernetesClient(environment.getUrl()));
-    this.authenticationMethodOIDCClient = memoize(() -> new AuthenticationMethodOIDCClient(environment.getUrl()));
-    this.constraintsClient = memoize(() -> new ConstraintsClient(environment.getUrl()));
-    this.evaluationClient = memoize(() -> new EvaluationClient(environment.getUrl()));
-  }
+    Builder environment(Environment environment);
 
-  public FliptApiClient(Environment environment, BearerAuth auth) {
-    this.rulesClient = memoize(() -> new RulesClient(environment.getUrl(), auth));
-    this.segmentsClient = memoize(() -> new SegmentsClient(environment.getUrl(), auth));
-    this.flagsClient = memoize(() -> new FlagsClient(environment.getUrl(), auth));
-    this.variantsClient = memoize(() -> new VariantsClient(environment.getUrl(), auth));
-    this.authenticationClient = memoize(() -> new AuthenticationClient(environment.getUrl(), auth));
-    this.authenticationMethodTokenClient = memoize(() -> new AuthenticationMethodTokenClient(environment.getUrl(), auth));
-    this.distributionsClient = memoize(() -> new DistributionsClient(environment.getUrl(), auth));
-    this.authenticationMethodKubernetesClient = memoize(() -> new AuthenticationMethodKubernetesClient(environment.getUrl()));
-    this.authenticationMethodOIDCClient = memoize(() -> new AuthenticationMethodOIDCClient(environment.getUrl()));
-    this.constraintsClient = memoize(() -> new ConstraintsClient(environment.getUrl(), auth));
-    this.evaluationClient = memoize(() -> new EvaluationClient(environment.getUrl(), auth));
-  }
+    Builder url(String url);
 
-  public final AuthenticationClient auth() {
-    return this.authenticationClient.get();
-  }
-
-  public final AuthenticationMethodTokenClient auth() {
-    return this.authenticationMethodTokenClient.get();
-  }
-
-  public final AuthenticationMethodOIDCClient auth() {
-    return this.authenticationMethodOIDCClient.get();
-  }
-
-  public final AuthenticationMethodKubernetesClient auth() {
-    return this.authenticationMethodKubernetesClient.get();
-  }
-
-  public final ConstraintsClient constraints() {
-    return this.constraintsClient.get();
-  }
-
-  public final DistributionsClient distributions() {
-    return this.distributionsClient.get();
-  }
-
-  public final EvaluationClient evaluate() {
-    return this.evaluationClient.get();
-  }
-
-  public final FlagsClient flags() {
-    return this.flagsClient.get();
-  }
-
-  public final RulesClient rules() {
-    return this.rulesClient.get();
-  }
-
-  public final SegmentsClient segments() {
-    return this.segmentsClient.get();
-  }
-
-  public final VariantsClient variants() {
-    return this.variantsClient.get();
-  }
-
-  private static <T> Supplier<T> memoize(Supplier<T> delegate) {
-    AtomicReference<T> value = new AtomicReference<>();
-    return () ->  {
-      T val = value.get();
-      if (val == null) {
-        val = value.updateAndGet(cur -> cur == null ? Objects.requireNonNull(delegate.get()) : cur);
-      }
-      return val;
-    } ;
+    FliptApiClient build();
   }
 }

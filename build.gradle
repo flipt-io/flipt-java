@@ -12,12 +12,9 @@ repositories {
 }
 
 dependencies {
-    api 'io.github.fern-api:jersey-utils:0.0.82'
+    api 'com.squareup.okhttp3:okhttp:4.9.3'
     api 'com.fasterxml.jackson.core:jackson-databind:2.13.0'
     api 'com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.12.3'
-    api 'io.github.openfeign:feign-jackson:11.8'
-    api 'io.github.openfeign:feign-core:11.8'
-    api 'io.github.openfeign:feign-jaxrs2:11.8'
 }
 
 spotless {
