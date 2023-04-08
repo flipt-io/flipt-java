@@ -2,7 +2,7 @@ package com.flipt.api;
 
 import com.flipt.api.core.Environment;
 import com.flipt.api.resources.auth.AuthClient;
-import com.flipt.api.resources.auth.method.k.8.s.AuthMethodK8SClient;
+import com.flipt.api.resources.auth.method.k._8.s.AuthMethodK8SClient;
 import com.flipt.api.resources.auth.method.oidc.AuthMethodOidcClient;
 import com.flipt.api.resources.auth.method.token.AuthMethodTokenClient;
 import com.flipt.api.resources.constraints.ConstraintsClient;
