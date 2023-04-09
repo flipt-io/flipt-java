@@ -1,11 +1,11 @@
-package com.flipt.api.resources.auth.method.oidc;
+package com.flipt.api.resources.authmethodoidc;
 
 import com.flipt.api.core.ClientOptions;
 import com.flipt.api.core.ObjectMappers;
-import com.flipt.api.resources.auth.method.oidc.requests.OidcAuthorizeUrlRequest;
-import com.flipt.api.resources.auth.method.oidc.requests.OidcCallbackRequest;
-import com.flipt.api.resources.auth.method.oidc.types.OidcAuthorizeUrlResponse;
-import com.flipt.api.resources.auth.method.oidc.types.OidcCallbackResponse;
+import com.flipt.api.resources.authmethodoidc.requests.OidcAuthorizeUrlRequest;
+import com.flipt.api.resources.authmethodoidc.requests.OidcCallbackRequest;
+import com.flipt.api.resources.authmethodoidc.types.OidcAuthorizeUrlResponse;
+import com.flipt.api.resources.authmethodoidc.types.OidcCallbackResponse;
 import java.lang.Exception;
 import java.lang.Override;
 import java.lang.RuntimeException;

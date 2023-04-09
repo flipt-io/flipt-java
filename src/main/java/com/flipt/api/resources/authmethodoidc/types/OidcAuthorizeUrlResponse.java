@@ -1,4 +1,4 @@
-package com.flipt.api.resources.auth.method.oidc.types;
+package com.flipt.api.resources.authmethodoidc.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;

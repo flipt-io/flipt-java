@@ -1,9 +1,9 @@
-package com.flipt.api.resources.auth.method.token;
+package com.flipt.api.resources.authmethodtoken;
 
 import com.flipt.api.core.ClientOptions;
 import com.flipt.api.core.ObjectMappers;
-import com.flipt.api.resources.auth.method.token.requests.AuthenticationTokenCreateRequest;
 import com.flipt.api.resources.auth.types.AuthenticationToken;
+import com.flipt.api.resources.authmethodtoken.requests.AuthenticationTokenCreateRequest;
 import java.lang.Exception;
 import java.lang.Object;
 import java.lang.Override;
