@@ -1,7 +1,6 @@
 package sample;
 
 import com.flipt.api.FliptApiClient;
-
 import com.flipt.api.resources.flags.types.Flag;
 
 public class App {
