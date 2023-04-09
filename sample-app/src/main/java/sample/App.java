@@ -8,7 +8,7 @@ public class App {
   public static void main(String[] args) {
     String token = System.getenv("FLIPT_API_TOKEN");
 
-    FliptApiClient fliptApiClient = FliptApiClient.builder().token(token).url(("http://localhost:8080")).build();
+    FliptApiClient fliptApiClient = FliptApiClient.builder().token(token).url("http://localhost:8080").build();
 
     try {
       Flag flag = fliptApiClient.flags().get("flag_abc123");
