@@ -40,8 +40,9 @@ public final class SegmentsClientImpl implements SegmentsClient {
       if (request.getPageToken().isPresent()) {
         _httpUrlBuilder.addQueryParameter("pageToken", request.getPageToken().get());
       }
-      HttpUrl _httpUrl = _httpUrlBuilder.build();
-      RequestBody _requestBody = RequestBody.create("", null);
+      HttpUrl _httpUrl = _httpUrlBuilder.build()
+          ;
+      RequestBody _requestBody = null;
       Request.Builder _requestBuilder = new Request.Builder()
         .url(_httpUrl)
         .method("GET", _requestBody)
@@ -99,7 +100,7 @@ public final class SegmentsClientImpl implements SegmentsClient {
         .addPathSegment(key)
         .build();Request _request = new Request.Builder()
         .url(_httpUrl)
-        .method("GET", RequestBody.create("", null))
+        .method("GET", null)
         .headers(Headers.of(clientOptions.headers()))
         .build();
       try {
@@ -123,7 +124,7 @@ public final class SegmentsClientImpl implements SegmentsClient {
         .addPathSegment(key)
         .build();Request _request = new Request.Builder()
         .url(_httpUrl)
-        .method("DELETE", RequestBody.create("", null))
+        .method("DELETE", null)
         .headers(Headers.of(clientOptions.headers()))
         .build();
       try {

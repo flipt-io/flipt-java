@@ -29,7 +29,8 @@ public final class AuthMethodK8SClientImpl implements AuthMethodK8SClient {
   public AuthenticationToken verifyServiceAccount(KubernetesVerifyServiceAccount request) {
     HttpUrl.Builder _httpUrlBuilder = HttpUrl.parse(this.clientOptions.environment().getUrl()).newBuilder()
       .addPathSegments("auth/v1/method/kubernetes")
-      ;HttpUrl _httpUrl = _httpUrlBuilder.build();
+      ;HttpUrl _httpUrl = _httpUrlBuilder.build()
+          ;
       Map<String, Object> _requestBodyProperties = new HashMap<>();
       _requestBodyProperties.put("serviceAccountToken", request.getServiceAccountToken());
       RequestBody _requestBody;

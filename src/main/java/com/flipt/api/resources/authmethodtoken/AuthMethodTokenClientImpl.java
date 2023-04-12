@@ -29,7 +29,8 @@ public final class AuthMethodTokenClientImpl implements AuthMethodTokenClient {
   public AuthenticationToken createToken(AuthenticationTokenCreateRequest request) {
     HttpUrl.Builder _httpUrlBuilder = HttpUrl.parse(this.clientOptions.environment().getUrl()).newBuilder()
       .addPathSegments("auth/v1/method/token")
-      ;HttpUrl _httpUrl = _httpUrlBuilder.build();
+      ;HttpUrl _httpUrl = _httpUrlBuilder.build()
+          ;
       Map<String, Object> _requestBodyProperties = new HashMap<>();
       _requestBodyProperties.put("name", request.getName());
       _requestBodyProperties.put("description", request.getDescription());

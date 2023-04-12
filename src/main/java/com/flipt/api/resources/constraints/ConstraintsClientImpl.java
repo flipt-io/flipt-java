@@ -68,7 +68,7 @@ public final class ConstraintsClientImpl implements ConstraintsClient {
       .addPathSegment(id)
       .build();Request _request = new Request.Builder()
       .url(_httpUrl)
-      .method("DELETE", RequestBody.create("", null))
+      .method("DELETE", null)
       .headers(Headers.of(clientOptions.headers()))
       .build();
     try {

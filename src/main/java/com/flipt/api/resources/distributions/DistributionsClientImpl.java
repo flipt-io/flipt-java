@@ -73,8 +73,9 @@ public final class DistributionsClientImpl implements DistributionsClient {
       .addPathSegments("distributions")
       .addPathSegment(id)
       ;_httpUrlBuilder.addQueryParameter("variantId", request.getVariantId());
-      HttpUrl _httpUrl = _httpUrlBuilder.build();
-      RequestBody _requestBody = RequestBody.create("", null);
+      HttpUrl _httpUrl = _httpUrlBuilder.build()
+          ;
+      RequestBody _requestBody = null;
       Request.Builder _requestBuilder = new Request.Builder()
         .url(_httpUrl)
         .method("DELETE", _requestBody)

@@ -30,8 +30,9 @@ public final class AuthMethodOidcClientImpl implements AuthMethodOidcClient {
       .addPathSegment(provider)
       .addPathSegments("authorize")
       ;_httpUrlBuilder.addQueryParameter("state", request.getState());
-      HttpUrl _httpUrl = _httpUrlBuilder.build();
-      RequestBody _requestBody = RequestBody.create("", null);
+      HttpUrl _httpUrl = _httpUrlBuilder.build()
+          ;
+      RequestBody _requestBody = null;
       Request.Builder _requestBuilder = new Request.Builder()
         .url(_httpUrl)
         .method("GET", _requestBody)
@@ -57,8 +58,9 @@ public final class AuthMethodOidcClientImpl implements AuthMethodOidcClient {
         .addPathSegments("callback")
         ;_httpUrlBuilder.addQueryParameter("code", request.getCode());
         _httpUrlBuilder.addQueryParameter("state", request.getState());
-        HttpUrl _httpUrl = _httpUrlBuilder.build();
-        RequestBody _requestBody = RequestBody.create("", null);
+        HttpUrl _httpUrl = _httpUrlBuilder.build()
+            ;
+        RequestBody _requestBody = null;
         Request.Builder _requestBuilder = new Request.Builder()
           .url(_httpUrl)
           .method("GET", _requestBody)

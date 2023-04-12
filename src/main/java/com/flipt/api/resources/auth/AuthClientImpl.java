@@ -32,7 +32,7 @@ public final class AuthClientImpl implements AuthClient {
       .addPathSegments("auth/v1")
       .build();Request _request = new Request.Builder()
       .url(_httpUrl)
-      .method("GET", RequestBody.create("", null))
+      .method("GET", null)
       .headers(Headers.of(clientOptions.headers()))
       .build();
     try {
@@ -54,7 +54,7 @@ public final class AuthClientImpl implements AuthClient {
       .addPathSegment(id)
       .build();Request _request = new Request.Builder()
       .url(_httpUrl)
-      .method("GET", RequestBody.create("", null))
+      .method("GET", null)
       .headers(Headers.of(clientOptions.headers()))
       .build();
     try {
@@ -76,7 +76,7 @@ public final class AuthClientImpl implements AuthClient {
       .addPathSegment(id)
       .build();Request _request = new Request.Builder()
       .url(_httpUrl)
-      .method("DELETE", RequestBody.create("", null))
+      .method("DELETE", null)
       .headers(Headers.of(clientOptions.headers()))
       .build();
     try {
@@ -97,7 +97,7 @@ public final class AuthClientImpl implements AuthClient {
       .addPathSegments("auth/v1")
       .build();Request _request = new Request.Builder()
       .url(_httpUrl)
-      .method("GET", RequestBody.create("", null))
+      .method("GET", null)
       .headers(Headers.of(clientOptions.headers()))
       .build();
     try {
@@ -116,7 +116,8 @@ public final class AuthClientImpl implements AuthClient {
   public void expireSelf(AuthenticationExpireSelfRequest request) {
     HttpUrl.Builder _httpUrlBuilder = HttpUrl.parse(this.clientOptions.environment().getUrl()).newBuilder()
       .addPathSegments("auth/v1")
-      ;HttpUrl _httpUrl = _httpUrlBuilder.build();
+      ;HttpUrl _httpUrl = _httpUrlBuilder.build()
+          ;
       Map<String, Object> _requestBodyProperties = new HashMap<>();
       _requestBodyProperties.put("expiresAt", request.getExpiresAt());
       RequestBody _requestBody;
