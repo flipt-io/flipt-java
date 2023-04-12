@@ -9,6 +9,7 @@ import com.flipt.api.resources.constraints.ConstraintsClient;
 import com.flipt.api.resources.distributions.DistributionsClient;
 import com.flipt.api.resources.evaluate.EvaluateClient;
 import com.flipt.api.resources.flags.FlagsClient;
+import com.flipt.api.resources.namespaces.NamespacesClient;
 import com.flipt.api.resources.rules.RulesClient;
 import com.flipt.api.resources.segments.SegmentsClient;
 import com.flipt.api.resources.variants.VariantsClient;
@@ -30,6 +31,8 @@ public interface FliptApiClient {
   EvaluateClient evaluate();
 
   FlagsClient flags();
+
+  NamespacesClient namespaces();
 
   RulesClient rules();
 
