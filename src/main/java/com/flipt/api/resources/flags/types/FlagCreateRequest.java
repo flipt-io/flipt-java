@@ -1,4 +1,4 @@
-package com.flipt.api.resources.flags.requests;
+package com.flipt.api.resources.flags.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -13,9 +13,11 @@ import java.util.Objects;
 import java.util.Optional;
 
 @JsonDeserialize(
-    builder = FlagUpdateRequest.Builder.class
+    builder = FlagCreateRequest.Builder.class
 )
-public final class FlagUpdateRequest {
+public final class FlagCreateRequest {
+  private final String key;
+
   private final String name;
 
   private final Optional<String> description;
@@ -24,10 +26,17 @@ public final class FlagUpdateRequest {
 
   private int _cachedHashCode;
 
-  FlagUpdateRequest(String name, Optional<String> description, Optional<Boolean> enabled) {
+  FlagCreateRequest(String key, String name, Optional<String> description,
+      Optional<Boolean> enabled) {
+    this.key = key;
     this.name = name;
     this.description = description;
     this.enabled = enabled;
+  }
+
+  @JsonProperty("key")
+  public String getKey() {
+    return key;
   }
 
   @JsonProperty("name")
@@ -48,38 +57,42 @@ public final class FlagUpdateRequest {
   @Override
   public boolean equals(Object other) {
     if (this == other) return true;
-    return other instanceof FlagUpdateRequest && equalTo((FlagUpdateRequest) other);
+    return other instanceof FlagCreateRequest && equalTo((FlagCreateRequest) other);
   }
 
-  private boolean equalTo(FlagUpdateRequest other) {
-    return name.equals(other.name) && description.equals(other.description) && enabled.equals(other.enabled);
+  private boolean equalTo(FlagCreateRequest other) {
+    return key.equals(other.key) && name.equals(other.name) && description.equals(other.description) && enabled.equals(other.enabled);
   }
 
   @Override
   public int hashCode() {
     if (_cachedHashCode == 0) {
-      _cachedHashCode = Objects.hash(this.name, this.description, this.enabled);
+      _cachedHashCode = Objects.hash(this.key, this.name, this.description, this.enabled);
     }
     return _cachedHashCode;
   }
 
   @Override
   public String toString() {
-    return "FlagUpdateRequest{" + "name: " + name + ", description: " + description + ", enabled: " + enabled + "}";
+    return "FlagCreateRequest{" + "key: " + key + ", name: " + name + ", description: " + description + ", enabled: " + enabled + "}";
   }
 
-  public static NameStage builder() {
+  public static KeyStage builder() {
     return new Builder();
+  }
+
+  public interface KeyStage {
+    NameStage key(String key);
+
+    Builder from(FlagCreateRequest other);
   }
 
   public interface NameStage {
     _FinalStage name(String name);
-
-    Builder from(FlagUpdateRequest other);
   }
 
   public interface _FinalStage {
-    FlagUpdateRequest build();
+    FlagCreateRequest build();
 
     _FinalStage description(Optional<String> description);
 
@@ -93,7 +106,9 @@ public final class FlagUpdateRequest {
   @JsonIgnoreProperties(
       ignoreUnknown = true
   )
-  public static final class Builder implements NameStage, _FinalStage {
+  public static final class Builder implements KeyStage, NameStage, _FinalStage {
+    private String key;
+
     private String name;
 
     private Optional<Boolean> enabled = Optional.empty();
@@ -104,10 +119,18 @@ public final class FlagUpdateRequest {
     }
 
     @Override
-    public Builder from(FlagUpdateRequest other) {
+    public Builder from(FlagCreateRequest other) {
+      key(other.getKey());
       name(other.getName());
       description(other.getDescription());
       enabled(other.getEnabled());
+      return this;
+    }
+
+    @Override
+    @JsonSetter("key")
+    public NameStage key(String key) {
+      this.key = key;
       return this;
     }
 
@@ -151,8 +174,8 @@ public final class FlagUpdateRequest {
     }
 
     @Override
-    public FlagUpdateRequest build() {
-      return new FlagUpdateRequest(name, description, enabled);
+    public FlagCreateRequest build() {
+      return new FlagCreateRequest(key, name, description, enabled);
     }
   }
 }

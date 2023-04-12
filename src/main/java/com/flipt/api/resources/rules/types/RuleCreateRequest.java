@@ -1,4 +1,4 @@
-package com.flipt.api.resources.rules.requests;
+package com.flipt.api.resources.rules.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;

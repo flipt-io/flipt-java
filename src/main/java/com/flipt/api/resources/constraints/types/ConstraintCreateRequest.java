@@ -1,11 +1,10 @@
-package com.flipt.api.resources.constraints.requests;
+package com.flipt.api.resources.constraints.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.flipt.api.resources.constraints.types.ConstraintComparisonType;
 import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;

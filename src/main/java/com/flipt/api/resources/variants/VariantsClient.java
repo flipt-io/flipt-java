@@ -1,14 +1,14 @@
 package com.flipt.api.resources.variants;
 
-import com.flipt.api.resources.variants.requests.VariantCreateRequest;
-import com.flipt.api.resources.variants.requests.VariantUpdateRequest;
 import com.flipt.api.resources.variants.types.Variant;
+import com.flipt.api.resources.variants.types.VariantCreateRequest;
+import com.flipt.api.resources.variants.types.VariantUpdateRequest;
 import java.lang.String;
 
 public interface VariantsClient {
-  Variant create(String flagKey, VariantCreateRequest request);
+  Variant create(String namespaceKey, String flagKey, VariantCreateRequest request);
 
-  void delete(String flagKey, String id);
+  void delete(String namespaceKey, String flagKey, String id);
 
-  Variant update(String flagKey, String id, VariantUpdateRequest request);
+  Variant update(String namespaceKey, String flagKey, String id, VariantUpdateRequest request);
 }

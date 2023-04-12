@@ -1,23 +1,23 @@
 package com.flipt.api.resources.rules;
 
-import com.flipt.api.resources.rules.requests.RuleCreateRequest;
 import com.flipt.api.resources.rules.requests.RuleListRequest;
-import com.flipt.api.resources.rules.requests.RuleOrder;
-import com.flipt.api.resources.rules.requests.RuleUpdateRequest;
 import com.flipt.api.resources.rules.types.Rule;
+import com.flipt.api.resources.rules.types.RuleCreateRequest;
 import com.flipt.api.resources.rules.types.RuleList;
+import com.flipt.api.resources.rules.types.RuleOrderRequest;
+import com.flipt.api.resources.rules.types.RuleUpdateRequest;
 import java.lang.String;
 
 public interface RulesClient {
-  RuleList list(String flagKey, RuleListRequest request);
+  RuleList list(String namespaceKey, String flagKey, RuleListRequest request);
 
-  Rule create(String flagKey, RuleCreateRequest request);
+  Rule create(String namespaceKey, String flagKey, RuleCreateRequest request);
 
-  void order(String flagKey, RuleOrder request);
+  void order(String namespaceKey, String flagKey, RuleOrderRequest request);
 
-  Rule get(String flagKey, String id);
+  Rule get(String namespaceKey, String flagKey, String id);
 
-  void delete(String flagKey, String id);
+  void delete(String namespaceKey, String flagKey, String id);
 
-  void update(String flagKey, String id, RuleUpdateRequest request);
+  void update(String namespaceKey, String flagKey, String id, RuleUpdateRequest request);
 }

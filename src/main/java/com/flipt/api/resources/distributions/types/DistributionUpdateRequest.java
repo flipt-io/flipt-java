@@ -1,4 +1,4 @@
-package com.flipt.api.resources.distributions.requests;
+package com.flipt.api.resources.distributions.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -10,16 +10,16 @@ import java.lang.String;
 import java.util.Objects;
 
 @JsonDeserialize(
-    builder = DistributionCreateRequest.Builder.class
+    builder = DistributionUpdateRequest.Builder.class
 )
-public final class DistributionCreateRequest {
+public final class DistributionUpdateRequest {
   private final String variantId;
 
   private final double rollout;
 
   private int _cachedHashCode;
 
-  DistributionCreateRequest(String variantId, double rollout) {
+  DistributionUpdateRequest(String variantId, double rollout) {
     this.variantId = variantId;
     this.rollout = rollout;
   }
@@ -37,10 +37,10 @@ public final class DistributionCreateRequest {
   @Override
   public boolean equals(Object other) {
     if (this == other) return true;
-    return other instanceof DistributionCreateRequest && equalTo((DistributionCreateRequest) other);
+    return other instanceof DistributionUpdateRequest && equalTo((DistributionUpdateRequest) other);
   }
 
-  private boolean equalTo(DistributionCreateRequest other) {
+  private boolean equalTo(DistributionUpdateRequest other) {
     return variantId.equals(other.variantId) && rollout == other.rollout;
   }
 
@@ -54,7 +54,7 @@ public final class DistributionCreateRequest {
 
   @Override
   public String toString() {
-    return "DistributionCreateRequest{" + "variantId: " + variantId + ", rollout: " + rollout + "}";
+    return "DistributionUpdateRequest{" + "variantId: " + variantId + ", rollout: " + rollout + "}";
   }
 
   public static VariantIdStage builder() {
@@ -64,7 +64,7 @@ public final class DistributionCreateRequest {
   public interface VariantIdStage {
     RolloutStage variantId(String variantId);
 
-    Builder from(DistributionCreateRequest other);
+    Builder from(DistributionUpdateRequest other);
   }
 
   public interface RolloutStage {
@@ -72,7 +72,7 @@ public final class DistributionCreateRequest {
   }
 
   public interface _FinalStage {
-    DistributionCreateRequest build();
+    DistributionUpdateRequest build();
   }
 
   @JsonIgnoreProperties(
@@ -87,7 +87,7 @@ public final class DistributionCreateRequest {
     }
 
     @Override
-    public Builder from(DistributionCreateRequest other) {
+    public Builder from(DistributionUpdateRequest other) {
       variantId(other.getVariantId());
       rollout(other.getRollout());
       return this;
@@ -108,8 +108,8 @@ public final class DistributionCreateRequest {
     }
 
     @Override
-    public DistributionCreateRequest build() {
-      return new DistributionCreateRequest(variantId, rollout);
+    public DistributionUpdateRequest build() {
+      return new DistributionUpdateRequest(variantId, rollout);
     }
   }
 }

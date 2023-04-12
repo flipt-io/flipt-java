@@ -1,20 +1,20 @@
 package com.flipt.api.resources.segments;
 
-import com.flipt.api.resources.segments.requests.SegmentCreateRequest;
 import com.flipt.api.resources.segments.requests.SegmentListRequest;
-import com.flipt.api.resources.segments.requests.SegmentUpdateRequest;
 import com.flipt.api.resources.segments.types.Segment;
+import com.flipt.api.resources.segments.types.SegmentCreateRequest;
 import com.flipt.api.resources.segments.types.SegmentList;
+import com.flipt.api.resources.segments.types.SegmentUpdateRequest;
 import java.lang.String;
 
 public interface SegmentsClient {
-  SegmentList list(SegmentListRequest request);
+  SegmentList list(String namespaceKey, SegmentListRequest request);
 
-  Segment create(SegmentCreateRequest request);
+  Segment create(String namespaceKey, SegmentCreateRequest request);
 
-  Segment get(String key);
+  Segment get(String namespaceKey, String key);
 
-  void delete(String key);
+  void delete(String namespaceKey, String key);
 
-  Segment update(String key, SegmentUpdateRequest request);
+  Segment update(String namespaceKey, String key, SegmentUpdateRequest request);
 }

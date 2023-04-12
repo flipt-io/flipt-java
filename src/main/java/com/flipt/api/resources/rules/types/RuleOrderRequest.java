@@ -1,4 +1,4 @@
-package com.flipt.api.resources.rules.requests;
+package com.flipt.api.resources.rules.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -13,14 +13,14 @@ import java.util.List;
 import java.util.Objects;
 
 @JsonDeserialize(
-    builder = RuleOrder.Builder.class
+    builder = RuleOrderRequest.Builder.class
 )
-public final class RuleOrder {
+public final class RuleOrderRequest {
   private final List<String> ruleIds;
 
   private int _cachedHashCode;
 
-  RuleOrder(List<String> ruleIds) {
+  RuleOrderRequest(List<String> ruleIds) {
     this.ruleIds = ruleIds;
   }
 
@@ -32,10 +32,10 @@ public final class RuleOrder {
   @Override
   public boolean equals(Object other) {
     if (this == other) return true;
-    return other instanceof RuleOrder && equalTo((RuleOrder) other);
+    return other instanceof RuleOrderRequest && equalTo((RuleOrderRequest) other);
   }
 
-  private boolean equalTo(RuleOrder other) {
+  private boolean equalTo(RuleOrderRequest other) {
     return ruleIds.equals(other.ruleIds);
   }
 
@@ -49,7 +49,7 @@ public final class RuleOrder {
 
   @Override
   public String toString() {
-    return "RuleOrder{" + "ruleIds: " + ruleIds + "}";
+    return "RuleOrderRequest{" + "ruleIds: " + ruleIds + "}";
   }
 
   public static Builder builder() {
@@ -65,7 +65,7 @@ public final class RuleOrder {
     private Builder() {
     }
 
-    public Builder from(RuleOrder other) {
+    public Builder from(RuleOrderRequest other) {
       ruleIds(other.getRuleIds());
       return this;
     }
@@ -90,8 +90,8 @@ public final class RuleOrder {
       return this;
     }
 
-    public RuleOrder build() {
-      return new RuleOrder(ruleIds);
+    public RuleOrderRequest build() {
+      return new RuleOrderRequest(ruleIds);
     }
   }
 }

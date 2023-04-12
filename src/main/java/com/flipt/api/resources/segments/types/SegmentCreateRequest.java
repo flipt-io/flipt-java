@@ -1,19 +1,20 @@
-package com.flipt.api.resources.segments.requests;
+package com.flipt.api.resources.segments.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.flipt.api.resources.segments.types.SegmentMatchType;
 import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
 import java.util.Objects;
 
 @JsonDeserialize(
-    builder = SegmentUpdateRequest.Builder.class
+    builder = SegmentCreateRequest.Builder.class
 )
-public final class SegmentUpdateRequest {
+public final class SegmentCreateRequest {
+  private final String key;
+
   private final String name;
 
   private final String description;
@@ -22,10 +23,16 @@ public final class SegmentUpdateRequest {
 
   private int _cachedHashCode;
 
-  SegmentUpdateRequest(String name, String description, SegmentMatchType matchType) {
+  SegmentCreateRequest(String key, String name, String description, SegmentMatchType matchType) {
+    this.key = key;
     this.name = name;
     this.description = description;
     this.matchType = matchType;
+  }
+
+  @JsonProperty("key")
+  public String getKey() {
+    return key;
   }
 
   @JsonProperty("name")
@@ -46,34 +53,38 @@ public final class SegmentUpdateRequest {
   @Override
   public boolean equals(Object other) {
     if (this == other) return true;
-    return other instanceof SegmentUpdateRequest && equalTo((SegmentUpdateRequest) other);
+    return other instanceof SegmentCreateRequest && equalTo((SegmentCreateRequest) other);
   }
 
-  private boolean equalTo(SegmentUpdateRequest other) {
-    return name.equals(other.name) && description.equals(other.description) && matchType.equals(other.matchType);
+  private boolean equalTo(SegmentCreateRequest other) {
+    return key.equals(other.key) && name.equals(other.name) && description.equals(other.description) && matchType.equals(other.matchType);
   }
 
   @Override
   public int hashCode() {
     if (_cachedHashCode == 0) {
-      _cachedHashCode = Objects.hash(this.name, this.description, this.matchType);
+      _cachedHashCode = Objects.hash(this.key, this.name, this.description, this.matchType);
     }
     return _cachedHashCode;
   }
 
   @Override
   public String toString() {
-    return "SegmentUpdateRequest{" + "name: " + name + ", description: " + description + ", matchType: " + matchType + "}";
+    return "SegmentCreateRequest{" + "key: " + key + ", name: " + name + ", description: " + description + ", matchType: " + matchType + "}";
   }
 
-  public static NameStage builder() {
+  public static KeyStage builder() {
     return new Builder();
+  }
+
+  public interface KeyStage {
+    NameStage key(String key);
+
+    Builder from(SegmentCreateRequest other);
   }
 
   public interface NameStage {
     DescriptionStage name(String name);
-
-    Builder from(SegmentUpdateRequest other);
   }
 
   public interface DescriptionStage {
@@ -85,13 +96,15 @@ public final class SegmentUpdateRequest {
   }
 
   public interface _FinalStage {
-    SegmentUpdateRequest build();
+    SegmentCreateRequest build();
   }
 
   @JsonIgnoreProperties(
       ignoreUnknown = true
   )
-  public static final class Builder implements NameStage, DescriptionStage, MatchTypeStage, _FinalStage {
+  public static final class Builder implements KeyStage, NameStage, DescriptionStage, MatchTypeStage, _FinalStage {
+    private String key;
+
     private String name;
 
     private String description;
@@ -102,10 +115,18 @@ public final class SegmentUpdateRequest {
     }
 
     @Override
-    public Builder from(SegmentUpdateRequest other) {
+    public Builder from(SegmentCreateRequest other) {
+      key(other.getKey());
       name(other.getName());
       description(other.getDescription());
       matchType(other.getMatchType());
+      return this;
+    }
+
+    @Override
+    @JsonSetter("key")
+    public NameStage key(String key) {
+      this.key = key;
       return this;
     }
 
@@ -131,8 +152,8 @@ public final class SegmentUpdateRequest {
     }
 
     @Override
-    public SegmentUpdateRequest build() {
-      return new SegmentUpdateRequest(name, description, matchType);
+    public SegmentCreateRequest build() {
+      return new SegmentCreateRequest(key, name, description, matchType);
     }
   }
 }

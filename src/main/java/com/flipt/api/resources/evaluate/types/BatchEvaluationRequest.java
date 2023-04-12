@@ -1,11 +1,10 @@
-package com.flipt.api.resources.evaluate.requests;
+package com.flipt.api.resources.evaluate.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.flipt.api.resources.evaluate.types.EvaluationRequest;
 import java.lang.Boolean;
 import java.lang.Object;
 import java.lang.Override;
