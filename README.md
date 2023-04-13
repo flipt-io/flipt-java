@@ -3,11 +3,13 @@
 ![Maven Central](https://img.shields.io/maven-central/v/io.flipt/flipt-java)
 ![hardening](https://img.shields.io/badge/status-hardening-orange)
 
+## Documentation
+
 API documentation is available at <https://www.flipt.io/docs/reference/overview>.
 
 ## Status
 
-This SDK is considered in 'hardening' status. We will try to minimize breaking changes, however there still may be breaking changes between versions without a major version update. 
+This SDK is considered in 'hardening' status. We will try to minimize breaking changes, however there still may be breaking changes between versions without a major version update.
 
 We recommend pinning the package version to a specific version in your `build.gradle` or `pom.xml` file. This way, you can install the same version each time without breaking changes unless you are intentionally looking for the latest version.
 
@@ -69,10 +71,6 @@ public class App {
   }
 }
 ```
-
-## Beta status
-
-This SDK is in beta, and there may be breaking changes between versions without a major version update. Therefore, we recommend pinning the package version to a specific version in your build.gradle file. This way, you can install the same version each time without breaking changes unless you are intentionally looking for the latest version.
 
 ## Contributing
 
