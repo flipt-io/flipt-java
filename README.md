@@ -1,10 +1,15 @@
 # Flipt Java Library
 
 ![Maven Central](https://img.shields.io/maven-central/v/io.flipt/flipt-java)
-
-## Documentation
+![hardening](https://img.shields.io/badge/status-hardening-orange)
 
 API documentation is available at <https://www.flipt.io/docs/reference/overview>.
+
+## Status
+
+This SDK is considered in 'hardening' status. We will try to minimize breaking changes, however there still may be breaking changes between versions without a major version update. 
+
+We recommend pinning the package version to a specific version in your `build.gradle` or `pom.xml` file. This way, you can install the same version each time without breaking changes unless you are intentionally looking for the latest version.
 
 ## Breaking Changes
 
