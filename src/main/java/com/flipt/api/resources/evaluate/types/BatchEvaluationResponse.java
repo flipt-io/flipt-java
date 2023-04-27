@@ -18,16 +18,16 @@ import java.util.Objects;
 public final class BatchEvaluationResponse {
   private final String requestId;
 
-  private final List<EvaluationResponse> response;
+  private final List<EvaluationResponse> responses;
 
   private final double requestDurationMillis;
 
   private int _cachedHashCode;
 
-  BatchEvaluationResponse(String requestId, List<EvaluationResponse> response,
+  BatchEvaluationResponse(String requestId, List<EvaluationResponse> responses,
       double requestDurationMillis) {
     this.requestId = requestId;
-    this.response = response;
+    this.responses = responses;
     this.requestDurationMillis = requestDurationMillis;
   }
 
@@ -36,9 +36,9 @@ public final class BatchEvaluationResponse {
     return requestId;
   }
 
-  @JsonProperty("response")
-  public List<EvaluationResponse> getResponse() {
-    return response;
+  @JsonProperty("responses")
+  public List<EvaluationResponse> getResponses() {
+    return responses;
   }
 
   @JsonProperty("requestDurationMillis")
@@ -53,20 +53,20 @@ public final class BatchEvaluationResponse {
   }
 
   private boolean equalTo(BatchEvaluationResponse other) {
-    return requestId.equals(other.requestId) && response.equals(other.response) && requestDurationMillis == other.requestDurationMillis;
+    return requestId.equals(other.requestId) && responses.equals(other.responses) && requestDurationMillis == other.requestDurationMillis;
   }
 
   @Override
   public int hashCode() {
     if (_cachedHashCode == 0) {
-      _cachedHashCode = Objects.hash(this.requestId, this.response, this.requestDurationMillis);
+      _cachedHashCode = Objects.hash(this.requestId, this.responses, this.requestDurationMillis);
     }
     return _cachedHashCode;
   }
 
   @Override
   public String toString() {
-    return "BatchEvaluationResponse{" + "requestId: " + requestId + ", response: " + response + ", requestDurationMillis: " + requestDurationMillis + "}";
+    return "BatchEvaluationResponse{" + "requestId: " + requestId + ", responses: " + responses + ", requestDurationMillis: " + requestDurationMillis + "}";
   }
 
   public static RequestIdStage builder() {
@@ -86,11 +86,11 @@ public final class BatchEvaluationResponse {
   public interface _FinalStage {
     BatchEvaluationResponse build();
 
-    _FinalStage response(List<EvaluationResponse> response);
+    _FinalStage responses(List<EvaluationResponse> responses);
 
-    _FinalStage addResponse(EvaluationResponse response);
+    _FinalStage addResponses(EvaluationResponse responses);
 
-    _FinalStage addAllResponse(List<EvaluationResponse> response);
+    _FinalStage addAllResponses(List<EvaluationResponse> responses);
   }
 
   @JsonIgnoreProperties(
@@ -101,7 +101,7 @@ public final class BatchEvaluationResponse {
 
     private double requestDurationMillis;
 
-    private List<EvaluationResponse> response = new ArrayList<>();
+    private List<EvaluationResponse> responses = new ArrayList<>();
 
     private Builder() {
     }
@@ -109,7 +109,7 @@ public final class BatchEvaluationResponse {
     @Override
     public Builder from(BatchEvaluationResponse other) {
       requestId(other.getRequestId());
-      response(other.getResponse());
+      responses(other.getResponses());
       requestDurationMillis(other.getRequestDurationMillis());
       return this;
     }
@@ -129,31 +129,31 @@ public final class BatchEvaluationResponse {
     }
 
     @Override
-    public _FinalStage addAllResponse(List<EvaluationResponse> response) {
-      this.response.addAll(response);
+    public _FinalStage addAllResponses(List<EvaluationResponse> responses) {
+      this.responses.addAll(responses);
       return this;
     }
 
     @Override
-    public _FinalStage addResponse(EvaluationResponse response) {
-      this.response.add(response);
+    public _FinalStage addResponses(EvaluationResponse responses) {
+      this.responses.add(responses);
       return this;
     }
 
     @Override
     @JsonSetter(
-        value = "response",
+        value = "responses",
         nulls = Nulls.SKIP
     )
-    public _FinalStage response(List<EvaluationResponse> response) {
-      this.response.clear();
-      this.response.addAll(response);
+    public _FinalStage responses(List<EvaluationResponse> responses) {
+      this.responses.clear();
+      this.responses.addAll(responses);
       return this;
     }
 
     @Override
     public BatchEvaluationResponse build() {
-      return new BatchEvaluationResponse(requestId, response, requestDurationMillis);
+      return new BatchEvaluationResponse(requestId, responses, requestDurationMillis);
     }
   }
 }
