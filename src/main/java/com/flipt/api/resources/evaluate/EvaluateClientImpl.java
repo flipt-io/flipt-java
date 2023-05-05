@@ -41,6 +41,7 @@ public final class EvaluateClientImpl implements EvaluateClient {
       .url(_httpUrl)
       .method("POST", _requestBody)
       .headers(Headers.of(clientOptions.headers()))
+      .addHeader("Content-Type", "application/json")
       .build();
     try {
       Response _response = clientOptions.httpClient().newCall(_request).execute();
@@ -72,6 +73,7 @@ public final class EvaluateClientImpl implements EvaluateClient {
       .url(_httpUrl)
       .method("POST", _requestBody)
       .headers(Headers.of(clientOptions.headers()))
+      .addHeader("Content-Type", "application/json")
       .build();
     try {
       Response _response = clientOptions.httpClient().newCall(_request).execute();

@@ -43,7 +43,8 @@ public final class AuthMethodK8SClientImpl implements AuthMethodK8SClient {
       Request.Builder _requestBuilder = new Request.Builder()
         .url(_httpUrl)
         .method("POST", _requestBody)
-        .headers(Headers.of(clientOptions.headers()));
+        .headers(Headers.of(clientOptions.headers()))
+        .addHeader("Content-Type", "application/json");
       Request _request = _requestBuilder.build();
       try {
         Response _response = clientOptions.httpClient().newCall(_request).execute();

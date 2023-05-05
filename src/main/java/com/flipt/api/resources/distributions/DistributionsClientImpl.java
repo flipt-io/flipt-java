@@ -47,6 +47,7 @@ public final class DistributionsClientImpl implements DistributionsClient {
       .url(_httpUrl)
       .method("POST", _requestBody)
       .headers(Headers.of(clientOptions.headers()))
+      .addHeader("Content-Type", "application/json")
       .build();
     try {
       Response _response = clientOptions.httpClient().newCall(_request).execute();
@@ -117,6 +118,7 @@ public final class DistributionsClientImpl implements DistributionsClient {
         .url(_httpUrl)
         .method("PUT", _requestBody)
         .headers(Headers.of(clientOptions.headers()))
+        .addHeader("Content-Type", "application/json")
         .build();
       try {
         Response _response = clientOptions.httpClient().newCall(_request).execute();

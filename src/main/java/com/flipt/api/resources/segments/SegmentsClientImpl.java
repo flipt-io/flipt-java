@@ -46,7 +46,8 @@ public final class SegmentsClientImpl implements SegmentsClient {
       Request.Builder _requestBuilder = new Request.Builder()
         .url(_httpUrl)
         .method("GET", _requestBody)
-        .headers(Headers.of(clientOptions.headers()));
+        .headers(Headers.of(clientOptions.headers()))
+        .addHeader("Content-Type", "application/json");
       Request _request = _requestBuilder.build();
       try {
         Response _response = clientOptions.httpClient().newCall(_request).execute();
@@ -78,6 +79,7 @@ public final class SegmentsClientImpl implements SegmentsClient {
         .url(_httpUrl)
         .method("POST", _requestBody)
         .headers(Headers.of(clientOptions.headers()))
+        .addHeader("Content-Type", "application/json")
         .build();
       try {
         Response _response = clientOptions.httpClient().newCall(_request).execute();
@@ -102,6 +104,7 @@ public final class SegmentsClientImpl implements SegmentsClient {
         .url(_httpUrl)
         .method("GET", null)
         .headers(Headers.of(clientOptions.headers()))
+        .addHeader("Content-Type", "application/json")
         .build();
       try {
         Response _response = clientOptions.httpClient().newCall(_request).execute();
@@ -158,6 +161,7 @@ public final class SegmentsClientImpl implements SegmentsClient {
         .url(_httpUrl)
         .method("PUT", _requestBody)
         .headers(Headers.of(clientOptions.headers()))
+        .addHeader("Content-Type", "application/json")
         .build();
       try {
         Response _response = clientOptions.httpClient().newCall(_request).execute();
