@@ -25,6 +25,8 @@ public final class Constraint {
 
   private final String value;
 
+  private final String description;
+
   private final String createdAt;
 
   private final String updatedAt;
@@ -32,13 +34,14 @@ public final class Constraint {
   private int _cachedHashCode;
 
   Constraint(String id, String segmentKey, ConstraintComparisonType type, String property,
-      String operator, String value, String createdAt, String updatedAt) {
+      String operator, String value, String description, String createdAt, String updatedAt) {
     this.id = id;
     this.segmentKey = segmentKey;
     this.type = type;
     this.property = property;
     this.operator = operator;
     this.value = value;
+    this.description = description;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
   }
@@ -73,6 +76,11 @@ public final class Constraint {
     return value;
   }
 
+  @JsonProperty("description")
+  public String getDescription() {
+    return description;
+  }
+
   @JsonProperty("createdAt")
   public String getCreatedAt() {
     return createdAt;
@@ -90,20 +98,20 @@ public final class Constraint {
   }
 
   private boolean equalTo(Constraint other) {
-    return id.equals(other.id) && segmentKey.equals(other.segmentKey) && type.equals(other.type) && property.equals(other.property) && operator.equals(other.operator) && value.equals(other.value) && createdAt.equals(other.createdAt) && updatedAt.equals(other.updatedAt);
+    return id.equals(other.id) && segmentKey.equals(other.segmentKey) && type.equals(other.type) && property.equals(other.property) && operator.equals(other.operator) && value.equals(other.value) && description.equals(other.description) && createdAt.equals(other.createdAt) && updatedAt.equals(other.updatedAt);
   }
 
   @Override
   public int hashCode() {
     if (_cachedHashCode == 0) {
-      _cachedHashCode = Objects.hash(this.id, this.segmentKey, this.type, this.property, this.operator, this.value, this.createdAt, this.updatedAt);
+      _cachedHashCode = Objects.hash(this.id, this.segmentKey, this.type, this.property, this.operator, this.value, this.description, this.createdAt, this.updatedAt);
     }
     return _cachedHashCode;
   }
 
   @Override
   public String toString() {
-    return "Constraint{" + "id: " + id + ", segmentKey: " + segmentKey + ", type: " + type + ", property: " + property + ", operator: " + operator + ", value: " + value + ", createdAt: " + createdAt + ", updatedAt: " + updatedAt + "}";
+    return "Constraint{" + "id: " + id + ", segmentKey: " + segmentKey + ", type: " + type + ", property: " + property + ", operator: " + operator + ", value: " + value + ", description: " + description + ", createdAt: " + createdAt + ", updatedAt: " + updatedAt + "}";
   }
 
   public static IdStage builder() {
@@ -133,7 +141,11 @@ public final class Constraint {
   }
 
   public interface ValueStage {
-    CreatedAtStage value(String value);
+    DescriptionStage value(String value);
+  }
+
+  public interface DescriptionStage {
+    CreatedAtStage description(String description);
   }
 
   public interface CreatedAtStage {
@@ -151,7 +163,7 @@ public final class Constraint {
   @JsonIgnoreProperties(
       ignoreUnknown = true
   )
-  public static final class Builder implements IdStage, SegmentKeyStage, TypeStage, PropertyStage, OperatorStage, ValueStage, CreatedAtStage, UpdatedAtStage, _FinalStage {
+  public static final class Builder implements IdStage, SegmentKeyStage, TypeStage, PropertyStage, OperatorStage, ValueStage, DescriptionStage, CreatedAtStage, UpdatedAtStage, _FinalStage {
     private String id;
 
     private String segmentKey;
@@ -163,6 +175,8 @@ public final class Constraint {
     private String operator;
 
     private String value;
+
+    private String description;
 
     private String createdAt;
 
@@ -179,6 +193,7 @@ public final class Constraint {
       property(other.getProperty());
       operator(other.getOperator());
       value(other.getValue());
+      description(other.getDescription());
       createdAt(other.getCreatedAt());
       updatedAt(other.getUpdatedAt());
       return this;
@@ -221,8 +236,15 @@ public final class Constraint {
 
     @Override
     @JsonSetter("value")
-    public CreatedAtStage value(String value) {
+    public DescriptionStage value(String value) {
       this.value = value;
+      return this;
+    }
+
+    @Override
+    @JsonSetter("description")
+    public CreatedAtStage description(String description) {
+      this.description = description;
       return this;
     }
 
@@ -242,7 +264,7 @@ public final class Constraint {
 
     @Override
     public Constraint build() {
-      return new Constraint(id, segmentKey, type, property, operator, value, createdAt, updatedAt);
+      return new Constraint(id, segmentKey, type, property, operator, value, description, createdAt, updatedAt);
     }
   }
 }

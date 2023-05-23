@@ -23,14 +23,17 @@ public final class ConstraintCreateRequest {
 
   private final Optional<String> value;
 
+  private final Optional<String> description;
+
   private int _cachedHashCode;
 
   ConstraintCreateRequest(ConstraintComparisonType type, String property, String operator,
-      Optional<String> value) {
+      Optional<String> value, Optional<String> description) {
     this.type = type;
     this.property = property;
     this.operator = operator;
     this.value = value;
+    this.description = description;
   }
 
   @JsonProperty("type")
@@ -53,6 +56,11 @@ public final class ConstraintCreateRequest {
     return value;
   }
 
+  @JsonProperty("description")
+  public Optional<String> getDescription() {
+    return description;
+  }
+
   @Override
   public boolean equals(Object other) {
     if (this == other) return true;
@@ -60,20 +68,20 @@ public final class ConstraintCreateRequest {
   }
 
   private boolean equalTo(ConstraintCreateRequest other) {
-    return type.equals(other.type) && property.equals(other.property) && operator.equals(other.operator) && value.equals(other.value);
+    return type.equals(other.type) && property.equals(other.property) && operator.equals(other.operator) && value.equals(other.value) && description.equals(other.description);
   }
 
   @Override
   public int hashCode() {
     if (_cachedHashCode == 0) {
-      _cachedHashCode = Objects.hash(this.type, this.property, this.operator, this.value);
+      _cachedHashCode = Objects.hash(this.type, this.property, this.operator, this.value, this.description);
     }
     return _cachedHashCode;
   }
 
   @Override
   public String toString() {
-    return "ConstraintCreateRequest{" + "type: " + type + ", property: " + property + ", operator: " + operator + ", value: " + value + "}";
+    return "ConstraintCreateRequest{" + "type: " + type + ", property: " + property + ", operator: " + operator + ", value: " + value + ", description: " + description + "}";
   }
 
   public static TypeStage builder() {
@@ -100,6 +108,10 @@ public final class ConstraintCreateRequest {
     _FinalStage value(Optional<String> value);
 
     _FinalStage value(String value);
+
+    _FinalStage description(Optional<String> description);
+
+    _FinalStage description(String description);
   }
 
   @JsonIgnoreProperties(
@@ -112,6 +124,8 @@ public final class ConstraintCreateRequest {
 
     private String operator;
 
+    private Optional<String> description = Optional.empty();
+
     private Optional<String> value = Optional.empty();
 
     private Builder() {
@@ -123,6 +137,7 @@ public final class ConstraintCreateRequest {
       property(other.getProperty());
       operator(other.getOperator());
       value(other.getValue());
+      description(other.getDescription());
       return this;
     }
 
@@ -148,6 +163,22 @@ public final class ConstraintCreateRequest {
     }
 
     @Override
+    public _FinalStage description(String description) {
+      this.description = Optional.of(description);
+      return this;
+    }
+
+    @Override
+    @JsonSetter(
+        value = "description",
+        nulls = Nulls.SKIP
+    )
+    public _FinalStage description(Optional<String> description) {
+      this.description = description;
+      return this;
+    }
+
+    @Override
     public _FinalStage value(String value) {
       this.value = Optional.of(value);
       return this;
@@ -165,7 +196,7 @@ public final class ConstraintCreateRequest {
 
     @Override
     public ConstraintCreateRequest build() {
-      return new ConstraintCreateRequest(type, property, operator, value);
+      return new ConstraintCreateRequest(type, property, operator, value, description);
     }
   }
 }

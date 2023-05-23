@@ -14,6 +14,8 @@ public final class ConstraintComparisonType {
 
   public static final ConstraintComparisonType STRING_COMPARISON_TYPE = new ConstraintComparisonType(Value.STRING_COMPARISON_TYPE, "STRING_COMPARISON_TYPE");
 
+  public static final ConstraintComparisonType DATETIME_COMPARISON_TYPE = new ConstraintComparisonType(Value.DATETIME_COMPARISON_TYPE, "DATETIME_COMPARISON_TYPE");
+
   public static final ConstraintComparisonType UNKNOWN_COMPARISON_TYPE = new ConstraintComparisonType(Value.UNKNOWN_COMPARISON_TYPE, "UNKNOWN_COMPARISON_TYPE");
 
   private final Value value;
@@ -54,6 +56,8 @@ public final class ConstraintComparisonType {
         return visitor.visitBooleanComparisonType();
       case STRING_COMPARISON_TYPE:
         return visitor.visitStringComparisonType();
+      case DATETIME_COMPARISON_TYPE:
+        return visitor.visitDatetimeComparisonType();
       case UNKNOWN_COMPARISON_TYPE:
         return visitor.visitUnknownComparisonType();
       case UNKNOWN:
@@ -74,6 +78,8 @@ public final class ConstraintComparisonType {
         return BOOLEAN_COMPARISON_TYPE;
       case "STRING_COMPARISON_TYPE":
         return STRING_COMPARISON_TYPE;
+      case "DATETIME_COMPARISON_TYPE":
+        return DATETIME_COMPARISON_TYPE;
       case "UNKNOWN_COMPARISON_TYPE":
         return UNKNOWN_COMPARISON_TYPE;
       default:
@@ -90,6 +96,8 @@ public final class ConstraintComparisonType {
 
     BOOLEAN_COMPARISON_TYPE,
 
+    DATETIME_COMPARISON_TYPE,
+
     UNKNOWN
   }
 
@@ -101,6 +109,8 @@ public final class ConstraintComparisonType {
     T visitNumberComparisonType();
 
     T visitBooleanComparisonType();
+
+    T visitDatetimeComparisonType();
 
     T visitUnknown(String unknownType);
   }
