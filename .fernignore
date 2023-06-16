@@ -4,3 +4,4 @@ README.md
 .github
 sample-app/src/main/java/sample/App.java
 src/main/java/com/flipt/api/core/Defaults.java
+LICENSE
