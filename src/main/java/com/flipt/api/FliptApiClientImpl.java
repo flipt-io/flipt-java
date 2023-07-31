@@ -17,10 +17,14 @@ import com.flipt.api.resources.distributions.DistributionsClient;
 import com.flipt.api.resources.distributions.DistributionsClientImpl;
 import com.flipt.api.resources.evaluate.EvaluateClient;
 import com.flipt.api.resources.evaluate.EvaluateClientImpl;
+import com.flipt.api.resources.evaluation.EvaluationClient;
+import com.flipt.api.resources.evaluation.EvaluationClientImpl;
 import com.flipt.api.resources.flags.FlagsClient;
 import com.flipt.api.resources.flags.FlagsClientImpl;
 import com.flipt.api.resources.namespaces.NamespacesClient;
 import com.flipt.api.resources.namespaces.NamespacesClientImpl;
+import com.flipt.api.resources.rollouts.RolloutsClient;
+import com.flipt.api.resources.rollouts.RolloutsClientImpl;
 import com.flipt.api.resources.rules.RulesClient;
 import com.flipt.api.resources.rules.RulesClientImpl;
 import com.flipt.api.resources.segments.SegmentsClient;
@@ -33,6 +37,8 @@ import java.util.function.Supplier;
 
 public final class FliptApiClientImpl implements FliptApiClient {
   private final ClientOptions clientOptions;
+
+  private final Supplier<EvaluationClient> evaluationClient;
 
   private final Supplier<AuthMethodK8SClient> authMethodK8SClient;
 
@@ -52,6 +58,8 @@ public final class FliptApiClientImpl implements FliptApiClient {
 
   private final Supplier<NamespacesClient> namespacesClient;
 
+  private final Supplier<RolloutsClient> rolloutsClient;
+
   private final Supplier<RulesClient> rulesClient;
 
   private final Supplier<SegmentsClient> segmentsClient;
@@ -60,6 +68,7 @@ public final class FliptApiClientImpl implements FliptApiClient {
 
   public FliptApiClientImpl(ClientOptions clientOptions) {
     this.clientOptions = clientOptions;
+    this.evaluationClient = Suppliers.memoize(() -> new EvaluationClientImpl(clientOptions));
     this.authMethodK8SClient = Suppliers.memoize(() -> new AuthMethodK8SClientImpl(clientOptions));
     this.authMethodOidcClient = Suppliers.memoize(() -> new AuthMethodOidcClientImpl(clientOptions));
     this.authMethodTokenClient = Suppliers.memoize(() -> new AuthMethodTokenClientImpl(clientOptions));
@@ -69,9 +78,15 @@ public final class FliptApiClientImpl implements FliptApiClient {
     this.evaluateClient = Suppliers.memoize(() -> new EvaluateClientImpl(clientOptions));
     this.flagsClient = Suppliers.memoize(() -> new FlagsClientImpl(clientOptions));
     this.namespacesClient = Suppliers.memoize(() -> new NamespacesClientImpl(clientOptions));
+    this.rolloutsClient = Suppliers.memoize(() -> new RolloutsClientImpl(clientOptions));
     this.rulesClient = Suppliers.memoize(() -> new RulesClientImpl(clientOptions));
     this.segmentsClient = Suppliers.memoize(() -> new SegmentsClientImpl(clientOptions));
     this.variantsClient = Suppliers.memoize(() -> new VariantsClientImpl(clientOptions));
+  }
+
+  @Override
+  public EvaluationClient evaluation() {
+    return this.evaluationClient.get();
   }
 
   @Override
@@ -117,6 +132,11 @@ public final class FliptApiClientImpl implements FliptApiClient {
   @Override
   public NamespacesClient namespaces() {
     return this.namespacesClient.get();
+  }
+
+  @Override
+  public RolloutsClient rollouts() {
+    return this.rolloutsClient.get();
   }
 
   @Override

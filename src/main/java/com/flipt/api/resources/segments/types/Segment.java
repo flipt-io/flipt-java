@@ -17,6 +17,8 @@ import java.util.Objects;
     builder = Segment.Builder.class
 )
 public final class Segment {
+  private final String namespaceKey;
+
   private final String key;
 
   private final String name;
@@ -33,8 +35,9 @@ public final class Segment {
 
   private int _cachedHashCode;
 
-  Segment(String key, String name, String description, String createdAt, String updatedAt,
-      List<Constraint> constraints, SegmentMatchType matchType) {
+  Segment(String namespaceKey, String key, String name, String description, String createdAt,
+      String updatedAt, List<Constraint> constraints, SegmentMatchType matchType) {
+    this.namespaceKey = namespaceKey;
     this.key = key;
     this.name = name;
     this.description = description;
@@ -42,6 +45,11 @@ public final class Segment {
     this.updatedAt = updatedAt;
     this.constraints = constraints;
     this.matchType = matchType;
+  }
+
+  @JsonProperty("namespaceKey")
+  public String getNamespaceKey() {
+    return namespaceKey;
   }
 
   @JsonProperty("key")
@@ -86,30 +94,34 @@ public final class Segment {
   }
 
   private boolean equalTo(Segment other) {
-    return key.equals(other.key) && name.equals(other.name) && description.equals(other.description) && createdAt.equals(other.createdAt) && updatedAt.equals(other.updatedAt) && constraints.equals(other.constraints) && matchType.equals(other.matchType);
+    return namespaceKey.equals(other.namespaceKey) && key.equals(other.key) && name.equals(other.name) && description.equals(other.description) && createdAt.equals(other.createdAt) && updatedAt.equals(other.updatedAt) && constraints.equals(other.constraints) && matchType.equals(other.matchType);
   }
 
   @Override
   public int hashCode() {
     if (_cachedHashCode == 0) {
-      _cachedHashCode = Objects.hash(this.key, this.name, this.description, this.createdAt, this.updatedAt, this.constraints, this.matchType);
+      _cachedHashCode = Objects.hash(this.namespaceKey, this.key, this.name, this.description, this.createdAt, this.updatedAt, this.constraints, this.matchType);
     }
     return _cachedHashCode;
   }
 
   @Override
   public String toString() {
-    return "Segment{" + "key: " + key + ", name: " + name + ", description: " + description + ", createdAt: " + createdAt + ", updatedAt: " + updatedAt + ", constraints: " + constraints + ", matchType: " + matchType + "}";
+    return "Segment{" + "namespaceKey: " + namespaceKey + ", key: " + key + ", name: " + name + ", description: " + description + ", createdAt: " + createdAt + ", updatedAt: " + updatedAt + ", constraints: " + constraints + ", matchType: " + matchType + "}";
   }
 
-  public static KeyStage builder() {
+  public static NamespaceKeyStage builder() {
     return new Builder();
+  }
+
+  public interface NamespaceKeyStage {
+    KeyStage namespaceKey(String namespaceKey);
+
+    Builder from(Segment other);
   }
 
   public interface KeyStage {
     NameStage key(String key);
-
-    Builder from(Segment other);
   }
 
   public interface NameStage {
@@ -145,7 +157,9 @@ public final class Segment {
   @JsonIgnoreProperties(
       ignoreUnknown = true
   )
-  public static final class Builder implements KeyStage, NameStage, DescriptionStage, CreatedAtStage, UpdatedAtStage, MatchTypeStage, _FinalStage {
+  public static final class Builder implements NamespaceKeyStage, KeyStage, NameStage, DescriptionStage, CreatedAtStage, UpdatedAtStage, MatchTypeStage, _FinalStage {
+    private String namespaceKey;
+
     private String key;
 
     private String name;
@@ -165,6 +179,7 @@ public final class Segment {
 
     @Override
     public Builder from(Segment other) {
+      namespaceKey(other.getNamespaceKey());
       key(other.getKey());
       name(other.getName());
       description(other.getDescription());
@@ -172,6 +187,13 @@ public final class Segment {
       updatedAt(other.getUpdatedAt());
       constraints(other.getConstraints());
       matchType(other.getMatchType());
+      return this;
+    }
+
+    @Override
+    @JsonSetter("namespaceKey")
+    public KeyStage namespaceKey(String namespaceKey) {
+      this.namespaceKey = namespaceKey;
       return this;
     }
 
@@ -242,7 +264,7 @@ public final class Segment {
 
     @Override
     public Segment build() {
-      return new Segment(key, name, description, createdAt, updatedAt, constraints, matchType);
+      return new Segment(namespaceKey, key, name, description, createdAt, updatedAt, constraints, matchType);
     }
   }
 }

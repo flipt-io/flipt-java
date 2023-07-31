@@ -15,6 +15,8 @@ import java.util.Objects;
 public final class Variant {
   private final String id;
 
+  private final String namespaceKey;
+
   private final String flagKey;
 
   private final String key;
@@ -31,9 +33,10 @@ public final class Variant {
 
   private int _cachedHashCode;
 
-  Variant(String id, String flagKey, String key, String name, String description, String createdAt,
-      String updatedAt, String attachment) {
+  Variant(String id, String namespaceKey, String flagKey, String key, String name,
+      String description, String createdAt, String updatedAt, String attachment) {
     this.id = id;
+    this.namespaceKey = namespaceKey;
     this.flagKey = flagKey;
     this.key = key;
     this.name = name;
@@ -46,6 +49,11 @@ public final class Variant {
   @JsonProperty("id")
   public String getId() {
     return id;
+  }
+
+  @JsonProperty("namespaceKey")
+  public String getNamespaceKey() {
+    return namespaceKey;
   }
 
   @JsonProperty("flagKey")
@@ -90,20 +98,20 @@ public final class Variant {
   }
 
   private boolean equalTo(Variant other) {
-    return id.equals(other.id) && flagKey.equals(other.flagKey) && key.equals(other.key) && name.equals(other.name) && description.equals(other.description) && createdAt.equals(other.createdAt) && updatedAt.equals(other.updatedAt) && attachment.equals(other.attachment);
+    return id.equals(other.id) && namespaceKey.equals(other.namespaceKey) && flagKey.equals(other.flagKey) && key.equals(other.key) && name.equals(other.name) && description.equals(other.description) && createdAt.equals(other.createdAt) && updatedAt.equals(other.updatedAt) && attachment.equals(other.attachment);
   }
 
   @Override
   public int hashCode() {
     if (_cachedHashCode == 0) {
-      _cachedHashCode = Objects.hash(this.id, this.flagKey, this.key, this.name, this.description, this.createdAt, this.updatedAt, this.attachment);
+      _cachedHashCode = Objects.hash(this.id, this.namespaceKey, this.flagKey, this.key, this.name, this.description, this.createdAt, this.updatedAt, this.attachment);
     }
     return _cachedHashCode;
   }
 
   @Override
   public String toString() {
-    return "Variant{" + "id: " + id + ", flagKey: " + flagKey + ", key: " + key + ", name: " + name + ", description: " + description + ", createdAt: " + createdAt + ", updatedAt: " + updatedAt + ", attachment: " + attachment + "}";
+    return "Variant{" + "id: " + id + ", namespaceKey: " + namespaceKey + ", flagKey: " + flagKey + ", key: " + key + ", name: " + name + ", description: " + description + ", createdAt: " + createdAt + ", updatedAt: " + updatedAt + ", attachment: " + attachment + "}";
   }
 
   public static IdStage builder() {
@@ -111,9 +119,13 @@ public final class Variant {
   }
 
   public interface IdStage {
-    FlagKeyStage id(String id);
+    NamespaceKeyStage id(String id);
 
     Builder from(Variant other);
+  }
+
+  public interface NamespaceKeyStage {
+    FlagKeyStage namespaceKey(String namespaceKey);
   }
 
   public interface FlagKeyStage {
@@ -151,8 +163,10 @@ public final class Variant {
   @JsonIgnoreProperties(
       ignoreUnknown = true
   )
-  public static final class Builder implements IdStage, FlagKeyStage, KeyStage, NameStage, DescriptionStage, CreatedAtStage, UpdatedAtStage, AttachmentStage, _FinalStage {
+  public static final class Builder implements IdStage, NamespaceKeyStage, FlagKeyStage, KeyStage, NameStage, DescriptionStage, CreatedAtStage, UpdatedAtStage, AttachmentStage, _FinalStage {
     private String id;
+
+    private String namespaceKey;
 
     private String flagKey;
 
@@ -174,6 +188,7 @@ public final class Variant {
     @Override
     public Builder from(Variant other) {
       id(other.getId());
+      namespaceKey(other.getNamespaceKey());
       flagKey(other.getFlagKey());
       key(other.getKey());
       name(other.getName());
@@ -186,8 +201,15 @@ public final class Variant {
 
     @Override
     @JsonSetter("id")
-    public FlagKeyStage id(String id) {
+    public NamespaceKeyStage id(String id) {
       this.id = id;
+      return this;
+    }
+
+    @Override
+    @JsonSetter("namespaceKey")
+    public FlagKeyStage namespaceKey(String namespaceKey) {
+      this.namespaceKey = namespaceKey;
       return this;
     }
 
@@ -242,7 +264,7 @@ public final class Variant {
 
     @Override
     public Variant build() {
-      return new Variant(id, flagKey, key, name, description, createdAt, updatedAt, attachment);
+      return new Variant(id, namespaceKey, flagKey, key, name, description, createdAt, updatedAt, attachment);
     }
   }
 }

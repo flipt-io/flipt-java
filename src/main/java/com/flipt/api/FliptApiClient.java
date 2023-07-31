@@ -8,14 +8,18 @@ import com.flipt.api.resources.authmethodtoken.AuthMethodTokenClient;
 import com.flipt.api.resources.constraints.ConstraintsClient;
 import com.flipt.api.resources.distributions.DistributionsClient;
 import com.flipt.api.resources.evaluate.EvaluateClient;
+import com.flipt.api.resources.evaluation.EvaluationClient;
 import com.flipt.api.resources.flags.FlagsClient;
 import com.flipt.api.resources.namespaces.NamespacesClient;
+import com.flipt.api.resources.rollouts.RolloutsClient;
 import com.flipt.api.resources.rules.RulesClient;
 import com.flipt.api.resources.segments.SegmentsClient;
 import com.flipt.api.resources.variants.VariantsClient;
 import java.lang.String;
 
 public interface FliptApiClient {
+  EvaluationClient evaluation();
+
   AuthMethodK8SClient authMethodK8S();
 
   AuthMethodOidcClient authMethodOidc();
@@ -33,6 +37,8 @@ public interface FliptApiClient {
   FlagsClient flags();
 
   NamespacesClient namespaces();
+
+  RolloutsClient rollouts();
 
   RulesClient rules();
 

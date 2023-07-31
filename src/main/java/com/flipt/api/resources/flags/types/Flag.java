@@ -17,6 +17,8 @@ import java.util.Objects;
     builder = Flag.Builder.class
 )
 public final class Flag {
+  private final String namespaceKey;
+
   private final String key;
 
   private final String name;
@@ -31,10 +33,13 @@ public final class Flag {
 
   private final List<Variant> variants;
 
+  private final FlagType type;
+
   private int _cachedHashCode;
 
-  Flag(String key, String name, String description, boolean enabled, String createdAt,
-      String updatedAt, List<Variant> variants) {
+  Flag(String namespaceKey, String key, String name, String description, boolean enabled,
+      String createdAt, String updatedAt, List<Variant> variants, FlagType type) {
+    this.namespaceKey = namespaceKey;
     this.key = key;
     this.name = name;
     this.description = description;
@@ -42,6 +47,12 @@ public final class Flag {
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
     this.variants = variants;
+    this.type = type;
+  }
+
+  @JsonProperty("namespaceKey")
+  public String getNamespaceKey() {
+    return namespaceKey;
   }
 
   @JsonProperty("key")
@@ -79,6 +90,11 @@ public final class Flag {
     return variants;
   }
 
+  @JsonProperty("type")
+  public FlagType getType() {
+    return type;
+  }
+
   @Override
   public boolean equals(Object other) {
     if (this == other) return true;
@@ -86,30 +102,34 @@ public final class Flag {
   }
 
   private boolean equalTo(Flag other) {
-    return key.equals(other.key) && name.equals(other.name) && description.equals(other.description) && enabled == other.enabled && createdAt.equals(other.createdAt) && updatedAt.equals(other.updatedAt) && variants.equals(other.variants);
+    return namespaceKey.equals(other.namespaceKey) && key.equals(other.key) && name.equals(other.name) && description.equals(other.description) && enabled == other.enabled && createdAt.equals(other.createdAt) && updatedAt.equals(other.updatedAt) && variants.equals(other.variants) && type.equals(other.type);
   }
 
   @Override
   public int hashCode() {
     if (_cachedHashCode == 0) {
-      _cachedHashCode = Objects.hash(this.key, this.name, this.description, this.enabled, this.createdAt, this.updatedAt, this.variants);
+      _cachedHashCode = Objects.hash(this.namespaceKey, this.key, this.name, this.description, this.enabled, this.createdAt, this.updatedAt, this.variants, this.type);
     }
     return _cachedHashCode;
   }
 
   @Override
   public String toString() {
-    return "Flag{" + "key: " + key + ", name: " + name + ", description: " + description + ", enabled: " + enabled + ", createdAt: " + createdAt + ", updatedAt: " + updatedAt + ", variants: " + variants + "}";
+    return "Flag{" + "namespaceKey: " + namespaceKey + ", key: " + key + ", name: " + name + ", description: " + description + ", enabled: " + enabled + ", createdAt: " + createdAt + ", updatedAt: " + updatedAt + ", variants: " + variants + ", type: " + type + "}";
   }
 
-  public static KeyStage builder() {
+  public static NamespaceKeyStage builder() {
     return new Builder();
+  }
+
+  public interface NamespaceKeyStage {
+    KeyStage namespaceKey(String namespaceKey);
+
+    Builder from(Flag other);
   }
 
   public interface KeyStage {
     NameStage key(String key);
-
-    Builder from(Flag other);
   }
 
   public interface NameStage {
@@ -129,7 +149,11 @@ public final class Flag {
   }
 
   public interface UpdatedAtStage {
-    _FinalStage updatedAt(String updatedAt);
+    TypeStage updatedAt(String updatedAt);
+  }
+
+  public interface TypeStage {
+    _FinalStage type(FlagType type);
   }
 
   public interface _FinalStage {
@@ -145,7 +169,9 @@ public final class Flag {
   @JsonIgnoreProperties(
       ignoreUnknown = true
   )
-  public static final class Builder implements KeyStage, NameStage, DescriptionStage, EnabledStage, CreatedAtStage, UpdatedAtStage, _FinalStage {
+  public static final class Builder implements NamespaceKeyStage, KeyStage, NameStage, DescriptionStage, EnabledStage, CreatedAtStage, UpdatedAtStage, TypeStage, _FinalStage {
+    private String namespaceKey;
+
     private String key;
 
     private String name;
@@ -158,6 +184,8 @@ public final class Flag {
 
     private String updatedAt;
 
+    private FlagType type;
+
     private List<Variant> variants = new ArrayList<>();
 
     private Builder() {
@@ -165,6 +193,7 @@ public final class Flag {
 
     @Override
     public Builder from(Flag other) {
+      namespaceKey(other.getNamespaceKey());
       key(other.getKey());
       name(other.getName());
       description(other.getDescription());
@@ -172,6 +201,14 @@ public final class Flag {
       createdAt(other.getCreatedAt());
       updatedAt(other.getUpdatedAt());
       variants(other.getVariants());
+      type(other.getType());
+      return this;
+    }
+
+    @Override
+    @JsonSetter("namespaceKey")
+    public KeyStage namespaceKey(String namespaceKey) {
+      this.namespaceKey = namespaceKey;
       return this;
     }
 
@@ -212,8 +249,15 @@ public final class Flag {
 
     @Override
     @JsonSetter("updatedAt")
-    public _FinalStage updatedAt(String updatedAt) {
+    public TypeStage updatedAt(String updatedAt) {
       this.updatedAt = updatedAt;
+      return this;
+    }
+
+    @Override
+    @JsonSetter("type")
+    public _FinalStage type(FlagType type) {
+      this.type = type;
       return this;
     }
 
@@ -242,7 +286,7 @@ public final class Flag {
 
     @Override
     public Flag build() {
-      return new Flag(key, name, description, enabled, createdAt, updatedAt, variants);
+      return new Flag(namespaceKey, key, name, description, enabled, createdAt, updatedAt, variants, type);
     }
   }
 }

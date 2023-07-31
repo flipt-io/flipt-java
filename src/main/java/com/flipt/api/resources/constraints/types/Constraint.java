@@ -15,6 +15,8 @@ import java.util.Objects;
 public final class Constraint {
   private final String id;
 
+  private final String namespaceKey;
+
   private final String segmentKey;
 
   private final ConstraintComparisonType type;
@@ -33,9 +35,11 @@ public final class Constraint {
 
   private int _cachedHashCode;
 
-  Constraint(String id, String segmentKey, ConstraintComparisonType type, String property,
-      String operator, String value, String description, String createdAt, String updatedAt) {
+  Constraint(String id, String namespaceKey, String segmentKey, ConstraintComparisonType type,
+      String property, String operator, String value, String description, String createdAt,
+      String updatedAt) {
     this.id = id;
+    this.namespaceKey = namespaceKey;
     this.segmentKey = segmentKey;
     this.type = type;
     this.property = property;
@@ -49,6 +53,11 @@ public final class Constraint {
   @JsonProperty("id")
   public String getId() {
     return id;
+  }
+
+  @JsonProperty("namespaceKey")
+  public String getNamespaceKey() {
+    return namespaceKey;
   }
 
   @JsonProperty("segmentKey")
@@ -98,20 +107,20 @@ public final class Constraint {
   }
 
   private boolean equalTo(Constraint other) {
-    return id.equals(other.id) && segmentKey.equals(other.segmentKey) && type.equals(other.type) && property.equals(other.property) && operator.equals(other.operator) && value.equals(other.value) && description.equals(other.description) && createdAt.equals(other.createdAt) && updatedAt.equals(other.updatedAt);
+    return id.equals(other.id) && namespaceKey.equals(other.namespaceKey) && segmentKey.equals(other.segmentKey) && type.equals(other.type) && property.equals(other.property) && operator.equals(other.operator) && value.equals(other.value) && description.equals(other.description) && createdAt.equals(other.createdAt) && updatedAt.equals(other.updatedAt);
   }
 
   @Override
   public int hashCode() {
     if (_cachedHashCode == 0) {
-      _cachedHashCode = Objects.hash(this.id, this.segmentKey, this.type, this.property, this.operator, this.value, this.description, this.createdAt, this.updatedAt);
+      _cachedHashCode = Objects.hash(this.id, this.namespaceKey, this.segmentKey, this.type, this.property, this.operator, this.value, this.description, this.createdAt, this.updatedAt);
     }
     return _cachedHashCode;
   }
 
   @Override
   public String toString() {
-    return "Constraint{" + "id: " + id + ", segmentKey: " + segmentKey + ", type: " + type + ", property: " + property + ", operator: " + operator + ", value: " + value + ", description: " + description + ", createdAt: " + createdAt + ", updatedAt: " + updatedAt + "}";
+    return "Constraint{" + "id: " + id + ", namespaceKey: " + namespaceKey + ", segmentKey: " + segmentKey + ", type: " + type + ", property: " + property + ", operator: " + operator + ", value: " + value + ", description: " + description + ", createdAt: " + createdAt + ", updatedAt: " + updatedAt + "}";
   }
 
   public static IdStage builder() {
@@ -119,9 +128,13 @@ public final class Constraint {
   }
 
   public interface IdStage {
-    SegmentKeyStage id(String id);
+    NamespaceKeyStage id(String id);
 
     Builder from(Constraint other);
+  }
+
+  public interface NamespaceKeyStage {
+    SegmentKeyStage namespaceKey(String namespaceKey);
   }
 
   public interface SegmentKeyStage {
@@ -163,8 +176,10 @@ public final class Constraint {
   @JsonIgnoreProperties(
       ignoreUnknown = true
   )
-  public static final class Builder implements IdStage, SegmentKeyStage, TypeStage, PropertyStage, OperatorStage, ValueStage, DescriptionStage, CreatedAtStage, UpdatedAtStage, _FinalStage {
+  public static final class Builder implements IdStage, NamespaceKeyStage, SegmentKeyStage, TypeStage, PropertyStage, OperatorStage, ValueStage, DescriptionStage, CreatedAtStage, UpdatedAtStage, _FinalStage {
     private String id;
+
+    private String namespaceKey;
 
     private String segmentKey;
 
@@ -188,6 +203,7 @@ public final class Constraint {
     @Override
     public Builder from(Constraint other) {
       id(other.getId());
+      namespaceKey(other.getNamespaceKey());
       segmentKey(other.getSegmentKey());
       type(other.getType());
       property(other.getProperty());
@@ -201,8 +217,15 @@ public final class Constraint {
 
     @Override
     @JsonSetter("id")
-    public SegmentKeyStage id(String id) {
+    public NamespaceKeyStage id(String id) {
       this.id = id;
+      return this;
+    }
+
+    @Override
+    @JsonSetter("namespaceKey")
+    public SegmentKeyStage namespaceKey(String namespaceKey) {
+      this.namespaceKey = namespaceKey;
       return this;
     }
 
@@ -264,7 +287,7 @@ public final class Constraint {
 
     @Override
     public Constraint build() {
-      return new Constraint(id, segmentKey, type, property, operator, value, description, createdAt, updatedAt);
+      return new Constraint(id, namespaceKey, segmentKey, type, property, operator, value, description, createdAt, updatedAt);
     }
   }
 }

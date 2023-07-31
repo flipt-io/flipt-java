@@ -19,6 +19,8 @@ import java.util.Objects;
 public final class Rule {
   private final String id;
 
+  private final String namespaceKey;
+
   private final String flagKey;
 
   private final String segmentKey;
@@ -33,9 +35,10 @@ public final class Rule {
 
   private int _cachedHashCode;
 
-  Rule(String id, String flagKey, String segmentKey, List<Distribution> distributions, int rank,
-      String createdAt, String updatedAt) {
+  Rule(String id, String namespaceKey, String flagKey, String segmentKey,
+      List<Distribution> distributions, int rank, String createdAt, String updatedAt) {
     this.id = id;
+    this.namespaceKey = namespaceKey;
     this.flagKey = flagKey;
     this.segmentKey = segmentKey;
     this.distributions = distributions;
@@ -47,6 +50,11 @@ public final class Rule {
   @JsonProperty("id")
   public String getId() {
     return id;
+  }
+
+  @JsonProperty("namespaceKey")
+  public String getNamespaceKey() {
+    return namespaceKey;
   }
 
   @JsonProperty("flagKey")
@@ -86,20 +94,20 @@ public final class Rule {
   }
 
   private boolean equalTo(Rule other) {
-    return id.equals(other.id) && flagKey.equals(other.flagKey) && segmentKey.equals(other.segmentKey) && distributions.equals(other.distributions) && rank == other.rank && createdAt.equals(other.createdAt) && updatedAt.equals(other.updatedAt);
+    return id.equals(other.id) && namespaceKey.equals(other.namespaceKey) && flagKey.equals(other.flagKey) && segmentKey.equals(other.segmentKey) && distributions.equals(other.distributions) && rank == other.rank && createdAt.equals(other.createdAt) && updatedAt.equals(other.updatedAt);
   }
 
   @Override
   public int hashCode() {
     if (_cachedHashCode == 0) {
-      _cachedHashCode = Objects.hash(this.id, this.flagKey, this.segmentKey, this.distributions, this.rank, this.createdAt, this.updatedAt);
+      _cachedHashCode = Objects.hash(this.id, this.namespaceKey, this.flagKey, this.segmentKey, this.distributions, this.rank, this.createdAt, this.updatedAt);
     }
     return _cachedHashCode;
   }
 
   @Override
   public String toString() {
-    return "Rule{" + "id: " + id + ", flagKey: " + flagKey + ", segmentKey: " + segmentKey + ", distributions: " + distributions + ", rank: " + rank + ", createdAt: " + createdAt + ", updatedAt: " + updatedAt + "}";
+    return "Rule{" + "id: " + id + ", namespaceKey: " + namespaceKey + ", flagKey: " + flagKey + ", segmentKey: " + segmentKey + ", distributions: " + distributions + ", rank: " + rank + ", createdAt: " + createdAt + ", updatedAt: " + updatedAt + "}";
   }
 
   public static IdStage builder() {
@@ -107,9 +115,13 @@ public final class Rule {
   }
 
   public interface IdStage {
-    FlagKeyStage id(String id);
+    NamespaceKeyStage id(String id);
 
     Builder from(Rule other);
+  }
+
+  public interface NamespaceKeyStage {
+    FlagKeyStage namespaceKey(String namespaceKey);
   }
 
   public interface FlagKeyStage {
@@ -145,8 +157,10 @@ public final class Rule {
   @JsonIgnoreProperties(
       ignoreUnknown = true
   )
-  public static final class Builder implements IdStage, FlagKeyStage, SegmentKeyStage, RankStage, CreatedAtStage, UpdatedAtStage, _FinalStage {
+  public static final class Builder implements IdStage, NamespaceKeyStage, FlagKeyStage, SegmentKeyStage, RankStage, CreatedAtStage, UpdatedAtStage, _FinalStage {
     private String id;
+
+    private String namespaceKey;
 
     private String flagKey;
 
@@ -166,6 +180,7 @@ public final class Rule {
     @Override
     public Builder from(Rule other) {
       id(other.getId());
+      namespaceKey(other.getNamespaceKey());
       flagKey(other.getFlagKey());
       segmentKey(other.getSegmentKey());
       distributions(other.getDistributions());
@@ -177,8 +192,15 @@ public final class Rule {
 
     @Override
     @JsonSetter("id")
-    public FlagKeyStage id(String id) {
+    public NamespaceKeyStage id(String id) {
       this.id = id;
+      return this;
+    }
+
+    @Override
+    @JsonSetter("namespaceKey")
+    public FlagKeyStage namespaceKey(String namespaceKey) {
+      this.namespaceKey = namespaceKey;
       return this;
     }
 
@@ -242,7 +264,7 @@ public final class Rule {
 
     @Override
     public Rule build() {
-      return new Rule(id, flagKey, segmentKey, distributions, rank, createdAt, updatedAt);
+      return new Rule(id, namespaceKey, flagKey, segmentKey, distributions, rank, createdAt, updatedAt);
     }
   }
 }

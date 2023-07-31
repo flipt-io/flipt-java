@@ -24,14 +24,17 @@ public final class FlagCreateRequest {
 
   private final Optional<Boolean> enabled;
 
+  private final FlagType type;
+
   private int _cachedHashCode;
 
   FlagCreateRequest(String key, String name, Optional<String> description,
-      Optional<Boolean> enabled) {
+      Optional<Boolean> enabled, FlagType type) {
     this.key = key;
     this.name = name;
     this.description = description;
     this.enabled = enabled;
+    this.type = type;
   }
 
   @JsonProperty("key")
@@ -54,6 +57,11 @@ public final class FlagCreateRequest {
     return enabled;
   }
 
+  @JsonProperty("type")
+  public FlagType getType() {
+    return type;
+  }
+
   @Override
   public boolean equals(Object other) {
     if (this == other) return true;
@@ -61,20 +69,20 @@ public final class FlagCreateRequest {
   }
 
   private boolean equalTo(FlagCreateRequest other) {
-    return key.equals(other.key) && name.equals(other.name) && description.equals(other.description) && enabled.equals(other.enabled);
+    return key.equals(other.key) && name.equals(other.name) && description.equals(other.description) && enabled.equals(other.enabled) && type.equals(other.type);
   }
 
   @Override
   public int hashCode() {
     if (_cachedHashCode == 0) {
-      _cachedHashCode = Objects.hash(this.key, this.name, this.description, this.enabled);
+      _cachedHashCode = Objects.hash(this.key, this.name, this.description, this.enabled, this.type);
     }
     return _cachedHashCode;
   }
 
   @Override
   public String toString() {
-    return "FlagCreateRequest{" + "key: " + key + ", name: " + name + ", description: " + description + ", enabled: " + enabled + "}";
+    return "FlagCreateRequest{" + "key: " + key + ", name: " + name + ", description: " + description + ", enabled: " + enabled + ", type: " + type + "}";
   }
 
   public static KeyStage builder() {
@@ -88,7 +96,11 @@ public final class FlagCreateRequest {
   }
 
   public interface NameStage {
-    _FinalStage name(String name);
+    TypeStage name(String name);
+  }
+
+  public interface TypeStage {
+    _FinalStage type(FlagType type);
   }
 
   public interface _FinalStage {
@@ -106,10 +118,12 @@ public final class FlagCreateRequest {
   @JsonIgnoreProperties(
       ignoreUnknown = true
   )
-  public static final class Builder implements KeyStage, NameStage, _FinalStage {
+  public static final class Builder implements KeyStage, NameStage, TypeStage, _FinalStage {
     private String key;
 
     private String name;
+
+    private FlagType type;
 
     private Optional<Boolean> enabled = Optional.empty();
 
@@ -124,6 +138,7 @@ public final class FlagCreateRequest {
       name(other.getName());
       description(other.getDescription());
       enabled(other.getEnabled());
+      type(other.getType());
       return this;
     }
 
@@ -136,8 +151,15 @@ public final class FlagCreateRequest {
 
     @Override
     @JsonSetter("name")
-    public _FinalStage name(String name) {
+    public TypeStage name(String name) {
       this.name = name;
+      return this;
+    }
+
+    @Override
+    @JsonSetter("type")
+    public _FinalStage type(FlagType type) {
+      this.type = type;
       return this;
     }
 
@@ -175,7 +197,7 @@ public final class FlagCreateRequest {
 
     @Override
     public FlagCreateRequest build() {
-      return new FlagCreateRequest(key, name, description, enabled);
+      return new FlagCreateRequest(key, name, description, enabled, type);
     }
   }
 }
