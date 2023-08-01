@@ -2,7 +2,7 @@ package sample;
 
 import com.flipt.api.FliptApiClient;
 import com.flipt.api.core.Defaults;
-import com.flipt.api.resources.evaluate.types.EvaluationRequest;
+import com.flipt.api.resources.evaluation.types.EvaluationRequest;
 import com.flipt.api.resources.evaluation.types.VariantEvaluationResponse;
 import com.flipt.api.resources.flags.types.Flag;
 
@@ -22,11 +22,10 @@ public class App {
     }
 
     try {
-      EvaluationRequest req = EvaluationRequest.builder().namespaceKey(Defaults.NAMESPACE, "flag_abc123")
+      EvaluationRequest req = EvaluationRequest.builder().namespaceKey(Defaults.NAMESPACE).flagKey("flag_abc123")
           .entityId("user_123").build();
 
       VariantEvaluationResponse resp = fliptApiClient.evaluation().variant(req);
-      System.out.println("Successfully evaluated flag with id" + resp.getFlagKey());
       System.out.println("Successfully evaluated flag with variant" + resp.getVariantKey());
     } catch (Exception e) {
       System.out.println("Encountered error while evaluating flag" + e.getMessage());
