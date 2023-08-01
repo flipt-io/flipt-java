@@ -74,9 +74,9 @@ public class App {
 
 ### Evaluation
 
-In [v1.24.0](https://github.com/flipt-io/flipt/releases/tag/v1.24.0) of Flipt server, we added a new set of Evaluation API endpoints to allow evaluating of both boolean and multivariate flags. This SDK supports both types of evaluations as of [v0.2.7](https://github.com/flipt-io/flipt-java/releases/tag/0.2.2).
+In [v1.24.0](https://github.com/flipt-io/flipt/releases/tag/v1.24.0) of Flipt server, we added a new set of Evaluation API endpoints to allow evaluating of both boolean and multivariate flags. This SDK supports both sets of evaluation APIs (old and new) as of [v0.2.7](https://github.com/flipt-io/flipt-java/releases/tag/0.2.2).
 
-The previous API endpoints for evaluating boolean flags have been deprecated and may be removed in a future release. We recommend using the new Evaluation API for all new projects.
+The previous API endpoints at `/api/v1/evaluate` have been deprecated and may be removed in a future release. We recommend using the new Evaluation API at `/evaluate/v1/` for all new projects.
 
 For more information on the new Evaluation API, please see the [API documentation](https://www.flipt.io/docs/reference/overview#v1-24-0) or blog post on [Flipt v1.24.0](https://www.flipt.io/blog/boolean-flags-and-rollouts).
 
