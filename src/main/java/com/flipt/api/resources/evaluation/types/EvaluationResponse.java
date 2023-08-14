@@ -1,191 +1,176 @@
 package com.flipt.api.resources.evaluation.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import java.lang.Object;
-import java.lang.Override;
-import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
 
-@JsonDeserialize(
-    builder = EvaluationResponse.Builder.class
-)
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
+@JsonDeserialize(builder = EvaluationResponse.Builder.class)
 public final class EvaluationResponse {
-  private final EvaluationResponseType type;
+    private final EvaluationResponseType type;
 
-  private final Optional<BooleanEvaluationResponse> booleanResponse;
+    private final Optional<BooleanEvaluationResponse> booleanResponse;
 
-  private final Optional<VariantEvaluationResponse> variantResponse;
+    private final Optional<VariantEvaluationResponse> variantResponse;
 
-  private final Optional<ErrorEvaluationResponse> errorResponse;
+    private final Optional<ErrorEvaluationResponse> errorResponse;
 
-  private int _cachedHashCode;
-
-  EvaluationResponse(EvaluationResponseType type,
-      Optional<BooleanEvaluationResponse> booleanResponse,
-      Optional<VariantEvaluationResponse> variantResponse,
-      Optional<ErrorEvaluationResponse> errorResponse) {
-    this.type = type;
-    this.booleanResponse = booleanResponse;
-    this.variantResponse = variantResponse;
-    this.errorResponse = errorResponse;
-  }
-
-  @JsonProperty("type")
-  public EvaluationResponseType getType() {
-    return type;
-  }
-
-  @JsonProperty("boolean_response")
-  public Optional<BooleanEvaluationResponse> getBooleanResponse() {
-    return booleanResponse;
-  }
-
-  @JsonProperty("variant_response")
-  public Optional<VariantEvaluationResponse> getVariantResponse() {
-    return variantResponse;
-  }
-
-  @JsonProperty("error_response")
-  public Optional<ErrorEvaluationResponse> getErrorResponse() {
-    return errorResponse;
-  }
-
-  @Override
-  public boolean equals(Object other) {
-    if (this == other) return true;
-    return other instanceof EvaluationResponse && equalTo((EvaluationResponse) other);
-  }
-
-  private boolean equalTo(EvaluationResponse other) {
-    return type.equals(other.type) && booleanResponse.equals(other.booleanResponse) && variantResponse.equals(other.variantResponse) && errorResponse.equals(other.errorResponse);
-  }
-
-  @Override
-  public int hashCode() {
-    if (_cachedHashCode == 0) {
-      _cachedHashCode = Objects.hash(this.type, this.booleanResponse, this.variantResponse, this.errorResponse);
+    private EvaluationResponse(
+            EvaluationResponseType type,
+            Optional<BooleanEvaluationResponse> booleanResponse,
+            Optional<VariantEvaluationResponse> variantResponse,
+            Optional<ErrorEvaluationResponse> errorResponse) {
+        this.type = type;
+        this.booleanResponse = booleanResponse;
+        this.variantResponse = variantResponse;
+        this.errorResponse = errorResponse;
     }
-    return _cachedHashCode;
-  }
 
-  @Override
-  public String toString() {
-    return "EvaluationResponse{" + "type: " + type + ", booleanResponse: " + booleanResponse + ", variantResponse: " + variantResponse + ", errorResponse: " + errorResponse + "}";
-  }
+    @JsonProperty("type")
+    public EvaluationResponseType getType() {
+        return type;
+    }
 
-  public static TypeStage builder() {
-    return new Builder();
-  }
+    @JsonProperty("boolean_response")
+    public Optional<BooleanEvaluationResponse> getBooleanResponse() {
+        return booleanResponse;
+    }
 
-  public interface TypeStage {
-    _FinalStage type(EvaluationResponseType type);
+    @JsonProperty("variant_response")
+    public Optional<VariantEvaluationResponse> getVariantResponse() {
+        return variantResponse;
+    }
 
-    Builder from(EvaluationResponse other);
-  }
-
-  public interface _FinalStage {
-    EvaluationResponse build();
-
-    _FinalStage booleanResponse(Optional<BooleanEvaluationResponse> booleanResponse);
-
-    _FinalStage booleanResponse(BooleanEvaluationResponse booleanResponse);
-
-    _FinalStage variantResponse(Optional<VariantEvaluationResponse> variantResponse);
-
-    _FinalStage variantResponse(VariantEvaluationResponse variantResponse);
-
-    _FinalStage errorResponse(Optional<ErrorEvaluationResponse> errorResponse);
-
-    _FinalStage errorResponse(ErrorEvaluationResponse errorResponse);
-  }
-
-  @JsonIgnoreProperties(
-      ignoreUnknown = true
-  )
-  public static final class Builder implements TypeStage, _FinalStage {
-    private EvaluationResponseType type;
-
-    private Optional<ErrorEvaluationResponse> errorResponse = Optional.empty();
-
-    private Optional<VariantEvaluationResponse> variantResponse = Optional.empty();
-
-    private Optional<BooleanEvaluationResponse> booleanResponse = Optional.empty();
-
-    private Builder() {
+    @JsonProperty("error_response")
+    public Optional<ErrorEvaluationResponse> getErrorResponse() {
+        return errorResponse;
     }
 
     @Override
-    public Builder from(EvaluationResponse other) {
-      type(other.getType());
-      booleanResponse(other.getBooleanResponse());
-      variantResponse(other.getVariantResponse());
-      errorResponse(other.getErrorResponse());
-      return this;
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        return other instanceof EvaluationResponse && equalTo((EvaluationResponse) other);
+    }
+
+    private boolean equalTo(EvaluationResponse other) {
+        return type.equals(other.type)
+                && booleanResponse.equals(other.booleanResponse)
+                && variantResponse.equals(other.variantResponse)
+                && errorResponse.equals(other.errorResponse);
     }
 
     @Override
-    @JsonSetter("type")
-    public _FinalStage type(EvaluationResponseType type) {
-      this.type = type;
-      return this;
+    public int hashCode() {
+        return Objects.hash(this.type, this.booleanResponse, this.variantResponse, this.errorResponse);
     }
 
     @Override
-    public _FinalStage errorResponse(ErrorEvaluationResponse errorResponse) {
-      this.errorResponse = Optional.of(errorResponse);
-      return this;
+    public String toString() {
+        return "EvaluationResponse{" + "type: " + type + ", booleanResponse: " + booleanResponse + ", variantResponse: "
+                + variantResponse + ", errorResponse: " + errorResponse + "}";
     }
 
-    @Override
-    @JsonSetter(
-        value = "error_response",
-        nulls = Nulls.SKIP
-    )
-    public _FinalStage errorResponse(Optional<ErrorEvaluationResponse> errorResponse) {
-      this.errorResponse = errorResponse;
-      return this;
+    public static TypeStage builder() {
+        return new Builder();
     }
 
-    @Override
-    public _FinalStage variantResponse(VariantEvaluationResponse variantResponse) {
-      this.variantResponse = Optional.of(variantResponse);
-      return this;
+    public interface TypeStage {
+        _FinalStage type(EvaluationResponseType type);
+
+        Builder from(EvaluationResponse other);
     }
 
-    @Override
-    @JsonSetter(
-        value = "variant_response",
-        nulls = Nulls.SKIP
-    )
-    public _FinalStage variantResponse(Optional<VariantEvaluationResponse> variantResponse) {
-      this.variantResponse = variantResponse;
-      return this;
+    public interface _FinalStage {
+        EvaluationResponse build();
+
+        _FinalStage booleanResponse(Optional<BooleanEvaluationResponse> booleanResponse);
+
+        _FinalStage booleanResponse(BooleanEvaluationResponse booleanResponse);
+
+        _FinalStage variantResponse(Optional<VariantEvaluationResponse> variantResponse);
+
+        _FinalStage variantResponse(VariantEvaluationResponse variantResponse);
+
+        _FinalStage errorResponse(Optional<ErrorEvaluationResponse> errorResponse);
+
+        _FinalStage errorResponse(ErrorEvaluationResponse errorResponse);
     }
 
-    @Override
-    public _FinalStage booleanResponse(BooleanEvaluationResponse booleanResponse) {
-      this.booleanResponse = Optional.of(booleanResponse);
-      return this;
-    }
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    public static final class Builder implements TypeStage, _FinalStage {
+        private EvaluationResponseType type;
 
-    @Override
-    @JsonSetter(
-        value = "boolean_response",
-        nulls = Nulls.SKIP
-    )
-    public _FinalStage booleanResponse(Optional<BooleanEvaluationResponse> booleanResponse) {
-      this.booleanResponse = booleanResponse;
-      return this;
-    }
+        private Optional<ErrorEvaluationResponse> errorResponse = Optional.empty();
 
-    @Override
-    public EvaluationResponse build() {
-      return new EvaluationResponse(type, booleanResponse, variantResponse, errorResponse);
+        private Optional<VariantEvaluationResponse> variantResponse = Optional.empty();
+
+        private Optional<BooleanEvaluationResponse> booleanResponse = Optional.empty();
+
+        private Builder() {}
+
+        @Override
+        public Builder from(EvaluationResponse other) {
+            type(other.getType());
+            booleanResponse(other.getBooleanResponse());
+            variantResponse(other.getVariantResponse());
+            errorResponse(other.getErrorResponse());
+            return this;
+        }
+
+        @Override
+        @JsonSetter("type")
+        public _FinalStage type(EvaluationResponseType type) {
+            this.type = type;
+            return this;
+        }
+
+        @Override
+        public _FinalStage errorResponse(ErrorEvaluationResponse errorResponse) {
+            this.errorResponse = Optional.of(errorResponse);
+            return this;
+        }
+
+        @Override
+        @JsonSetter(value = "error_response", nulls = Nulls.SKIP)
+        public _FinalStage errorResponse(Optional<ErrorEvaluationResponse> errorResponse) {
+            this.errorResponse = errorResponse;
+            return this;
+        }
+
+        @Override
+        public _FinalStage variantResponse(VariantEvaluationResponse variantResponse) {
+            this.variantResponse = Optional.of(variantResponse);
+            return this;
+        }
+
+        @Override
+        @JsonSetter(value = "variant_response", nulls = Nulls.SKIP)
+        public _FinalStage variantResponse(Optional<VariantEvaluationResponse> variantResponse) {
+            this.variantResponse = variantResponse;
+            return this;
+        }
+
+        @Override
+        public _FinalStage booleanResponse(BooleanEvaluationResponse booleanResponse) {
+            this.booleanResponse = Optional.of(booleanResponse);
+            return this;
+        }
+
+        @Override
+        @JsonSetter(value = "boolean_response", nulls = Nulls.SKIP)
+        public _FinalStage booleanResponse(Optional<BooleanEvaluationResponse> booleanResponse) {
+            this.booleanResponse = booleanResponse;
+            return this;
+        }
+
+        @Override
+        public EvaluationResponse build() {
+            return new EvaluationResponse(type, booleanResponse, variantResponse, errorResponse);
+        }
     }
-  }
 }
