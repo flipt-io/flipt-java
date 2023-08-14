@@ -1,6 +1,6 @@
 # Flipt Java Library
 
-![Maven Central](https://img.shields.io/maven-central/v/io.flipt/flipt-java)
+[![Maven Central](https://img.shields.io/maven-central/v/io.flipt/flipt-java)](https://central.sonatype.com/artifact/io.flipt/flipt-java)
 ![hardening](https://img.shields.io/badge/status-hardening-orange)
 
 ## Documentation
