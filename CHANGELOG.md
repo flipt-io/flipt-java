@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.10](https://github.com/flipt-io/flipt-java/compare/0.2.9...0.2.10) (2023-08-16)
+
+
+### Features
+
+* SDK regeneration ([#15](https://github.com/flipt-io/flipt-java/issues/15)) ([3e161a3](https://github.com/flipt-io/flipt-java/commit/3e161a3dfde277ded42e1745fe638110a4fe0e34))
+
 ## [0.2.9](https://github.com/flipt-io/flipt-java/compare/0.2.8...0.2.9) (2023-08-14)
 
 
