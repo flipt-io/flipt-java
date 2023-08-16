@@ -8,4 +8,4 @@ src/main/java/com/flipt/api/core/Defaults.java
 LICENSE
 .gitignore
 .release-please-manifest.json
-release-pease-config.json
+release-please-config.json
