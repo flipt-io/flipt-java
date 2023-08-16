@@ -11,6 +11,7 @@ import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 @JsonDeserialize(builder = Rule.Builder.class)
@@ -22,6 +23,10 @@ public final class Rule {
     private final String flagKey;
 
     private final String segmentKey;
+
+    private final Optional<List<String>> segmentKeys;
+
+    private final RuleSegmentOperator segmentOperator;
 
     private final List<Distribution> distributions;
 
@@ -36,6 +41,8 @@ public final class Rule {
             String namespaceKey,
             String flagKey,
             String segmentKey,
+            Optional<List<String>> segmentKeys,
+            RuleSegmentOperator segmentOperator,
             List<Distribution> distributions,
             int rank,
             OffsetDateTime createdAt,
@@ -44,6 +51,8 @@ public final class Rule {
         this.namespaceKey = namespaceKey;
         this.flagKey = flagKey;
         this.segmentKey = segmentKey;
+        this.segmentKeys = segmentKeys;
+        this.segmentOperator = segmentOperator;
         this.distributions = distributions;
         this.rank = rank;
         this.createdAt = createdAt;
@@ -68,6 +77,16 @@ public final class Rule {
     @JsonProperty("segmentKey")
     public String getSegmentKey() {
         return segmentKey;
+    }
+
+    @JsonProperty("segmentKeys")
+    public Optional<List<String>> getSegmentKeys() {
+        return segmentKeys;
+    }
+
+    @JsonProperty("segmentOperator")
+    public RuleSegmentOperator getSegmentOperator() {
+        return segmentOperator;
     }
 
     @JsonProperty("distributions")
@@ -101,6 +120,8 @@ public final class Rule {
                 && namespaceKey.equals(other.namespaceKey)
                 && flagKey.equals(other.flagKey)
                 && segmentKey.equals(other.segmentKey)
+                && segmentKeys.equals(other.segmentKeys)
+                && segmentOperator.equals(other.segmentOperator)
                 && distributions.equals(other.distributions)
                 && rank == other.rank
                 && createdAt.equals(other.createdAt)
@@ -114,6 +135,8 @@ public final class Rule {
                 this.namespaceKey,
                 this.flagKey,
                 this.segmentKey,
+                this.segmentKeys,
+                this.segmentOperator,
                 this.distributions,
                 this.rank,
                 this.createdAt,
@@ -123,7 +146,8 @@ public final class Rule {
     @Override
     public String toString() {
         return "Rule{" + "id: " + id + ", namespaceKey: " + namespaceKey + ", flagKey: " + flagKey + ", segmentKey: "
-                + segmentKey + ", distributions: " + distributions + ", rank: " + rank + ", createdAt: " + createdAt
+                + segmentKey + ", segmentKeys: " + segmentKeys + ", segmentOperator: " + segmentOperator
+                + ", distributions: " + distributions + ", rank: " + rank + ", createdAt: " + createdAt
                 + ", updatedAt: " + updatedAt + "}";
     }
 
@@ -146,7 +170,11 @@ public final class Rule {
     }
 
     public interface SegmentKeyStage {
-        RankStage segmentKey(String segmentKey);
+        SegmentOperatorStage segmentKey(String segmentKey);
+    }
+
+    public interface SegmentOperatorStage {
+        RankStage segmentOperator(RuleSegmentOperator segmentOperator);
     }
 
     public interface RankStage {
@@ -164,6 +192,10 @@ public final class Rule {
     public interface _FinalStage {
         Rule build();
 
+        _FinalStage segmentKeys(Optional<List<String>> segmentKeys);
+
+        _FinalStage segmentKeys(List<String> segmentKeys);
+
         _FinalStage distributions(List<Distribution> distributions);
 
         _FinalStage addDistributions(Distribution distributions);
@@ -177,6 +209,7 @@ public final class Rule {
                     NamespaceKeyStage,
                     FlagKeyStage,
                     SegmentKeyStage,
+                    SegmentOperatorStage,
                     RankStage,
                     CreatedAtStage,
                     UpdatedAtStage,
@@ -189,6 +222,8 @@ public final class Rule {
 
         private String segmentKey;
 
+        private RuleSegmentOperator segmentOperator;
+
         private int rank;
 
         private OffsetDateTime createdAt;
@@ -196,6 +231,8 @@ public final class Rule {
         private OffsetDateTime updatedAt;
 
         private List<Distribution> distributions = new ArrayList<>();
+
+        private Optional<List<String>> segmentKeys = Optional.empty();
 
         private Builder() {}
 
@@ -205,6 +242,8 @@ public final class Rule {
             namespaceKey(other.getNamespaceKey());
             flagKey(other.getFlagKey());
             segmentKey(other.getSegmentKey());
+            segmentKeys(other.getSegmentKeys());
+            segmentOperator(other.getSegmentOperator());
             distributions(other.getDistributions());
             rank(other.getRank());
             createdAt(other.getCreatedAt());
@@ -235,8 +274,15 @@ public final class Rule {
 
         @Override
         @JsonSetter("segmentKey")
-        public RankStage segmentKey(String segmentKey) {
+        public SegmentOperatorStage segmentKey(String segmentKey) {
             this.segmentKey = segmentKey;
+            return this;
+        }
+
+        @Override
+        @JsonSetter("segmentOperator")
+        public RankStage segmentOperator(RuleSegmentOperator segmentOperator) {
+            this.segmentOperator = segmentOperator;
             return this;
         }
 
@@ -282,8 +328,31 @@ public final class Rule {
         }
 
         @Override
+        public _FinalStage segmentKeys(List<String> segmentKeys) {
+            this.segmentKeys = Optional.of(segmentKeys);
+            return this;
+        }
+
+        @Override
+        @JsonSetter(value = "segmentKeys", nulls = Nulls.SKIP)
+        public _FinalStage segmentKeys(Optional<List<String>> segmentKeys) {
+            this.segmentKeys = segmentKeys;
+            return this;
+        }
+
+        @Override
         public Rule build() {
-            return new Rule(id, namespaceKey, flagKey, segmentKey, distributions, rank, createdAt, updatedAt);
+            return new Rule(
+                    id,
+                    namespaceKey,
+                    flagKey,
+                    segmentKey,
+                    segmentKeys,
+                    segmentOperator,
+                    distributions,
+                    rank,
+                    createdAt,
+                    updatedAt);
         }
     }
 }
