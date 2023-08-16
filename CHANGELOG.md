@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.11](https://github.com/flipt-io/flipt-java/compare/0.2.10...0.2.11) (2023-08-16)
+
+
+### Features
+
+* bump version for maven ([#20](https://github.com/flipt-io/flipt-java/issues/20)) ([b2121e8](https://github.com/flipt-io/flipt-java/commit/b2121e8ed293266a17aa11cc0c341130dc48acef))
+
 ## [0.2.10](https://github.com/flipt-io/flipt-java/compare/0.2.10...0.2.10) (2023-08-16)
 
 
