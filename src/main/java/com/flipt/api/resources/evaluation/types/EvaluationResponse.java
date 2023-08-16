@@ -36,17 +36,17 @@ public final class EvaluationResponse {
         return type;
     }
 
-    @JsonProperty("boolean_response")
+    @JsonProperty("booleanResponse")
     public Optional<BooleanEvaluationResponse> getBooleanResponse() {
         return booleanResponse;
     }
 
-    @JsonProperty("variant_response")
+    @JsonProperty("variantResponse")
     public Optional<VariantEvaluationResponse> getVariantResponse() {
         return variantResponse;
     }
 
-    @JsonProperty("error_response")
+    @JsonProperty("errorResponse")
     public Optional<ErrorEvaluationResponse> getErrorResponse() {
         return errorResponse;
     }
@@ -136,7 +136,7 @@ public final class EvaluationResponse {
         }
 
         @Override
-        @JsonSetter(value = "error_response", nulls = Nulls.SKIP)
+        @JsonSetter(value = "errorResponse", nulls = Nulls.SKIP)
         public _FinalStage errorResponse(Optional<ErrorEvaluationResponse> errorResponse) {
             this.errorResponse = errorResponse;
             return this;
@@ -149,7 +149,7 @@ public final class EvaluationResponse {
         }
 
         @Override
-        @JsonSetter(value = "variant_response", nulls = Nulls.SKIP)
+        @JsonSetter(value = "variantResponse", nulls = Nulls.SKIP)
         public _FinalStage variantResponse(Optional<VariantEvaluationResponse> variantResponse) {
             this.variantResponse = variantResponse;
             return this;
@@ -162,7 +162,7 @@ public final class EvaluationResponse {
         }
 
         @Override
-        @JsonSetter(value = "boolean_response", nulls = Nulls.SKIP)
+        @JsonSetter(value = "booleanResponse", nulls = Nulls.SKIP)
         public _FinalStage booleanResponse(Optional<BooleanEvaluationResponse> booleanResponse) {
             this.booleanResponse = booleanResponse;
             return this;
