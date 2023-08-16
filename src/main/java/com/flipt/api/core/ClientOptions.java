@@ -26,7 +26,7 @@ public final class ClientOptions {
                 "X-Fern-SDK-Name",
                 "com.flipt.fern:api-sdk",
                 "X-Fern-SDK-Version",
-                "v0.2.10",
+                "0.2.10",
                 "X-Fern-Language",
                 "JAVA"));
         this.headerSuppliers = headerSuppliers;
