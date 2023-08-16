@@ -10,6 +10,7 @@ import java.time.OffsetDateTime;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 @JsonDeserialize(builder = EvaluationResponse.Builder.class)
@@ -36,6 +37,8 @@ public final class EvaluationResponse {
 
     private final EvaluationReason reason;
 
+    private final Optional<String> segmentKeys;
+
     private EvaluationResponse(
             String requestId,
             String entityId,
@@ -47,7 +50,8 @@ public final class EvaluationResponse {
             String value,
             double requestDurationMillis,
             String attachment,
-            EvaluationReason reason) {
+            EvaluationReason reason,
+            Optional<String> segmentKeys) {
         this.requestId = requestId;
         this.entityId = entityId;
         this.requestContext = requestContext;
@@ -59,6 +63,7 @@ public final class EvaluationResponse {
         this.requestDurationMillis = requestDurationMillis;
         this.attachment = attachment;
         this.reason = reason;
+        this.segmentKeys = segmentKeys;
     }
 
     @JsonProperty("requestId")
@@ -116,6 +121,11 @@ public final class EvaluationResponse {
         return reason;
     }
 
+    @JsonProperty("segmentKeys")
+    public Optional<String> getSegmentKeys() {
+        return segmentKeys;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -133,7 +143,8 @@ public final class EvaluationResponse {
                 && value.equals(other.value)
                 && requestDurationMillis == other.requestDurationMillis
                 && attachment.equals(other.attachment)
-                && reason.equals(other.reason);
+                && reason.equals(other.reason)
+                && segmentKeys.equals(other.segmentKeys);
     }
 
     @Override
@@ -149,7 +160,8 @@ public final class EvaluationResponse {
                 this.value,
                 this.requestDurationMillis,
                 this.attachment,
-                this.reason);
+                this.reason,
+                this.segmentKeys);
     }
 
     @Override
@@ -157,7 +169,8 @@ public final class EvaluationResponse {
         return "EvaluationResponse{" + "requestId: " + requestId + ", entityId: " + entityId + ", requestContext: "
                 + requestContext + ", match: " + match + ", flagKey: " + flagKey + ", segmentKey: " + segmentKey
                 + ", timestamp: " + timestamp + ", value: " + value + ", requestDurationMillis: "
-                + requestDurationMillis + ", attachment: " + attachment + ", reason: " + reason + "}";
+                + requestDurationMillis + ", attachment: " + attachment + ", reason: " + reason + ", segmentKeys: "
+                + segmentKeys + "}";
     }
 
     public static RequestIdStage builder() {
@@ -214,6 +227,10 @@ public final class EvaluationResponse {
         _FinalStage putAllRequestContext(Map<String, String> requestContext);
 
         _FinalStage requestContext(String key, String value);
+
+        _FinalStage segmentKeys(Optional<String> segmentKeys);
+
+        _FinalStage segmentKeys(String segmentKeys);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -249,6 +266,8 @@ public final class EvaluationResponse {
 
         private EvaluationReason reason;
 
+        private Optional<String> segmentKeys = Optional.empty();
+
         private Map<String, String> requestContext = new LinkedHashMap<>();
 
         private Builder() {}
@@ -266,6 +285,7 @@ public final class EvaluationResponse {
             requestDurationMillis(other.getRequestDurationMillis());
             attachment(other.getAttachment());
             reason(other.getReason());
+            segmentKeys(other.getSegmentKeys());
             return this;
         }
 
@@ -340,6 +360,19 @@ public final class EvaluationResponse {
         }
 
         @Override
+        public _FinalStage segmentKeys(String segmentKeys) {
+            this.segmentKeys = Optional.of(segmentKeys);
+            return this;
+        }
+
+        @Override
+        @JsonSetter(value = "segmentKeys", nulls = Nulls.SKIP)
+        public _FinalStage segmentKeys(Optional<String> segmentKeys) {
+            this.segmentKeys = segmentKeys;
+            return this;
+        }
+
+        @Override
         public _FinalStage requestContext(String key, String value) {
             this.requestContext.put(key, value);
             return this;
@@ -372,7 +405,8 @@ public final class EvaluationResponse {
                     value,
                     requestDurationMillis,
                     attachment,
-                    reason);
+                    reason,
+                    segmentKeys);
         }
     }
 }
