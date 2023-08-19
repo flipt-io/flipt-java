@@ -9,3 +9,4 @@ LICENSE
 .gitignore
 .release-please-manifest.json
 release-please-config.json
+/src/test

@@ -1,0 +1,39 @@
+version: "1.1"
+namespace: default
+flags:
+  - key: test_flag
+    name: TEST_FLAG
+    type: VARIANT_FLAG_TYPE
+    description: A test flag
+    enabled: true
+    variants:
+      - key: red
+        name: RED
+      - key: blue
+        name: BLUE
+    rules:
+      - segment: usergroup_red
+        distributions:
+          - variant: red
+            rollout: 100
+      - segment: usergroup_blue
+        distributions:
+          - variant: blue
+            rollout: 100
+segments:
+  - key: usergroup_red
+    name: USERGROUP_RED
+    constraints:
+      - type: STRING_COMPARISON_TYPE
+        property: group
+        operator: eq
+        value: red
+    match_type: ALL_MATCH_TYPE
+  - key: usergroup_blue
+    name: USERGROUP_BLUE
+    constraints:
+      - type: STRING_COMPARISON_TYPE
+        property: group
+        operator: eq
+        value: blue
+    match_type: ALL_MATCH_TYPE
