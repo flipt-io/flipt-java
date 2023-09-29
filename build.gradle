@@ -40,7 +40,7 @@ publishing {
         maven(MavenPublication) {
             groupId = 'io.flipt'
             artifactId = 'flipt-java'
-            version = '0.2.11'
+            version = "0.2.11$System.env.ARTIFACT_VERSION"
             from components.java
         }
     }
