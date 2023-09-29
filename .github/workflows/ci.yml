@@ -9,7 +9,7 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - java-verison: "11"
+          - java-version: "11"
             artifact-version: ""
           - java-version: "8"
             artifact-version: "-java-8"
@@ -37,7 +37,7 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - java-verison: "11"
+          - java-version: "11"
             artifact-version: ""
           - java-version: "8"
             artifact-version: "-java-8"
