@@ -5,6 +5,9 @@ on: [push]
 jobs:
   compile:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        java: [11, 8]
 
     steps:
       - name: Checkout repo
@@ -14,14 +17,14 @@ jobs:
         id: setup-jre
         uses: actions/setup-java@v1
         with:
-          java-version: "11"
+          java-version: ${{ matrix.java }}
           architecture: x64
 
       - name: Compile
         run: ./gradlew compileJava
 
   publish:
-    needs: [ compile ]
+    needs: [compile]
     if: github.event_name == 'push' && contains(github.ref, 'refs/tags/')
     runs-on: ubuntu-latest
 
