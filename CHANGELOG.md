@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.13](https://github.com/flipt-io/flipt-java/compare/0.2.12...0.2.13) (2023-10-10)
+
+
+### Miscellaneous Chores
+
+* release 0.2.13 ([59578bf](https://github.com/flipt-io/flipt-java/commit/59578bfbc2e2ed9e070954409eefdae1268fc6de))
+
 ## [0.2.12](https://github.com/flipt-io/flipt-java/compare/0.2.11...0.2.12) (2023-10-03)
 
 
