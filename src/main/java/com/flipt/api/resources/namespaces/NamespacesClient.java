@@ -27,8 +27,8 @@ public class NamespacesClient {
         this.clientOptions = clientOptions;
     }
 
-    public NamespaceList list(NamespaceListRequest request) {
-        return list(request, null);
+    public NamespaceList list() {
+        return list(NamespaceListRequest.builder().build());
     }
 
     public NamespaceList list(NamespaceListRequest request, RequestOptions requestOptions) {
@@ -64,12 +64,8 @@ public class NamespacesClient {
         }
     }
 
-    public NamespaceList list() {
-        return list(NamespaceListRequest.builder().build());
-    }
-
-    public Namespace create(NamespaceCreateRequest request) {
-        return create(request, null);
+    public NamespaceList list(NamespaceListRequest request) {
+        return list(request, null);
     }
 
     public Namespace create(NamespaceCreateRequest request, RequestOptions requestOptions) {
@@ -104,8 +100,8 @@ public class NamespacesClient {
         }
     }
 
-    public Namespace get(String key) {
-        return get(key, null);
+    public Namespace create(NamespaceCreateRequest request) {
+        return create(request, null);
     }
 
     public Namespace get(String key, RequestOptions requestOptions) {
@@ -134,8 +130,8 @@ public class NamespacesClient {
         }
     }
 
-    public void delete(String key) {
-        delete(key, null);
+    public Namespace get(String key) {
+        return get(key, null);
     }
 
     public void delete(String key, RequestOptions requestOptions) {
@@ -163,8 +159,8 @@ public class NamespacesClient {
         }
     }
 
-    public Namespace update(String key, NamespaceUpdateRequest request) {
-        return update(key, request, null);
+    public void delete(String key) {
+        delete(key, null);
     }
 
     public Namespace update(String key, NamespaceUpdateRequest request, RequestOptions requestOptions) {
@@ -198,5 +194,9 @@ public class NamespacesClient {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public Namespace update(String key, NamespaceUpdateRequest request) {
+        return update(key, request, null);
     }
 }

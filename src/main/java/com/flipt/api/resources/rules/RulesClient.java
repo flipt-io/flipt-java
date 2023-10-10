@@ -28,8 +28,8 @@ public class RulesClient {
         this.clientOptions = clientOptions;
     }
 
-    public RuleList list(String namespaceKey, String flagKey, RuleListRequest request) {
-        return list(namespaceKey, flagKey, request, null);
+    public RuleList list(String namespaceKey, String flagKey) {
+        return list(namespaceKey, flagKey, RuleListRequest.builder().build());
     }
 
     public RuleList list(String namespaceKey, String flagKey, RuleListRequest request, RequestOptions requestOptions) {
@@ -69,12 +69,8 @@ public class RulesClient {
         }
     }
 
-    public RuleList list(String namespaceKey, String flagKey) {
-        return list(namespaceKey, flagKey, RuleListRequest.builder().build());
-    }
-
-    public Rule create(String namespaceKey, String flagKey, RuleCreateRequest request) {
-        return create(namespaceKey, flagKey, request, null);
+    public RuleList list(String namespaceKey, String flagKey, RuleListRequest request) {
+        return list(namespaceKey, flagKey, request, null);
     }
 
     public Rule create(String namespaceKey, String flagKey, RuleCreateRequest request, RequestOptions requestOptions) {
@@ -113,8 +109,8 @@ public class RulesClient {
         }
     }
 
-    public void order(String namespaceKey, String flagKey, RuleOrderRequest request) {
-        order(namespaceKey, flagKey, request, null);
+    public Rule create(String namespaceKey, String flagKey, RuleCreateRequest request) {
+        return create(namespaceKey, flagKey, request, null);
     }
 
     public void order(String namespaceKey, String flagKey, RuleOrderRequest request, RequestOptions requestOptions) {
@@ -154,8 +150,8 @@ public class RulesClient {
         }
     }
 
-    public Rule get(String namespaceKey, String flagKey, String id) {
-        return get(namespaceKey, flagKey, id, null);
+    public void order(String namespaceKey, String flagKey, RuleOrderRequest request) {
+        order(namespaceKey, flagKey, request, null);
     }
 
     public Rule get(String namespaceKey, String flagKey, String id, RequestOptions requestOptions) {
@@ -188,8 +184,8 @@ public class RulesClient {
         }
     }
 
-    public void delete(String namespaceKey, String flagKey, String id) {
-        delete(namespaceKey, flagKey, id, null);
+    public Rule get(String namespaceKey, String flagKey, String id) {
+        return get(namespaceKey, flagKey, id, null);
     }
 
     public void delete(String namespaceKey, String flagKey, String id, RequestOptions requestOptions) {
@@ -221,8 +217,8 @@ public class RulesClient {
         }
     }
 
-    public void update(String namespaceKey, String flagKey, String id, RuleUpdateRequest request) {
-        update(namespaceKey, flagKey, id, request, null);
+    public void delete(String namespaceKey, String flagKey, String id) {
+        delete(namespaceKey, flagKey, id, null);
     }
 
     public void update(
@@ -261,5 +257,9 @@ public class RulesClient {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void update(String namespaceKey, String flagKey, String id, RuleUpdateRequest request) {
+        update(namespaceKey, flagKey, id, request, null);
     }
 }

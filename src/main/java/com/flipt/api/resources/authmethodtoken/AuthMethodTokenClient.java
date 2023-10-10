@@ -24,10 +24,6 @@ public class AuthMethodTokenClient {
         this.clientOptions = clientOptions;
     }
 
-    public AuthenticationToken createToken(AuthenticationTokenCreateRequest request) {
-        return createToken(request, null);
-    }
-
     public AuthenticationToken createToken(AuthenticationTokenCreateRequest request, RequestOptions requestOptions) {
         HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
@@ -58,5 +54,9 @@ public class AuthMethodTokenClient {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public AuthenticationToken createToken(AuthenticationTokenCreateRequest request) {
+        return createToken(request, null);
     }
 }

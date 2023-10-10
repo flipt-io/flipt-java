@@ -27,10 +27,6 @@ public class EvaluationClient {
         this.clientOptions = clientOptions;
     }
 
-    public BooleanEvaluationResponse boolean_(EvaluationRequest request) {
-        return boolean_(request, null);
-    }
-
     public BooleanEvaluationResponse boolean_(EvaluationRequest request, RequestOptions requestOptions) {
         HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
@@ -64,8 +60,8 @@ public class EvaluationClient {
         }
     }
 
-    public VariantEvaluationResponse variant(EvaluationRequest request) {
-        return variant(request, null);
+    public BooleanEvaluationResponse boolean_(EvaluationRequest request) {
+        return boolean_(request, null);
     }
 
     public VariantEvaluationResponse variant(EvaluationRequest request, RequestOptions requestOptions) {
@@ -101,8 +97,8 @@ public class EvaluationClient {
         }
     }
 
-    public BatchEvaluationResponse batch(BatchEvaluationRequest request) {
-        return batch(request, null);
+    public VariantEvaluationResponse variant(EvaluationRequest request) {
+        return variant(request, null);
     }
 
     public BatchEvaluationResponse batch(BatchEvaluationRequest request, RequestOptions requestOptions) {
@@ -136,5 +132,9 @@ public class EvaluationClient {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public BatchEvaluationResponse batch(BatchEvaluationRequest request) {
+        return batch(request, null);
     }
 }

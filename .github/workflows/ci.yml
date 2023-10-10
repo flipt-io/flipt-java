@@ -21,7 +21,7 @@ jobs:
         run: ./gradlew compileJava
 
   publish:
-    needs: [ compile ]
+    needs: [compile]
     if: github.event_name == 'push' && contains(github.ref, 'refs/tags/')
     runs-on: ubuntu-latest
 

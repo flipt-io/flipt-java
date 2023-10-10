@@ -27,8 +27,8 @@ public class SegmentsClient {
         this.clientOptions = clientOptions;
     }
 
-    public SegmentList list(String namespaceKey, SegmentListRequest request) {
-        return list(namespaceKey, request, null);
+    public SegmentList list(String namespaceKey) {
+        return list(namespaceKey, SegmentListRequest.builder().build());
     }
 
     public SegmentList list(String namespaceKey, SegmentListRequest request, RequestOptions requestOptions) {
@@ -66,12 +66,8 @@ public class SegmentsClient {
         }
     }
 
-    public SegmentList list(String namespaceKey) {
-        return list(namespaceKey, SegmentListRequest.builder().build());
-    }
-
-    public Segment create(String namespaceKey, SegmentCreateRequest request) {
-        return create(namespaceKey, request, null);
+    public SegmentList list(String namespaceKey, SegmentListRequest request) {
+        return list(namespaceKey, request, null);
     }
 
     public Segment create(String namespaceKey, SegmentCreateRequest request, RequestOptions requestOptions) {
@@ -108,8 +104,8 @@ public class SegmentsClient {
         }
     }
 
-    public Segment get(String namespaceKey, String key) {
-        return get(namespaceKey, key, null);
+    public Segment create(String namespaceKey, SegmentCreateRequest request) {
+        return create(namespaceKey, request, null);
     }
 
     public Segment get(String namespaceKey, String key, RequestOptions requestOptions) {
@@ -140,8 +136,8 @@ public class SegmentsClient {
         }
     }
 
-    public void delete(String namespaceKey, String key) {
-        delete(namespaceKey, key, null);
+    public Segment get(String namespaceKey, String key) {
+        return get(namespaceKey, key, null);
     }
 
     public void delete(String namespaceKey, String key, RequestOptions requestOptions) {
@@ -171,8 +167,8 @@ public class SegmentsClient {
         }
     }
 
-    public Segment update(String namespaceKey, String key, SegmentUpdateRequest request) {
-        return update(namespaceKey, key, request, null);
+    public void delete(String namespaceKey, String key) {
+        delete(namespaceKey, key, null);
     }
 
     public Segment update(
@@ -209,5 +205,9 @@ public class SegmentsClient {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public Segment update(String namespaceKey, String key, SegmentUpdateRequest request) {
+        return update(namespaceKey, key, request, null);
     }
 }

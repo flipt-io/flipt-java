@@ -27,8 +27,8 @@ public class FlagsClient {
         this.clientOptions = clientOptions;
     }
 
-    public FlagList list(String namespaceKey, FlagListRequest request) {
-        return list(namespaceKey, request, null);
+    public FlagList list(String namespaceKey) {
+        return list(namespaceKey, FlagListRequest.builder().build());
     }
 
     public FlagList list(String namespaceKey, FlagListRequest request, RequestOptions requestOptions) {
@@ -66,12 +66,8 @@ public class FlagsClient {
         }
     }
 
-    public FlagList list(String namespaceKey) {
-        return list(namespaceKey, FlagListRequest.builder().build());
-    }
-
-    public Flag create(String namespaceKey, FlagCreateRequest request) {
-        return create(namespaceKey, request, null);
+    public FlagList list(String namespaceKey, FlagListRequest request) {
+        return list(namespaceKey, request, null);
     }
 
     public Flag create(String namespaceKey, FlagCreateRequest request, RequestOptions requestOptions) {
@@ -108,8 +104,8 @@ public class FlagsClient {
         }
     }
 
-    public Flag get(String namespaceKey, String key) {
-        return get(namespaceKey, key, null);
+    public Flag create(String namespaceKey, FlagCreateRequest request) {
+        return create(namespaceKey, request, null);
     }
 
     public Flag get(String namespaceKey, String key, RequestOptions requestOptions) {
@@ -140,8 +136,8 @@ public class FlagsClient {
         }
     }
 
-    public void delete(String namespaceKey, String key) {
-        delete(namespaceKey, key, null);
+    public Flag get(String namespaceKey, String key) {
+        return get(namespaceKey, key, null);
     }
 
     public void delete(String namespaceKey, String key, RequestOptions requestOptions) {
@@ -171,8 +167,8 @@ public class FlagsClient {
         }
     }
 
-    public Flag update(String namespaceKey, String key, FlagUpdateRequest request) {
-        return update(namespaceKey, key, request, null);
+    public void delete(String namespaceKey, String key) {
+        delete(namespaceKey, key, null);
     }
 
     public Flag update(String namespaceKey, String key, FlagUpdateRequest request, RequestOptions requestOptions) {
@@ -208,5 +204,9 @@ public class FlagsClient {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public Flag update(String namespaceKey, String key, FlagUpdateRequest request) {
+        return update(namespaceKey, key, request, null);
     }
 }
