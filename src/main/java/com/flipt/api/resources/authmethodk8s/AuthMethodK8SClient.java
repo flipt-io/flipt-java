@@ -24,10 +24,6 @@ public class AuthMethodK8SClient {
         this.clientOptions = clientOptions;
     }
 
-    public AuthenticationToken verifyServiceAccount(KubernetesVerifyServiceAccount request) {
-        return verifyServiceAccount(request, null);
-    }
-
     public AuthenticationToken verifyServiceAccount(
             KubernetesVerifyServiceAccount request, RequestOptions requestOptions) {
         HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
@@ -60,5 +56,9 @@ public class AuthMethodK8SClient {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public AuthenticationToken verifyServiceAccount(KubernetesVerifyServiceAccount request) {
+        return verifyServiceAccount(request, null);
     }
 }

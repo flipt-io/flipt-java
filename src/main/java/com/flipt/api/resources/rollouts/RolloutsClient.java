@@ -28,8 +28,8 @@ public class RolloutsClient {
         this.clientOptions = clientOptions;
     }
 
-    public RolloutList list(String namespaceKey, String flagKey, RolloutListRequest request) {
-        return list(namespaceKey, flagKey, request, null);
+    public RolloutList list(String namespaceKey, String flagKey) {
+        return list(namespaceKey, flagKey, RolloutListRequest.builder().build());
     }
 
     public RolloutList list(
@@ -70,12 +70,8 @@ public class RolloutsClient {
         }
     }
 
-    public RolloutList list(String namespaceKey, String flagKey) {
-        return list(namespaceKey, flagKey, RolloutListRequest.builder().build());
-    }
-
-    public Rollout create(String namespaceKey, String flagKey, RolloutCreateRequest request) {
-        return create(namespaceKey, flagKey, request, null);
+    public RolloutList list(String namespaceKey, String flagKey, RolloutListRequest request) {
+        return list(namespaceKey, flagKey, request, null);
     }
 
     public Rollout create(
@@ -115,8 +111,8 @@ public class RolloutsClient {
         }
     }
 
-    public void order(String namespaceKey, String flagKey, RolloutOrderRequest request) {
-        order(namespaceKey, flagKey, request, null);
+    public Rollout create(String namespaceKey, String flagKey, RolloutCreateRequest request) {
+        return create(namespaceKey, flagKey, request, null);
     }
 
     public void order(String namespaceKey, String flagKey, RolloutOrderRequest request, RequestOptions requestOptions) {
@@ -156,8 +152,8 @@ public class RolloutsClient {
         }
     }
 
-    public Rollout get(String namespaceKey, String flagKey, String id) {
-        return get(namespaceKey, flagKey, id, null);
+    public void order(String namespaceKey, String flagKey, RolloutOrderRequest request) {
+        order(namespaceKey, flagKey, request, null);
     }
 
     public Rollout get(String namespaceKey, String flagKey, String id, RequestOptions requestOptions) {
@@ -190,8 +186,8 @@ public class RolloutsClient {
         }
     }
 
-    public void delete(String namespaceKey, String flagKey, String id) {
-        delete(namespaceKey, flagKey, id, null);
+    public Rollout get(String namespaceKey, String flagKey, String id) {
+        return get(namespaceKey, flagKey, id, null);
     }
 
     public void delete(String namespaceKey, String flagKey, String id, RequestOptions requestOptions) {
@@ -223,8 +219,12 @@ public class RolloutsClient {
         }
     }
 
-    public void update(String namespaceKey, String flagKey, String id, RolloutUpdateRequest request) {
-        update(namespaceKey, flagKey, id, request, null);
+    public void delete(String namespaceKey, String flagKey, String id) {
+        delete(namespaceKey, flagKey, id, null);
+    }
+
+    public void update(String namespaceKey, String flagKey, String id) {
+        update(namespaceKey, flagKey, id, RolloutUpdateRequest.builder().build());
     }
 
     public void update(
@@ -269,7 +269,7 @@ public class RolloutsClient {
         }
     }
 
-    public void update(String namespaceKey, String flagKey, String id) {
-        update(namespaceKey, flagKey, id, RolloutUpdateRequest.builder().build());
+    public void update(String namespaceKey, String flagKey, String id, RolloutUpdateRequest request) {
+        update(namespaceKey, flagKey, id, request, null);
     }
 }

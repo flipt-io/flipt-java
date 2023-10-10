@@ -26,10 +26,6 @@ public class DistributionsClient {
         this.clientOptions = clientOptions;
     }
 
-    public Distribution create(String namespaceKey, String flagKey, String ruleId, DistributionCreateRequest request) {
-        return create(namespaceKey, flagKey, ruleId, request, null);
-    }
-
     public Distribution create(
             String namespaceKey,
             String flagKey,
@@ -73,9 +69,8 @@ public class DistributionsClient {
         }
     }
 
-    public void delete(
-            String namespaceKey, String flagKey, String ruleId, String id, DistributionDeleteRequest request) {
-        delete(namespaceKey, flagKey, ruleId, id, request, null);
+    public Distribution create(String namespaceKey, String flagKey, String ruleId, DistributionCreateRequest request) {
+        return create(namespaceKey, flagKey, ruleId, request, null);
     }
 
     public void delete(
@@ -115,9 +110,9 @@ public class DistributionsClient {
         }
     }
 
-    public Distribution update(
-            String namespaceKey, String flagKey, String ruleId, String id, DistributionUpdateRequest request) {
-        return update(namespaceKey, flagKey, ruleId, id, request, null);
+    public void delete(
+            String namespaceKey, String flagKey, String ruleId, String id, DistributionDeleteRequest request) {
+        delete(namespaceKey, flagKey, ruleId, id, request, null);
     }
 
     public Distribution update(
@@ -163,5 +158,10 @@ public class DistributionsClient {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public Distribution update(
+            String namespaceKey, String flagKey, String ruleId, String id, DistributionUpdateRequest request) {
+        return update(namespaceKey, flagKey, ruleId, id, request, null);
     }
 }

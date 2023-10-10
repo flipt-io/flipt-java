@@ -24,10 +24,6 @@ public class AuthMethodOidcClient {
         this.clientOptions = clientOptions;
     }
 
-    public OidcAuthorizeUrlResponse authorizeUrl(String provider, OidcAuthorizeUrlRequest request) {
-        return authorizeUrl(provider, request, null);
-    }
-
     public OidcAuthorizeUrlResponse authorizeUrl(
             String provider, OidcAuthorizeUrlRequest request, RequestOptions requestOptions) {
         HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
@@ -56,8 +52,8 @@ public class AuthMethodOidcClient {
         }
     }
 
-    public OidcCallbackResponse callback(String provider, OidcCallbackRequest request) {
-        return callback(provider, request, null);
+    public OidcAuthorizeUrlResponse authorizeUrl(String provider, OidcAuthorizeUrlRequest request) {
+        return authorizeUrl(provider, request, null);
     }
 
     public OidcCallbackResponse callback(String provider, OidcCallbackRequest request, RequestOptions requestOptions) {
@@ -86,5 +82,9 @@ public class AuthMethodOidcClient {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public OidcCallbackResponse callback(String provider, OidcCallbackRequest request) {
+        return callback(provider, request, null);
     }
 }

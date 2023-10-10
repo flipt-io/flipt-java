@@ -25,10 +25,6 @@ public class AuthClient {
         this.clientOptions = clientOptions;
     }
 
-    public AuthenticationList listTokens() {
-        return listTokens(null);
-    }
-
     public AuthenticationList listTokens(RequestOptions requestOptions) {
         HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
@@ -55,8 +51,8 @@ public class AuthClient {
         }
     }
 
-    public Authentication getToken(String id) {
-        return getToken(id, null);
+    public AuthenticationList listTokens() {
+        return listTokens(null);
     }
 
     public Authentication getToken(String id, RequestOptions requestOptions) {
@@ -86,8 +82,8 @@ public class AuthClient {
         }
     }
 
-    public void deleteToken(String id) {
-        deleteToken(id, null);
+    public Authentication getToken(String id) {
+        return getToken(id, null);
     }
 
     public void deleteToken(String id, RequestOptions requestOptions) {
@@ -116,8 +112,8 @@ public class AuthClient {
         }
     }
 
-    public Authentication getSelf() {
-        return getSelf(null);
+    public void deleteToken(String id) {
+        deleteToken(id, null);
     }
 
     public Authentication getSelf(RequestOptions requestOptions) {
@@ -146,8 +142,12 @@ public class AuthClient {
         }
     }
 
-    public void expireSelf(AuthenticationExpireSelfRequest request) {
-        expireSelf(request, null);
+    public Authentication getSelf() {
+        return getSelf(null);
+    }
+
+    public void expireSelf() {
+        expireSelf(AuthenticationExpireSelfRequest.builder().build());
     }
 
     public void expireSelf(AuthenticationExpireSelfRequest request, RequestOptions requestOptions) {
@@ -183,7 +183,7 @@ public class AuthClient {
         }
     }
 
-    public void expireSelf() {
-        expireSelf(AuthenticationExpireSelfRequest.builder().build());
+    public void expireSelf(AuthenticationExpireSelfRequest request) {
+        expireSelf(request, null);
     }
 }

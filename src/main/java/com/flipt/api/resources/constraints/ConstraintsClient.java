@@ -25,10 +25,6 @@ public class ConstraintsClient {
         this.clientOptions = clientOptions;
     }
 
-    public Constraint create(String namespaceKey, String segmentKey, ConstraintCreateRequest request) {
-        return create(namespaceKey, segmentKey, request, null);
-    }
-
     public Constraint create(
             String namespaceKey, String segmentKey, ConstraintCreateRequest request, RequestOptions requestOptions) {
         HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
@@ -66,8 +62,8 @@ public class ConstraintsClient {
         }
     }
 
-    public void delete(String namespaceKey, String segmentKey, String id) {
-        delete(namespaceKey, segmentKey, id, null);
+    public Constraint create(String namespaceKey, String segmentKey, ConstraintCreateRequest request) {
+        return create(namespaceKey, segmentKey, request, null);
     }
 
     public void delete(String namespaceKey, String segmentKey, String id, RequestOptions requestOptions) {
@@ -99,8 +95,8 @@ public class ConstraintsClient {
         }
     }
 
-    public void update(String namespaceKey, String segmentKey, String id, ConstraintUpdateRequest request) {
-        update(namespaceKey, segmentKey, id, request, null);
+    public void delete(String namespaceKey, String segmentKey, String id) {
+        delete(namespaceKey, segmentKey, id, null);
     }
 
     public void update(
@@ -143,5 +139,9 @@ public class ConstraintsClient {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void update(String namespaceKey, String segmentKey, String id, ConstraintUpdateRequest request) {
+        update(namespaceKey, segmentKey, id, request, null);
     }
 }

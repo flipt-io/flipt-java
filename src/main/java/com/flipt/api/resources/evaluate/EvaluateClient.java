@@ -26,10 +26,6 @@ public class EvaluateClient {
         this.clientOptions = clientOptions;
     }
 
-    public EvaluationResponse evaluate(String namespaceKey, EvaluationRequest request) {
-        return evaluate(namespaceKey, request, null);
-    }
-
     public EvaluationResponse evaluate(String namespaceKey, EvaluationRequest request, RequestOptions requestOptions) {
         HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
@@ -64,8 +60,8 @@ public class EvaluateClient {
         }
     }
 
-    public BatchEvaluationResponse batchEvaluate(String namespaceKey, BatchEvaluationRequest request) {
-        return batchEvaluate(namespaceKey, request, null);
+    public EvaluationResponse evaluate(String namespaceKey, EvaluationRequest request) {
+        return evaluate(namespaceKey, request, null);
     }
 
     public BatchEvaluationResponse batchEvaluate(
@@ -101,5 +97,9 @@ public class EvaluateClient {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public BatchEvaluationResponse batchEvaluate(String namespaceKey, BatchEvaluationRequest request) {
+        return batchEvaluate(namespaceKey, request, null);
     }
 }

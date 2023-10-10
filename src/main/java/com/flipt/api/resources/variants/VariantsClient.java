@@ -25,10 +25,6 @@ public class VariantsClient {
         this.clientOptions = clientOptions;
     }
 
-    public Variant create(String namespaceKey, String flagKey, VariantCreateRequest request) {
-        return create(namespaceKey, flagKey, request, null);
-    }
-
     public Variant create(
             String namespaceKey, String flagKey, VariantCreateRequest request, RequestOptions requestOptions) {
         HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
@@ -66,8 +62,8 @@ public class VariantsClient {
         }
     }
 
-    public void delete(String namespaceKey, String flagKey, String id) {
-        delete(namespaceKey, flagKey, id, null);
+    public Variant create(String namespaceKey, String flagKey, VariantCreateRequest request) {
+        return create(namespaceKey, flagKey, request, null);
     }
 
     public void delete(String namespaceKey, String flagKey, String id, RequestOptions requestOptions) {
@@ -99,8 +95,8 @@ public class VariantsClient {
         }
     }
 
-    public Variant update(String namespaceKey, String flagKey, String id, VariantUpdateRequest request) {
-        return update(namespaceKey, flagKey, id, request, null);
+    public void delete(String namespaceKey, String flagKey, String id) {
+        delete(namespaceKey, flagKey, id, null);
     }
 
     public Variant update(
@@ -143,5 +139,9 @@ public class VariantsClient {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public Variant update(String namespaceKey, String flagKey, String id, VariantUpdateRequest request) {
+        return update(namespaceKey, flagKey, id, request, null);
     }
 }
