@@ -21,10 +21,6 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
 }
 
-
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
-
 spotless {
     java {
         palantirJavaFormat()
@@ -34,6 +30,8 @@ spotless {
 java {
     withSourcesJar()
     withJavadocJar()
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
 }
 
 test {
@@ -47,7 +45,7 @@ publishing {
         maven(MavenPublication) {
             groupId = 'io.flipt'
             artifactId = 'flipt-java'
-            version = '0.2.13'
+            version = '0.2.14'
             from components.java
         }
     }
