@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.14](https://github.com/flipt-io/flipt-java/compare/0.2.13...0.2.14) (2023-10-19)
+
+
+### Bug Fixes
+
+* java8 compat ([9c0ada1](https://github.com/flipt-io/flipt-java/commit/9c0ada1dca3e9da53cbcb34ac44006da3a553b46))
+
 ## [0.2.13](https://github.com/flipt-io/flipt-java/compare/0.2.12...0.2.13) (2023-10-10)
 
 
