@@ -42,4 +42,3 @@ jobs:
         env:
           MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.MAVEN_PASSWORD }}
-          MAVEN_PUBLISH_REGISTRY_URL: ${{ secrets.MAVEN_PUBLISH_REGISTRY_URL }}
