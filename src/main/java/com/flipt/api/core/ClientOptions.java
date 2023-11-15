@@ -30,7 +30,6 @@ public final class ClientOptions {
         this.headers.put("X-Fern-Language", "JAVA");
         this.headerSuppliers = headerSuppliers;
         this.httpClient = httpClient;
-        ;
     }
 
     public Environment environment() {
