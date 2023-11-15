@@ -19,12 +19,16 @@ import java.util.Optional;
 public final class AuthenticationTokenCreateRequest {
     private final String name;
 
+    private final Optional<String> namespaceKey;
+
     private final String description;
 
     private final Optional<OffsetDateTime> expiresAt;
 
-    private AuthenticationTokenCreateRequest(String name, String description, Optional<OffsetDateTime> expiresAt) {
+    private AuthenticationTokenCreateRequest(
+            String name, Optional<String> namespaceKey, String description, Optional<OffsetDateTime> expiresAt) {
         this.name = name;
+        this.namespaceKey = namespaceKey;
         this.description = description;
         this.expiresAt = expiresAt;
     }
@@ -32,6 +36,11 @@ public final class AuthenticationTokenCreateRequest {
     @JsonProperty("name")
     public String getName() {
         return name;
+    }
+
+    @JsonProperty("namespaceKey")
+    public Optional<String> getNamespaceKey() {
+        return namespaceKey;
     }
 
     @JsonProperty("description")
@@ -51,12 +60,15 @@ public final class AuthenticationTokenCreateRequest {
     }
 
     private boolean equalTo(AuthenticationTokenCreateRequest other) {
-        return name.equals(other.name) && description.equals(other.description) && expiresAt.equals(other.expiresAt);
+        return name.equals(other.name)
+                && namespaceKey.equals(other.namespaceKey)
+                && description.equals(other.description)
+                && expiresAt.equals(other.expiresAt);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.name, this.description, this.expiresAt);
+        return Objects.hash(this.name, this.namespaceKey, this.description, this.expiresAt);
     }
 
     @Override
@@ -81,6 +93,10 @@ public final class AuthenticationTokenCreateRequest {
     public interface _FinalStage {
         AuthenticationTokenCreateRequest build();
 
+        _FinalStage namespaceKey(Optional<String> namespaceKey);
+
+        _FinalStage namespaceKey(String namespaceKey);
+
         _FinalStage expiresAt(Optional<OffsetDateTime> expiresAt);
 
         _FinalStage expiresAt(OffsetDateTime expiresAt);
@@ -94,11 +110,14 @@ public final class AuthenticationTokenCreateRequest {
 
         private Optional<OffsetDateTime> expiresAt = Optional.empty();
 
+        private Optional<String> namespaceKey = Optional.empty();
+
         private Builder() {}
 
         @Override
         public Builder from(AuthenticationTokenCreateRequest other) {
             name(other.getName());
+            namespaceKey(other.getNamespaceKey());
             description(other.getDescription());
             expiresAt(other.getExpiresAt());
             return this;
@@ -132,8 +151,21 @@ public final class AuthenticationTokenCreateRequest {
         }
 
         @Override
+        public _FinalStage namespaceKey(String namespaceKey) {
+            this.namespaceKey = Optional.of(namespaceKey);
+            return this;
+        }
+
+        @Override
+        @JsonSetter(value = "namespaceKey", nulls = Nulls.SKIP)
+        public _FinalStage namespaceKey(Optional<String> namespaceKey) {
+            this.namespaceKey = namespaceKey;
+            return this;
+        }
+
+        @Override
         public AuthenticationTokenCreateRequest build() {
-            return new AuthenticationTokenCreateRequest(name, description, expiresAt);
+            return new AuthenticationTokenCreateRequest(name, namespaceKey, description, expiresAt);
         }
     }
 }

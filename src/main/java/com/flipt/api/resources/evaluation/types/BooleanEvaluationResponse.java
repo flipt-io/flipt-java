@@ -17,6 +17,8 @@ import java.util.Objects;
 public final class BooleanEvaluationResponse {
     private final String requestId;
 
+    private final String flagKey;
+
     private final boolean enabled;
 
     private final OffsetDateTime timestamp;
@@ -27,11 +29,13 @@ public final class BooleanEvaluationResponse {
 
     private BooleanEvaluationResponse(
             String requestId,
+            String flagKey,
             boolean enabled,
             OffsetDateTime timestamp,
             double requestDurationMillis,
             EvaluationReason reason) {
         this.requestId = requestId;
+        this.flagKey = flagKey;
         this.enabled = enabled;
         this.timestamp = timestamp;
         this.requestDurationMillis = requestDurationMillis;
@@ -41,6 +45,11 @@ public final class BooleanEvaluationResponse {
     @JsonProperty("requestId")
     public String getRequestId() {
         return requestId;
+    }
+
+    @JsonProperty("flagKey")
+    public String getFlagKey() {
+        return flagKey;
     }
 
     @JsonProperty("enabled")
@@ -71,6 +80,7 @@ public final class BooleanEvaluationResponse {
 
     private boolean equalTo(BooleanEvaluationResponse other) {
         return requestId.equals(other.requestId)
+                && flagKey.equals(other.flagKey)
                 && enabled == other.enabled
                 && timestamp.equals(other.timestamp)
                 && requestDurationMillis == other.requestDurationMillis
@@ -79,7 +89,8 @@ public final class BooleanEvaluationResponse {
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.requestId, this.enabled, this.timestamp, this.requestDurationMillis, this.reason);
+        return Objects.hash(
+                this.requestId, this.flagKey, this.enabled, this.timestamp, this.requestDurationMillis, this.reason);
     }
 
     @Override
@@ -92,9 +103,13 @@ public final class BooleanEvaluationResponse {
     }
 
     public interface RequestIdStage {
-        EnabledStage requestId(String requestId);
+        FlagKeyStage requestId(String requestId);
 
         Builder from(BooleanEvaluationResponse other);
+    }
+
+    public interface FlagKeyStage {
+        EnabledStage flagKey(String flagKey);
     }
 
     public interface EnabledStage {
@@ -120,12 +135,15 @@ public final class BooleanEvaluationResponse {
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder
             implements RequestIdStage,
+                    FlagKeyStage,
                     EnabledStage,
                     TimestampStage,
                     RequestDurationMillisStage,
                     ReasonStage,
                     _FinalStage {
         private String requestId;
+
+        private String flagKey;
 
         private boolean enabled;
 
@@ -140,6 +158,7 @@ public final class BooleanEvaluationResponse {
         @Override
         public Builder from(BooleanEvaluationResponse other) {
             requestId(other.getRequestId());
+            flagKey(other.getFlagKey());
             enabled(other.getEnabled());
             timestamp(other.getTimestamp());
             requestDurationMillis(other.getRequestDurationMillis());
@@ -149,8 +168,15 @@ public final class BooleanEvaluationResponse {
 
         @Override
         @JsonSetter("requestId")
-        public EnabledStage requestId(String requestId) {
+        public FlagKeyStage requestId(String requestId) {
             this.requestId = requestId;
+            return this;
+        }
+
+        @Override
+        @JsonSetter("flagKey")
+        public EnabledStage flagKey(String flagKey) {
+            this.flagKey = flagKey;
             return this;
         }
 
@@ -184,7 +210,7 @@ public final class BooleanEvaluationResponse {
 
         @Override
         public BooleanEvaluationResponse build() {
-            return new BooleanEvaluationResponse(requestId, enabled, timestamp, requestDurationMillis, reason);
+            return new BooleanEvaluationResponse(requestId, flagKey, enabled, timestamp, requestDurationMillis, reason);
         }
     }
 }
