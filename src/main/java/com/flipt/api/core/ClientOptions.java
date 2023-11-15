@@ -26,7 +26,7 @@ public final class ClientOptions {
         this.headers = new HashMap<>();
         this.headers.putAll(headers);
         this.headers.put("X-Fern-SDK-Name", "com.flipt.fern:api-sdk");
-        this.headers.put("X-Fern-SDK-Version", "0.2.13");
+        this.headers.put("X-Fern-SDK-Version", "0.2.15");
         this.headers.put("X-Fern-Language", "JAVA");
         this.headerSuppliers = headerSuppliers;
         this.httpClient = httpClient;

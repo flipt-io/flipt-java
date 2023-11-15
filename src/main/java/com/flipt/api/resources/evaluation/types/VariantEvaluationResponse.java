@@ -22,6 +22,8 @@ public final class VariantEvaluationResponse {
 
     private final boolean match;
 
+    private final String flagKey;
+
     private final List<String> segmentKeys;
 
     private final String variantKey;
@@ -37,6 +39,7 @@ public final class VariantEvaluationResponse {
     private VariantEvaluationResponse(
             String requestId,
             boolean match,
+            String flagKey,
             List<String> segmentKeys,
             String variantKey,
             String variantAttachment,
@@ -45,6 +48,7 @@ public final class VariantEvaluationResponse {
             EvaluationReason reason) {
         this.requestId = requestId;
         this.match = match;
+        this.flagKey = flagKey;
         this.segmentKeys = segmentKeys;
         this.variantKey = variantKey;
         this.variantAttachment = variantAttachment;
@@ -61,6 +65,11 @@ public final class VariantEvaluationResponse {
     @JsonProperty("match")
     public boolean getMatch() {
         return match;
+    }
+
+    @JsonProperty("flagKey")
+    public String getFlagKey() {
+        return flagKey;
     }
 
     @JsonProperty("segmentKeys")
@@ -102,6 +111,7 @@ public final class VariantEvaluationResponse {
     private boolean equalTo(VariantEvaluationResponse other) {
         return requestId.equals(other.requestId)
                 && match == other.match
+                && flagKey.equals(other.flagKey)
                 && segmentKeys.equals(other.segmentKeys)
                 && variantKey.equals(other.variantKey)
                 && variantAttachment.equals(other.variantAttachment)
@@ -115,6 +125,7 @@ public final class VariantEvaluationResponse {
         return Objects.hash(
                 this.requestId,
                 this.match,
+                this.flagKey,
                 this.segmentKeys,
                 this.variantKey,
                 this.variantAttachment,
@@ -139,7 +150,11 @@ public final class VariantEvaluationResponse {
     }
 
     public interface MatchStage {
-        VariantKeyStage match(boolean match);
+        FlagKeyStage match(boolean match);
+    }
+
+    public interface FlagKeyStage {
+        VariantKeyStage flagKey(String flagKey);
     }
 
     public interface VariantKeyStage {
@@ -176,6 +191,7 @@ public final class VariantEvaluationResponse {
     public static final class Builder
             implements RequestIdStage,
                     MatchStage,
+                    FlagKeyStage,
                     VariantKeyStage,
                     VariantAttachmentStage,
                     TimestampStage,
@@ -185,6 +201,8 @@ public final class VariantEvaluationResponse {
         private String requestId;
 
         private boolean match;
+
+        private String flagKey;
 
         private String variantKey;
 
@@ -204,6 +222,7 @@ public final class VariantEvaluationResponse {
         public Builder from(VariantEvaluationResponse other) {
             requestId(other.getRequestId());
             match(other.getMatch());
+            flagKey(other.getFlagKey());
             segmentKeys(other.getSegmentKeys());
             variantKey(other.getVariantKey());
             variantAttachment(other.getVariantAttachment());
@@ -222,8 +241,15 @@ public final class VariantEvaluationResponse {
 
         @Override
         @JsonSetter("match")
-        public VariantKeyStage match(boolean match) {
+        public FlagKeyStage match(boolean match) {
             this.match = match;
+            return this;
+        }
+
+        @Override
+        @JsonSetter("flagKey")
+        public VariantKeyStage flagKey(String flagKey) {
+            this.flagKey = flagKey;
             return this;
         }
 
@@ -287,6 +313,7 @@ public final class VariantEvaluationResponse {
             return new VariantEvaluationResponse(
                     requestId,
                     match,
+                    flagKey,
                     segmentKeys,
                     variantKey,
                     variantAttachment,
