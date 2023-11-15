@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.15](https://github.com/flipt-io/flipt-java/compare/0.2.14...0.2.15) (2023-11-15)
+
+
+### Features
+
+* 0.2.15 ([bfce4dd](https://github.com/flipt-io/flipt-java/commit/bfce4ddc32c46b929c037fa8d73598a3cf2d9e9c))
+
 ## [0.2.14](https://github.com/flipt-io/flipt-java/compare/0.2.13...0.2.14) (2023-10-19)
 
 
