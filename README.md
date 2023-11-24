@@ -1,6 +1,7 @@
 # Flipt Java Library
 
 [![Maven Central](https://img.shields.io/maven-central/v/io.flipt/flipt-java)](https://central.sonatype.com/artifact/io.flipt/flipt-java)
+[![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-SDK%20generated%20by%20Fern-brightgreen)](https://buildwithfern.com/?utm_source=flipt-io/flipt-java/readme)
 
 ## Documentation
 
