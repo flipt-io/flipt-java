@@ -7,6 +7,7 @@ import com.flipt.api.core.ApiError;
 import com.flipt.api.core.ClientOptions;
 import com.flipt.api.core.ObjectMappers;
 import com.flipt.api.core.RequestOptions;
+import com.flipt.api.resources.namespaces.requests.NamespaceGetRequest;
 import com.flipt.api.resources.namespaces.requests.NamespaceListRequest;
 import com.flipt.api.resources.namespaces.types.Namespace;
 import com.flipt.api.resources.namespaces.types.NamespaceCreateRequest;
@@ -43,6 +44,9 @@ public class NamespacesClient {
         }
         if (request.getPageToken().isPresent()) {
             httpUrl.addQueryParameter("pageToken", request.getPageToken().get());
+        }
+        if (request.getReference().isPresent()) {
+            httpUrl.addQueryParameter("reference", request.getReference().get());
         }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
@@ -104,18 +108,24 @@ public class NamespacesClient {
         return create(request, null);
     }
 
-    public Namespace get(String key, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+    public Namespace get(String key) {
+        return get(key, NamespaceGetRequest.builder().build());
+    }
+
+    public Namespace get(String key, NamespaceGetRequest request, RequestOptions requestOptions) {
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("api/v1/namespaces")
-                .addPathSegment(key)
-                .build();
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .addPathSegment(key);
+        if (request.getReference().isPresent()) {
+            httpUrl.addQueryParameter("reference", request.getReference().get());
+        }
+        Request.Builder _requestBuilder = new Request.Builder()
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .build();
+                .addHeader("Content-Type", "application/json");
+        Request okhttpRequest = _requestBuilder.build();
         try {
             Response response =
                     clientOptions.httpClient().newCall(okhttpRequest).execute();
@@ -130,8 +140,8 @@ public class NamespacesClient {
         }
     }
 
-    public Namespace get(String key) {
-        return get(key, null);
+    public Namespace get(String key, NamespaceGetRequest request) {
+        return get(key, request, null);
     }
 
     public void delete(String key, RequestOptions requestOptions) {

@@ -7,6 +7,7 @@ import com.flipt.api.core.ApiError;
 import com.flipt.api.core.ClientOptions;
 import com.flipt.api.core.ObjectMappers;
 import com.flipt.api.core.RequestOptions;
+import com.flipt.api.resources.rollouts.requests.RolloutGetRequest;
 import com.flipt.api.resources.rollouts.requests.RolloutListRequest;
 import com.flipt.api.resources.rollouts.types.Rollout;
 import com.flipt.api.resources.rollouts.types.RolloutCreateRequest;
@@ -49,6 +50,9 @@ public class RolloutsClient {
         }
         if (request.getPageToken().isPresent()) {
             httpUrl.addQueryParameter("pageToken", request.getPageToken().get());
+        }
+        if (request.getReference().isPresent()) {
+            httpUrl.addQueryParameter("reference", request.getReference().get());
         }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
@@ -156,22 +160,29 @@ public class RolloutsClient {
         order(namespaceKey, flagKey, request, null);
     }
 
-    public Rollout get(String namespaceKey, String flagKey, String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+    public Rollout get(String namespaceKey, String flagKey, String id) {
+        return get(namespaceKey, flagKey, id, RolloutGetRequest.builder().build());
+    }
+
+    public Rollout get(
+            String namespaceKey, String flagKey, String id, RolloutGetRequest request, RequestOptions requestOptions) {
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("api/v1/namespaces")
                 .addPathSegment(namespaceKey)
                 .addPathSegments("flags")
                 .addPathSegment(flagKey)
                 .addPathSegments("rollouts")
-                .addPathSegment(id)
-                .build();
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .addPathSegment(id);
+        if (request.getReference().isPresent()) {
+            httpUrl.addQueryParameter("reference", request.getReference().get());
+        }
+        Request.Builder _requestBuilder = new Request.Builder()
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .build();
+                .addHeader("Content-Type", "application/json");
+        Request okhttpRequest = _requestBuilder.build();
         try {
             Response response =
                     clientOptions.httpClient().newCall(okhttpRequest).execute();
@@ -186,8 +197,8 @@ public class RolloutsClient {
         }
     }
 
-    public Rollout get(String namespaceKey, String flagKey, String id) {
-        return get(namespaceKey, flagKey, id, null);
+    public Rollout get(String namespaceKey, String flagKey, String id, RolloutGetRequest request) {
+        return get(namespaceKey, flagKey, id, request, null);
     }
 
     public void delete(String namespaceKey, String flagKey, String id, RequestOptions requestOptions) {

@@ -22,10 +22,14 @@ public final class RuleListRequest {
 
     private final Optional<String> pageToken;
 
-    private RuleListRequest(Optional<Integer> limit, Optional<Integer> offset, Optional<String> pageToken) {
+    private final Optional<String> reference;
+
+    private RuleListRequest(
+            Optional<Integer> limit, Optional<Integer> offset, Optional<String> pageToken, Optional<String> reference) {
         this.limit = limit;
         this.offset = offset;
         this.pageToken = pageToken;
+        this.reference = reference;
     }
 
     @JsonProperty("limit")
@@ -43,6 +47,11 @@ public final class RuleListRequest {
         return pageToken;
     }
 
+    @JsonProperty("reference")
+    public Optional<String> getReference() {
+        return reference;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -50,12 +59,15 @@ public final class RuleListRequest {
     }
 
     private boolean equalTo(RuleListRequest other) {
-        return limit.equals(other.limit) && offset.equals(other.offset) && pageToken.equals(other.pageToken);
+        return limit.equals(other.limit)
+                && offset.equals(other.offset)
+                && pageToken.equals(other.pageToken)
+                && reference.equals(other.reference);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.limit, this.offset, this.pageToken);
+        return Objects.hash(this.limit, this.offset, this.pageToken, this.reference);
     }
 
     @Override
@@ -75,12 +87,15 @@ public final class RuleListRequest {
 
         private Optional<String> pageToken = Optional.empty();
 
+        private Optional<String> reference = Optional.empty();
+
         private Builder() {}
 
         public Builder from(RuleListRequest other) {
             limit(other.getLimit());
             offset(other.getOffset());
             pageToken(other.getPageToken());
+            reference(other.getReference());
             return this;
         }
 
@@ -117,8 +132,19 @@ public final class RuleListRequest {
             return this;
         }
 
+        @JsonSetter(value = "reference", nulls = Nulls.SKIP)
+        public Builder reference(Optional<String> reference) {
+            this.reference = reference;
+            return this;
+        }
+
+        public Builder reference(String reference) {
+            this.reference = Optional.of(reference);
+            return this;
+        }
+
         public RuleListRequest build() {
-            return new RuleListRequest(limit, offset, pageToken);
+            return new RuleListRequest(limit, offset, pageToken, reference);
         }
     }
 }

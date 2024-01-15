@@ -12,7 +12,9 @@ public enum AuthenticationMethod {
 
     METHOD_OIDC("METHOD_OIDC"),
 
-    METHOD_KUBERNETES("METHOD_KUBERNETES");
+    METHOD_KUBERNETES("METHOD_KUBERNETES"),
+
+    METHOD_JWT("METHOD_JWT");
 
     private final String value;
 
