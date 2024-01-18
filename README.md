@@ -1,6 +1,7 @@
-# Flipt Java Library
+# Flipt Java Library (Deprecated)
 
-[![Maven Central](https://img.shields.io/maven-central/v/io.flipt/flipt-java)](https://central.sonatype.com/artifact/io.flipt/flipt-java)
+> [!NOTE]
+> This SDK is deprecated and will not be maintained going forward. Please use the new [Flipt Server Java SDK](https://github.com/flipt-io/flipt-server-sdks/tree/main/flipt-java) instead.
 
 ## Documentation
 
