@@ -1,6 +1,8 @@
 # Flipt Java Library (Deprecated)
 
-> [!NOTE]
+![deprecated](https://img.shields.io/badge/status-deprecated-red)
+
+> [!Warning]
 > This SDK is deprecated and will not be maintained going forward. Please use the new [Flipt Server Java SDK](https://github.com/flipt-io/flipt-server-sdks/tree/main/flipt-java) instead.
 
 ## Documentation
