@@ -7,6 +7,7 @@ import com.flipt.api.core.ApiError;
 import com.flipt.api.core.ClientOptions;
 import com.flipt.api.core.ObjectMappers;
 import com.flipt.api.core.RequestOptions;
+import com.flipt.api.resources.segments.requests.SegmentGetRequest;
 import com.flipt.api.resources.segments.requests.SegmentListRequest;
 import com.flipt.api.resources.segments.types.Segment;
 import com.flipt.api.resources.segments.types.SegmentCreateRequest;
@@ -45,6 +46,9 @@ public class SegmentsClient {
         }
         if (request.getPageToken().isPresent()) {
             httpUrl.addQueryParameter("pageToken", request.getPageToken().get());
+        }
+        if (request.getReference().isPresent()) {
+            httpUrl.addQueryParameter("reference", request.getReference().get());
         }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
@@ -108,20 +112,26 @@ public class SegmentsClient {
         return create(namespaceKey, request, null);
     }
 
-    public Segment get(String namespaceKey, String key, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+    public Segment get(String namespaceKey, String key) {
+        return get(namespaceKey, key, SegmentGetRequest.builder().build());
+    }
+
+    public Segment get(String namespaceKey, String key, SegmentGetRequest request, RequestOptions requestOptions) {
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("api/v1/namespaces")
                 .addPathSegment(namespaceKey)
                 .addPathSegments("segments")
-                .addPathSegment(key)
-                .build();
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .addPathSegment(key);
+        if (request.getReference().isPresent()) {
+            httpUrl.addQueryParameter("reference", request.getReference().get());
+        }
+        Request.Builder _requestBuilder = new Request.Builder()
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .build();
+                .addHeader("Content-Type", "application/json");
+        Request okhttpRequest = _requestBuilder.build();
         try {
             Response response =
                     clientOptions.httpClient().newCall(okhttpRequest).execute();
@@ -136,8 +146,8 @@ public class SegmentsClient {
         }
     }
 
-    public Segment get(String namespaceKey, String key) {
-        return get(namespaceKey, key, null);
+    public Segment get(String namespaceKey, String key, SegmentGetRequest request) {
+        return get(namespaceKey, key, request, null);
     }
 
     public void delete(String namespaceKey, String key, RequestOptions requestOptions) {

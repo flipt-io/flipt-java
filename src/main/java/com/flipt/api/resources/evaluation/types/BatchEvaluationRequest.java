@@ -22,9 +22,13 @@ public final class BatchEvaluationRequest {
 
     private final List<EvaluationRequest> requests;
 
-    private BatchEvaluationRequest(Optional<String> requestId, List<EvaluationRequest> requests) {
+    private final Optional<String> reference;
+
+    private BatchEvaluationRequest(
+            Optional<String> requestId, List<EvaluationRequest> requests, Optional<String> reference) {
         this.requestId = requestId;
         this.requests = requests;
+        this.reference = reference;
     }
 
     @JsonProperty("requestId")
@@ -37,6 +41,11 @@ public final class BatchEvaluationRequest {
         return requests;
     }
 
+    @JsonProperty("reference")
+    public Optional<String> getReference() {
+        return reference;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -44,12 +53,14 @@ public final class BatchEvaluationRequest {
     }
 
     private boolean equalTo(BatchEvaluationRequest other) {
-        return requestId.equals(other.requestId) && requests.equals(other.requests);
+        return requestId.equals(other.requestId)
+                && requests.equals(other.requests)
+                && reference.equals(other.reference);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.requestId, this.requests);
+        return Objects.hash(this.requestId, this.requests, this.reference);
     }
 
     @Override
@@ -67,11 +78,14 @@ public final class BatchEvaluationRequest {
 
         private List<EvaluationRequest> requests = new ArrayList<>();
 
+        private Optional<String> reference = Optional.empty();
+
         private Builder() {}
 
         public Builder from(BatchEvaluationRequest other) {
             requestId(other.getRequestId());
             requests(other.getRequests());
+            reference(other.getReference());
             return this;
         }
 
@@ -103,8 +117,19 @@ public final class BatchEvaluationRequest {
             return this;
         }
 
+        @JsonSetter(value = "reference", nulls = Nulls.SKIP)
+        public Builder reference(Optional<String> reference) {
+            this.reference = reference;
+            return this;
+        }
+
+        public Builder reference(String reference) {
+            this.reference = Optional.of(reference);
+            return this;
+        }
+
         public BatchEvaluationRequest build() {
-            return new BatchEvaluationRequest(requestId, requests);
+            return new BatchEvaluationRequest(requestId, requests, reference);
         }
     }
 }

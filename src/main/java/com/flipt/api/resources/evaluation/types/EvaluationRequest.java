@@ -28,17 +28,21 @@ public final class EvaluationRequest {
 
     private final Map<String, String> context;
 
+    private final Optional<String> reference;
+
     private EvaluationRequest(
             Optional<String> requestId,
             String namespaceKey,
             String flagKey,
             String entityId,
-            Map<String, String> context) {
+            Map<String, String> context,
+            Optional<String> reference) {
         this.requestId = requestId;
         this.namespaceKey = namespaceKey;
         this.flagKey = flagKey;
         this.entityId = entityId;
         this.context = context;
+        this.reference = reference;
     }
 
     @JsonProperty("requestId")
@@ -66,6 +70,11 @@ public final class EvaluationRequest {
         return context;
     }
 
+    @JsonProperty("reference")
+    public Optional<String> getReference() {
+        return reference;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -77,12 +86,14 @@ public final class EvaluationRequest {
                 && namespaceKey.equals(other.namespaceKey)
                 && flagKey.equals(other.flagKey)
                 && entityId.equals(other.entityId)
-                && context.equals(other.context);
+                && context.equals(other.context)
+                && reference.equals(other.reference);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.requestId, this.namespaceKey, this.flagKey, this.entityId, this.context);
+        return Objects.hash(
+                this.requestId, this.namespaceKey, this.flagKey, this.entityId, this.context, this.reference);
     }
 
     @Override
@@ -120,6 +131,10 @@ public final class EvaluationRequest {
         _FinalStage putAllContext(Map<String, String> context);
 
         _FinalStage context(String key, String value);
+
+        _FinalStage reference(Optional<String> reference);
+
+        _FinalStage reference(String reference);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -129,6 +144,8 @@ public final class EvaluationRequest {
         private String flagKey;
 
         private String entityId;
+
+        private Optional<String> reference = Optional.empty();
 
         private Map<String, String> context = new LinkedHashMap<>();
 
@@ -143,6 +160,7 @@ public final class EvaluationRequest {
             flagKey(other.getFlagKey());
             entityId(other.getEntityId());
             context(other.getContext());
+            reference(other.getReference());
             return this;
         }
 
@@ -164,6 +182,19 @@ public final class EvaluationRequest {
         @JsonSetter("entityId")
         public _FinalStage entityId(String entityId) {
             this.entityId = entityId;
+            return this;
+        }
+
+        @Override
+        public _FinalStage reference(String reference) {
+            this.reference = Optional.of(reference);
+            return this;
+        }
+
+        @Override
+        @JsonSetter(value = "reference", nulls = Nulls.SKIP)
+        public _FinalStage reference(Optional<String> reference) {
+            this.reference = reference;
             return this;
         }
 
@@ -202,7 +233,7 @@ public final class EvaluationRequest {
 
         @Override
         public EvaluationRequest build() {
-            return new EvaluationRequest(requestId, namespaceKey, flagKey, entityId, context);
+            return new EvaluationRequest(requestId, namespaceKey, flagKey, entityId, context, reference);
         }
     }
 }

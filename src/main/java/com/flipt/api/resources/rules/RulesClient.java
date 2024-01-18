@@ -8,6 +8,7 @@ import com.flipt.api.core.ClientOptions;
 import com.flipt.api.core.ObjectMappers;
 import com.flipt.api.core.RequestOptions;
 import com.flipt.api.resources.rules.requests.RuleListRequest;
+import com.flipt.api.resources.rules.requests.RulesGetRequest;
 import com.flipt.api.resources.rules.types.Rule;
 import com.flipt.api.resources.rules.types.RuleCreateRequest;
 import com.flipt.api.resources.rules.types.RuleList;
@@ -48,6 +49,9 @@ public class RulesClient {
         }
         if (request.getPageToken().isPresent()) {
             httpUrl.addQueryParameter("pageToken", request.getPageToken().get());
+        }
+        if (request.getReference().isPresent()) {
+            httpUrl.addQueryParameter("reference", request.getReference().get());
         }
         Request.Builder _requestBuilder = new Request.Builder()
                 .url(httpUrl.build())
@@ -154,22 +158,29 @@ public class RulesClient {
         order(namespaceKey, flagKey, request, null);
     }
 
-    public Rule get(String namespaceKey, String flagKey, String id, RequestOptions requestOptions) {
-        HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
+    public Rule get(String namespaceKey, String flagKey, String id) {
+        return get(namespaceKey, flagKey, id, RulesGetRequest.builder().build());
+    }
+
+    public Rule get(
+            String namespaceKey, String flagKey, String id, RulesGetRequest request, RequestOptions requestOptions) {
+        HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl())
                 .newBuilder()
                 .addPathSegments("api/v1/namespaces")
                 .addPathSegment(namespaceKey)
                 .addPathSegments("flags")
                 .addPathSegment(flagKey)
                 .addPathSegments("rules")
-                .addPathSegment(id)
-                .build();
-        Request okhttpRequest = new Request.Builder()
-                .url(httpUrl)
+                .addPathSegment(id);
+        if (request.getReference().isPresent()) {
+            httpUrl.addQueryParameter("reference", request.getReference().get());
+        }
+        Request.Builder _requestBuilder = new Request.Builder()
+                .url(httpUrl.build())
                 .method("GET", null)
                 .headers(Headers.of(clientOptions.headers(requestOptions)))
-                .addHeader("Content-Type", "application/json")
-                .build();
+                .addHeader("Content-Type", "application/json");
+        Request okhttpRequest = _requestBuilder.build();
         try {
             Response response =
                     clientOptions.httpClient().newCall(okhttpRequest).execute();
@@ -184,8 +195,8 @@ public class RulesClient {
         }
     }
 
-    public Rule get(String namespaceKey, String flagKey, String id) {
-        return get(namespaceKey, flagKey, id, null);
+    public Rule get(String namespaceKey, String flagKey, String id, RulesGetRequest request) {
+        return get(namespaceKey, flagKey, id, request, null);
     }
 
     public void delete(String namespaceKey, String flagKey, String id, RequestOptions requestOptions) {
